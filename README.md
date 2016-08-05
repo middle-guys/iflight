@@ -61,8 +61,13 @@ URL: **https://iflight.herokuapp.com/**
 - [ ] Retry crawling handler: if the first time crawling is failed, the system can retry one (or two or three) more time(s).
 - [ ] Searching result can be shared in social network: focus on Facebook first
 
-
-The following **known issues**:
+## Prototype
+![Booking step 1](/prototype/booking-step-1.png)
+![Booking step 2](/prototype/booking-step-2.png)
+![Booking step 3](/prototype/booking-step-3.png)
+![Booking step 4](/prototype/booking-step-4.png)
+![Alert notification](/prototype/alert.png)
+![Bot chat](/prototype/bot.png)
 
 ## Video Walkthrough
 
