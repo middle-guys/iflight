@@ -55,6 +55,7 @@ URL: **https://iflight.herokuapp.com/**
 **User**
 
 - [ ] Login by Facebook
+- [ ] User can upload avatar when sign up
 
 **Searching**
 
@@ -68,12 +69,6 @@ URL: **https://iflight.herokuapp.com/**
 ![Booking step 4](/prototype/booking-step-4.png)
 ![Alert notification](/prototype/alert.png)
 ![Bot chat](/prototype/bot.png)
-
-## Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-![Video Walkthrough](walkthrough.gif)
 
 ## Notes
 
