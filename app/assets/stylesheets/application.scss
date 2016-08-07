@@ -1,2 +1,7 @@
-@import "materialize";
+$brand-primary: #EF0F6F;
+
+@import "bootstrap";
+@import "jquery-ui.css";
+@import "global";
 @import "homes";
+@import "searching-form";

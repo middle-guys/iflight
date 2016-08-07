@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Iflight</title>
+    <title>iFlight</title>
     <%= csrf_meta_tags %>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -12,6 +12,8 @@
   <body>
     <%= render "shared/toast" %>
     <%= render "shared/header" %>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

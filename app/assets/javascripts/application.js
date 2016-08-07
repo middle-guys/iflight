@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require materialize-sprockets
+//= require jquery-ui
+//= require tether
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
-
-$(document).on('turbolinks:load', function() {
-  $(".dropdown-button").dropdown();
-});

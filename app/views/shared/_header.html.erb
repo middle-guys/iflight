@@ -1,18 +1,13 @@
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="/login">Login</a></li>
-  <li><a href="/register">Register</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
-
-<nav>
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo">Logo</a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="#">Sass</a></li>
-      <li><a href="#">Components</a></li>
-      <!-- Dropdown Trigger -->
-      <li><a class="dropdown-button" href="#" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
+<nav class="navbar navbar-full navbar-dark bg-primary">
+  <a class="navbar-brand" href="<%= root_path %>">iFlight</a>
+  <div class="pull-xs-right">
+    <div class="btn-group">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Leo Le
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <%= link_to "Logout", nil, class: "dropdown-item" %>
+      </div>
+    </div>
   </div>
 </nav>
