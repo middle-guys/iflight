@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   }
 
   enum category: {
-    one_way: "one way"
+    one_way: "one way",
     two_way: "two way"
   }
 end
