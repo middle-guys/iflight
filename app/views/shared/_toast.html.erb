@@ -1,0 +1,6 @@
+<% unless flash.empty? %>
+  <script type="text/javascript">
+    var toastContent = $('<span><%= flash[:error] %></span>');
+    Materialize.toast(toastContent, 5000);
+  </script>
+<% end %>
