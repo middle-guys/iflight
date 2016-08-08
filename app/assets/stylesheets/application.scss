@@ -1,7 +1,14 @@
 $brand-primary: #EF0F6F;
+$brand-second: #ffe13a;
+$brand-second-lighter: #ffff0f;
+$brand-second-darker: #e8c501;
+$brand-grey: #80828b;
 
 @import "bootstrap";
 @import "jquery-ui.css";
+@import "font-awesome";
 @import "global";
+@import "header";
 @import "homes";
+@import "flights";
 @import "searching-form";
