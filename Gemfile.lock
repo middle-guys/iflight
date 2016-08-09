@@ -88,6 +88,14 @@ GEM
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.2)
+      faraday (>= 0.7.4, < 0.10)
+    faraday_middleware-parse_oj (0.3.0)
+      faraday (~> 0.9.0)
+      faraday_middleware (~> 0.9.1)
+      oj (~> 2.0)
     ffaker (2.2.0)
     ffi (1.9.14)
     font-awesome-rails (4.6.3.1)
@@ -114,6 +122,8 @@ GEM
       guard-compat (~> 1.0)
       multi_json (~> 1.8)
     http_parser.rb (0.6.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -139,6 +149,8 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nenv (0.3.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
@@ -147,6 +159,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    oj (2.17.1)
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
@@ -260,10 +273,14 @@ DEPENDENCIES
   compass
   devise
   factory_girl_rails
+  faraday
+  faraday_middleware
+  faraday_middleware-parse_oj (~> 0.3.0)
   ffaker
   font-awesome-rails
   guard-compass
   guard-livereload (~> 2.5)
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails (~> 5.0, >= 5.0.5)
