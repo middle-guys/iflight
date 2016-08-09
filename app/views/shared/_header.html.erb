@@ -6,10 +6,9 @@
         Leo Le
       </button>
       <div class="dropdown-menu dropdown-menu-right">
-        <%= link_to "Logout", nil, class: "dropdown-item" %>
         <% if user_signed_in? %>
           <li>
-          <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "dropdown-item") %>        
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "dropdown-item") %>    
           </li>
           <% else %>
             <li>
