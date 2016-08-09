@@ -12,6 +12,7 @@
   <body>
     <%= render "shared/toast" %>
     <%= render "shared/header" %>
+    <% if notice %><p class="alert alert-success"><a class="close" data-dismiss="alert">&times;</a><%= notice %></p><% end %>
     <div class="container">
       <%= yield %>
     </div>
