@@ -13,7 +13,13 @@ module SearchFlight
         path = build_path
         @response = self.class.get build_path
 
-        success? ? SearchFlight::VietnamAirline::Parse.new(response.body, round_trip?).call : []
+        success? ? SearchFlight::VietnamAirline::Parse.new(
+          content: response.body,
+          is_round_trip: round_trip?,
+          adult: params[:adult],
+          child: params[:child],
+          infant: params[:infant]
+        ).call : []
       end
 
       def build_path
