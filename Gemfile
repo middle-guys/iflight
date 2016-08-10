@@ -36,10 +36,10 @@ gem 'font-awesome-rails'
 gem 'rollbar'
 gem 'awesome_print'
 gem 'httparty'
+gem 'httparty_with_cookies'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'faraday_middleware-parse_oj', '~> 0.3.0'
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

@@ -10,7 +10,6 @@ module SearchFlight
       end
 
       def call
-        path = build_path
         @response = self.class.get build_path
 
         success? ? SearchFlight::VietnamAirline::Parse.new(
