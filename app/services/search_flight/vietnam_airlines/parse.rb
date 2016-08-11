@@ -1,5 +1,5 @@
 module SearchFlight
-  module VietnamAirline
+  module VietnamAirlines
     class Parse
       attr_accessor :html_content, :is_round_trip
       attr_reader :fare_formula_adult, :fare_formula_child, :fare_formula_infant, :adult, :child, :infant

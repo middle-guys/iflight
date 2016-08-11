@@ -1,5 +1,5 @@
 module SearchFlight
-  module VietnamAirline
+  module VietnamAirlines
     class Search
       include HTTParty
       base_uri "https://wl-prod.sabresonicweb.com"
@@ -12,7 +12,7 @@ module SearchFlight
       def call
         @response = self.class.get build_path
 
-        success? ? SearchFlight::VietnamAirline::Parse.new(
+        response.success? ? SearchFlight::VietnamAirlines::Parse.new(
           content: response.body,
           is_round_trip: round_trip?,
           adult: params[:adult],
@@ -35,10 +35,6 @@ module SearchFlight
         path << "&alternativeLandingPage=true&promoCode=&lang=vi_VN"
 
         path
-      end
-
-      def success?
-        response.code == 200
       end
 
       def round_trip?

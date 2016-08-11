@@ -84,10 +84,6 @@ module SearchFlight
         }
       end
 
-      def success?
-        response.code == 200
-      end
-
       def round_trip?
         params[:round_type] == "RoundTrip"
       end
