@@ -1,8 +1,8 @@
+require "mechanize"
+
 module SearchFlight
   module VietnamAirlines
     class Search
-      include HTTParty
-      base_uri "https://wl-prod.sabresonicweb.com"
       attr_accessor :params, :response
 
       def initialize(params)
@@ -10,10 +10,11 @@ module SearchFlight
       end
 
       def call
-        @response = self.class.get build_path
+        agent = Mechanize.new
+        @response = agent.get build_path
 
-        response.success? ? SearchFlight::VietnamAirlines::Parse.new(
-          content: response.body,
+        success? ? SearchFlight::VietnamAirlines::Parse.new(
+          content: response,
           is_round_trip: round_trip?,
           adult: params[:adult],
           child: params[:child],
@@ -22,7 +23,7 @@ module SearchFlight
       end
 
       def build_path
-        path = String.new("/SSW2010/B3QE/webqtrip.html?searchType=NORMAL")
+        path = String.new("https://wl-prod.sabresonicweb.com/SSW2010/B3QE/webqtrip.html?searchType=NORMAL")
 
         path << "&journeySpan=" << get_round_type
         path << "&origin=" << params[:ori_code]
@@ -35,6 +36,10 @@ module SearchFlight
         path << "&alternativeLandingPage=true&promoCode=&lang=vi_VN"
 
         path
+      end
+
+      def success?
+        response.code.to_i == 200
       end
 
       def round_trip?

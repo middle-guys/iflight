@@ -114,6 +114,7 @@ module SearchFlight
           if !price.nil?
             price_result = price.text.gsub(/[^\d]/, "")
           end
+
           price_result
         end
 

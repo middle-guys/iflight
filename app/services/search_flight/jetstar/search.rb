@@ -11,83 +11,91 @@ module SearchFlight
 
       def call
         agent = Mechanize.new
-        search_result = nil
+        options = build_options
+        @response =  agent.post "http://booknow.jetstar.com/Search.aspx?culture=vi-VN", options[:body], options[:headers]
 
-        agent.get("https://booknow.jetstar.com/Search.aspx?culture=vi-VN") do |page|
-          search_result = page.form_with(id: "SkySales") do |form|
-            round_trip? ? two_way_options(form) : one_way_options(form)
-          end.submit
-
-          File.open("out.html", "wb") do |f|
-            f.write search_result.body
-          end
-          byebug
-        end
-
-        SearchFlight::Jetstar::Parse.new(
-          content: search_result,
+        success? ? SearchFlight::Jetstar::Parse.new(
+          content: response,
           is_round_trip: round_trip?,
           adult: params[:adult],
           child: params[:child],
           infant: params[:infant]
-        ).call
+        ).call : []
       end
 
-      def one_way_options(form)
-        form["search-origin01"] = ""
-        form["search-destination01"] = ""
-        form["ControlGroupSearchView$ButtonSubmit"] = ""
-        form["__VIEWSTATE"] = ""
-        form["infants"] = params[:infant]
-        form["children"] = params[:child]
-        form["adults"] = params[:adult]
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT"] = params[:infant]
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD"] = params[:child]
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT"] = params[:adult]
-        form["datedepart-01"] = format_date(params[:depart_date])
-        form["datereturn-01"] = ""
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1"] = format_month(params[:depart_date])
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1"] = format_day(params[:depart_date])
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1"] = params[:ori_code]
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1"] = params[:des_code]
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes"] = "I"
-        form["travel-indicator"] = "on"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$RadioButtonMarketStructure"] = get_round_type
-        form["pageToken"] = "sLkmnwXwAsY="
-        form["culture"] = "vi-VN"
-        form["currencyPicker"] = "VND"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListCurrency"] = "VND"
+      def build_options
+        {
+          body: round_trip? ? two_way_options : one_way_options,
+          headers: {
+            "Accept-Encoding" => "gzip, deflate",
+            "Content-Type" => "application/x-www-form-urlencoded"
+          }
+        }
       end
 
-      def two_way_options(form)
-        form["search-origin01"] = ""
-        form["search-destination01"] = ""
-        form["ControlGroupSearchView$ButtonSubmit"] = ""
-        form["__VIEWSTATE"] = ""
-        form["infants"] = 0
-        form["children"] = 0
-        form["adults"] = 1
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT"] = 0
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD"] = 0
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT"] = 1
-        form["datedepart-01"] = "12/08/2016"
-        form["datereturn-01"] = "13/08/2016"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1"] = "2016-08"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1"] = "12"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1"] = "SGN"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1"] = "HAN"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes"] = "I"
-        form["travel-indicator"] = "on"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$RadioButtonMarketStructure"] = "RoundTrip"
-        form["pageToken"] = "sLkmnwXwAsY="
-        form["culture"] = "vi-VN"
-        form["locale"] = "vi-VN"
-        form["currencyPicker"] = "VND"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListCurrency"] = "VND"
-        form["undefined"] = "null"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay2"] = "13"
-        form["ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth2"] = "2016-08"
-        form["_pe_39b5379c652b_9df496572198"] = "null"
+      def one_way_options
+        {
+          "search-origin01" => "",
+          "search-destination01" => "",
+          "ControlGroupSearchView$ButtonSubmit" => "",
+          "__VIEWSTATE" => "",
+          "infants" => params[:infant],
+          "children" => params[:child],
+          "adults" => params[:adult],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT" => params[:infant],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD" => params[:child],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT" => params[:adult],
+          "datedepart-01" => format_date(params[:depart_date]),
+          "datereturn-01" => "",
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_month(params[:depart_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:depart_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1" => params[:ori_code],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1" => params[:des_code],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes" => "I",
+          "travel-indicator" => "on",
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$RadioButtonMarketStructure" => get_round_type,
+          "pageToken" => "sLkmnwXwAsY=",
+          "culture" => "vi-VN",
+          "currencyPicker" => "VND",
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListCurrency" => "VND"
+        }
+      end
+
+      def two_way_options
+        {
+          "search-origin01" => "",
+          "search-destination01" => "",
+          "ControlGroupSearchView$ButtonSubmit" => "",
+          "__VIEWSTATE" => "",
+          "undefined" => "",
+          "infants" => params[:infant],
+          "children" => params[:child],
+          "adults" => params[:adult],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT" => params[:infant],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD" => params[:child],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT" => params[:adult],
+          "datedepart-01" => format_date(params[:depart_date]),
+          "datereturn-01" => format_date(params[:return_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:depart_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_month(params[:depart_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay2" => format_day(params[:return_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth2" => format_month(params[:return_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1" => params[:ori_code],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1" => params[:des_code],
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes" => "I",
+          "_pe_39b5379c652b_9df496572198" => "null",
+          "travel-indicator" => "on",
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$RadioButtonMarketStructure" => get_round_type,
+          "pageToken" => "sLkmnwXwAsY=",
+          "culture" => "vi-VN",
+          "locale" => "vi-VN",
+          "currencyPicker" => "VND",
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListCurrency" => "VND"
+        }
+      end
+
+      def success?
+        response.code.to_i == 200
       end
 
       def get_round_type
