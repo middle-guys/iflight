@@ -1,5 +1,3 @@
-require "mechanize"
-
 module SearchFlight
   module VietnamAirlines
     class Search
