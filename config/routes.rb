@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  root "homes#index"
+  root 'homes#index'
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
   
   get 'flights/index'
 
-  devise_for :users
+  resources :routes do
+    collection do
+      get 'destination'
+    end
+  end
 end

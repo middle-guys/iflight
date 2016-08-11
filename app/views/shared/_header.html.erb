@@ -6,13 +6,16 @@
   <div class="pull-xs-right" style="margin-top: 10px;">
     <div class="btn-group">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Leo Le
+      <% if user_signed_in? %>
+        <%= current_user.name %>
+      <% else %>
+        User name
+      <% end %>
       </button>
       <div class="dropdown-menu dropdown-menu-right">
-        <%= link_to "Logout", nil, class: "dropdown-item" %>
         <% if user_signed_in? %>
           <li>
-          <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "dropdown-item") %>        
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "dropdown-item") %>    
           </li>
           <% else %>
             <li>
