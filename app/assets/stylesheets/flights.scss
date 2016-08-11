@@ -1,0 +1,93 @@
+$border-grey: #DDD;
+
+.flight-results-header-wrapper, .flight-results-header {
+  background: $brand-second;
+}
+
+.flight-results-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid transparent;
+}
+.bell {
+  text-align: center;
+  font-size: 2rem;
+  color: black;
+
+  &:hover {
+    background-color: $brand-second-darker;
+  }
+}
+.select-header {
+  text-align: center;
+
+  .round-type {
+    font-size: 1.1rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
+  }
+}
+.flight-result {
+  display: block;
+  position: relative;
+  min-height: 100px;
+  padding-top: 30px;
+  text-align: center;
+  border-radius: 0;
+  border-bottom: 1px solid $border-grey;
+  -webkit-transition-property: none;
+  transition-property: none;
+
+  &:hover {
+    background: #F0F0F0;
+  }
+
+  img {
+    max-width: 60px;
+  }
+
+  .depart, .arrive, .arrow-right{
+    float: left;
+  }
+
+  .depart, .arrive {
+    width: 20%;
+    display: inline-block;
+  }
+
+  .time, .stop-station {
+    display: block;
+  }
+
+  .time {
+    font-size: 1.2rem;
+  }
+
+  .stop-station {
+    font-size: 1rem;
+    color: $brand-grey;
+  }
+
+  .price {
+    font-size: 1.3rem;
+  }
+
+  .arrow-right {
+    margin-top: 15px;
+    width: 40%;
+  }
+}
+
+.price-info-bar {
+  text-align: center;
+  border-bottom: none;
+  padding: 0em 2.2em;
+  margin-top: 1em;
+  line-height: 1.5;
+  border-bottom: 1px solid $border-grey;
+  padding-bottom: 1em;
+  font-size: 0.8em;
+  color: $brand-grey;
+}

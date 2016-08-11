@@ -1,6 +1,9 @@
-<nav class="navbar navbar-full navbar-dark bg-primary">
-  <a class="navbar-brand" href="<%= root_path %>">iFlight</a>
-  <div class="pull-xs-right">
+<nav class="navbar navbar-full navbar-light">
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <div class='logo iflight'></div>
+    <div class='logo iflight-text'></div>
+  <% end %>
+  <div class="pull-xs-right" style="margin-top: 10px;">
     <div class="btn-group">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <% if user_signed_in? %>

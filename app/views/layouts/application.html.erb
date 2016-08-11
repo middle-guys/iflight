@@ -3,8 +3,6 @@
   <head>
     <title>iFlight</title>
     <%= csrf_meta_tags %>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -13,8 +11,6 @@
     <%= render "shared/toast" %>
     <%= render "shared/header" %>
     <% if notice %><p class="alert alert-success"><a class="close" data-dismiss="alert">&times;</a><%= notice %></p><% end %>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>

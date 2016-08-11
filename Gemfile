@@ -30,8 +30,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'rails-assets-tether', '~> 1.1', '>= 1.1.1'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+gem 'font-awesome-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'rollbar'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

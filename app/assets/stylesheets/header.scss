@@ -1,0 +1,14 @@
+.logo { 
+  background: url('iflight-logo.png') no-repeat top left; 
+  height: 55px;
+  float: left;
+} 
+.logo.iflight { 
+  background-position: 0 0; 
+  width: 61px;
+} 
+.logo.iflight-text { 
+  background-position: 0 -65px; 
+  width: 126px;
+  margin-left: 10px;
+} 

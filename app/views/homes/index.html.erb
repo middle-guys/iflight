@@ -1,48 +1,74 @@
-<div class="searching-form">
-  <form action="">
-    <div class="row">
-      <div class="col-md-12">
-        <fieldset class="form-group btn-group" data-toggle="buttons">
-          <label class="btn btn-primary active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> Round Trip
-          </label>
-          <label class="btn btn-primary">
-            <input type="radio" name="options" id="option2" autocomplete="off"> One Way
-          </label>
-        </fieldset>
+<div class="row searching-form-wrapper">
+  <div class="col-md-12">
+    <div class="container">
+      <div class="searching-form">
+        <%= form_tag flights_index_path, method: 'get' do %>
+          <div class="row">
+            <div class="col-md-12">
+              <fieldset class="form-group btn-group" data-toggle="buttons">
+                <%= label_tag "itinerary_type_round_trip", class: "btn btn-primary lbl_itinerary_type active" do %>
+                  <%= radio_button_tag "itinerary_type", "round_trip", checked: true %> Round Trip
+                <% end %>
+                <%= label_tag "itinerary_type_one_way", class: "btn btn-primary lbl_itinerary_type" do %>
+                  <%= radio_button_tag "itinerary_type", "one_way" %> One Way
+                <% end %>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-sm-6">
+              <fieldset class="form-group">
+                <%= select_tag "ori_airport_id", options_from_collection_for_select(@ori_airports, "id", "airport_info"), {prompt: "Select departure ...", class: "form-control"} %>
+              </fieldset>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <fieldset class="form-group">
+                <%= select_tag "des_airport_id", "", class: "form-control" %>
+              </fieldset>
+            </div>
+            <div class="col-lg-6" id="date-itinerary">
+              <div class="row input-daterange input-group">
+                <div class="col-lg-6 col-sm-6" style="padding-right: 0;">
+                  <fieldset class="form-group">
+                    <%= text_field_tag "from_date", "", class: "form-control" %>
+                  </fieldset>
+                </div>
+                <div class="col-lg-6 col-sm-6" style="padding-right: 0;">
+                  <fieldset class="form-group">
+                    <%= text_field_tag "to_date", "", class: "form-control" %>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="dropdown passengers-dropdown-wrapper">
+                <button class="btn btn-secondary dropdown-toggle passengers-dropdown-btn" type="button" id="passengers-dropdown-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%; text-align: left;">
+                  1 Passenger
+                </button>
+                <div class="dropdown-menu" aria-labelledby="passengers-dropdown-btn">
+                  <fieldset class="form-group">
+                    <%= label_tag "adult_num", "Adult" %>
+                    <%= text_field_tag "adult_num", "", class: "form-control" %>
+                  </fieldset>
+                  <fieldset class="form-group">
+                    <%= label_tag "child_num", "Children" %>
+                    <%= text_field_tag "child_num", "", class: "form-control" %>
+                  </fieldset>
+                  <fieldset class="form-group">
+                    <%= label_tag "infant_num", "Infant" %>
+                    <%= text_field_tag "infant_num", "", class: "form-control" %>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" disabled style="width: 100%;">Search Flights</button>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-3 col-sm-6">
-        <fieldset class="form-group">
-          <input type="text" class="form-control" placeholder="Ho Chi Minh (SGN)">
-        </fieldset>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <fieldset class="form-group">
-          <input type="text" class="form-control" placeholder="Buon Me Thuat (BMV)">
-        </fieldset>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <fieldset class="form-group">
-          <input type="text" class="form-control" placeholder="Fri, 20/11/2016">
-        </fieldset>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <fieldset class="form-group">
-          <input type="text" class="form-control" placeholder="Thu, 30/11/2016">
-        </fieldset>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <fieldset class="form-group">
-          <input type="text" class="form-control" placeholder="1 Adult">
-        </fieldset>
-      </div>
-      <div class="col-md-3">
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Search Flights</button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>
