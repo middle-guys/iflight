@@ -1,6 +1,5 @@
 class HomesController < ApplicationController
   def index
-    # flash.now[:error] = "error1"
-    # redirect_to login_path, error: "what the fuck"
+    @ori_airports = Airport.where('id IN (?)', Route.all.select(:ori_airport_id)).order(:name_unsigned)
   end
 end

@@ -3,4 +3,64 @@
   padding-bottom: 60px;
   background-image: url("home-bg-2.jpg");
   background-position: 50% 50%;
+
+  .input-daterange {
+    input {
+      border-radius: 0.25rem;
+      text-align: left;
+    }
+  }
+
+  #date-itinerary {
+    .round-trip {
+      display: block;
+    }
+
+    .one-way {
+      display: none;
+    }
+  }
+
+  .form-control:disabled {
+    background-color: #b7b7b7;
+  }
+  
+  .passengers-dropdown-wrapper {
+    .passengers-dropdown-btn:after {
+      float: right;
+      margin-top: 7px;
+    }
+
+    .input-group {
+      width: 58%;
+      float: right;
+
+      input {
+        text-align: center;
+      }
+    }
+
+    label {
+      flight: left;
+      margin-top: 0.6em;
+    }
+
+    .dropdown-menu {
+      padding: 0.9em 0.9em;
+      padding-bottom: 0;
+    }
+
+    .dropdown-menu:before {
+      content: '';
+      display: inline-block;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid rgb(0, 0, 0);
+      border-top: 0;
+      border-bottom-color: rgb(255, 255, 255);
+      position: absolute;
+      bottom: 100%;
+    }
+  }
+
 }
