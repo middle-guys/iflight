@@ -31,12 +31,28 @@
       margin-top: 7px;
     }
 
+    .passengers-dropdown-btn {
+      &:focus {
+        background-color: white;
+        border-color: #66afe9;
+      }
+      &:hover {
+        background-color: white;
+      }
+    }
+
     .input-group {
       width: 58%;
       float: right;
 
       input {
         text-align: center;
+      }
+
+      .input-group-btn {
+        button {
+          background-color: #d4d4d4;
+        }
       }
     }
 
