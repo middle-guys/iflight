@@ -62,7 +62,7 @@ group :development do
   gem 'guard-livereload', '~> 2.5', require: false
 end
 
-group :production do
+group :production, :staging do
   gem 'rails_12factor', '~> 0.0.3'
 end
 
