@@ -1,4 +1,6 @@
 $(document).on 'turbolinks:load', ->
+  return unless $(".searching-form-wrapper").length > 0
+  
   routes = {}
   ori_id = '1'
 
