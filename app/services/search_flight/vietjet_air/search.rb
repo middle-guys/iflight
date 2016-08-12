@@ -11,15 +11,12 @@ module SearchFlight
       end
 
       def call
-        agent = Mechanize.new
-        proxy = self.proxy
-
-        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+        agent = self.agent
 
         first_response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", first_options, build_first_options[:headers]
         @response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", second_options, build_second_options(first_response)[:headers]
 
-        self.update_proxy_count(proxy)
+        self.update_proxy_count(agent.proxy_addr)
 
         success? ? SearchFlight::VietjetAir::Parse.new(
           content: response,

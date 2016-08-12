@@ -11,14 +11,11 @@ module SearchFlight
       end
 
       def call
-        agent = Mechanize.new
-        proxy = self.proxy
-
-        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+        agent = self.agent
 
         @response = agent.get build_path
 
-        self.update_proxy_count(proxy)
+        self.update_proxy_count(agent.proxy_addr)
 
         success? ? SearchFlight::VietnamAirlines::Parse.new(
           content: response,

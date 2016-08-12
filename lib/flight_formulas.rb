@@ -1,4 +1,11 @@
 module FlightFormulas
+  def agent
+    agent = Mechanize.new
+    agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+
+    agent
+  end
+
   def proxy
     REDIS.zrange("proxies", 0, -1).first
   end
@@ -8,7 +15,7 @@ module FlightFormulas
   end
 
   def round_trip?(round_type)
-    round_type == "RoundTrip"
+    round_type == "RT"
   end
 
   def format_day(date)

@@ -11,15 +11,12 @@ module SearchFlight
       end
 
       def call
-        agent = Mechanize.new
-        proxy = self.proxy
-
-        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+        agent = self.agent
         options = build_options
 
         @response =  agent.post "http://booknow.jetstar.com/Search.aspx?culture=vi-VN", options[:body], options[:headers]
 
-        self.update_proxy_count(proxy)
+        self.update_proxy_count(agent.proxy_addr)
 
         success? ? SearchFlight::Jetstar::Parse.new(
           content: response,
