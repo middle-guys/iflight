@@ -5,7 +5,7 @@ module SearchFlight
       attr_reader :fare_formula_adult, :fare_formula_child, :fare_formula_infant, :adult, :child, :infant
 
       def initialize(params)
-        @html_content = Nokogiri::HTML(params[:content])
+        @html_content = params[:content]
         @is_round_trip = params[:is_round_trip]
         @fare_formula_adult = {
           percent_price_web: 100,
@@ -42,7 +42,7 @@ module SearchFlight
 
       def get_flights(selector)
         flights = []
-        flights_table = html_content.css(selector)
+        flights_table = html_content.search(selector)
 
         flights_table.each do |flight_row|
           price_web = price_web(flight_row)
@@ -83,11 +83,11 @@ module SearchFlight
 
         def price_web(flight_row)
           price = nil
-          prices = flight_row.css('.FaresGrid td')
+          td_prices = flight_row.css('.FaresGrid td')
 
-          prices.each do |price|
-            unless price.text.gsub(/[^\d]/, '').empty?
-              price = price.text.gsub(/[^\d]/, '').to_i
+          td_prices.each do |td_price|
+            unless td_price.text.gsub(/[^\d]/, '').empty?
+              price = td_price.text.gsub(/[^\d]/, '').to_i
               break
             end
           end
