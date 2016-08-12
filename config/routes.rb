@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'homes#index'
 
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
+
   get 'flights/index'
 
   resources :routes do
@@ -10,6 +12,4 @@ Rails.application.routes.draw do
   end
 
   match '/webhook' => 'homes#webhook', via: [:get, :post]
-
-  devise_for :users
 end
