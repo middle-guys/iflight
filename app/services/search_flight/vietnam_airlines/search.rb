@@ -1,6 +1,9 @@
+require "flight_formulas"
+
 module SearchFlight
   module VietnamAirlines
     class Search
+      include FlightFormulas
       attr_accessor :params, :response
 
       def initialize(params)
@@ -9,7 +12,13 @@ module SearchFlight
 
       def call
         agent = Mechanize.new
+        proxy = self.proxy
+
+        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+
         @response = agent.get build_path
+
+        self.update_proxy_count(proxy)
 
         success? ? SearchFlight::VietnamAirlines::Parse.new(
           content: response,

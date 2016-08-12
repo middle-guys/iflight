@@ -33,11 +33,10 @@ gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'font-awesome-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'rollbar'
 gem 'awesome_print'
-gem 'httparty'
-gem 'httparty_with_cookies'
 gem 'mechanize'
+gem 'dotenv-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

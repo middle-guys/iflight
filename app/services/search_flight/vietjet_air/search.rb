@@ -1,16 +1,25 @@
+require "flight_formulas"
+
 module SearchFlight
   module VietjetAir
     class Search
+      include FlightFormulas
       attr_accessor :params, :response
 
-      def initialize params
+      def initialize(params)
         @params = params
       end
 
       def call
         agent = Mechanize.new
+        proxy = self.proxy
+
+        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
+
         first_response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", first_options, build_first_options[:headers]
         @response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", second_options, build_second_options(first_response)[:headers]
+
+        self.update_proxy_count(proxy)
 
         success? ? SearchFlight::VietjetAir::Parse.new(
           content: response,

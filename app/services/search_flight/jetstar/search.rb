@@ -1,6 +1,9 @@
+require "flight_formulas"
+
 module SearchFlight
   module Jetstar
     class Search
+      include FlightFormulas
       attr_accessor :params, :response
 
       def initialize(params)
@@ -9,8 +12,14 @@ module SearchFlight
 
       def call
         agent = Mechanize.new
+        proxy = self.proxy
+
+        agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
         options = build_options
+
         @response =  agent.post "http://booknow.jetstar.com/Search.aspx?culture=vi-VN", options[:body], options[:headers]
+
+        self.update_proxy_count(proxy)
 
         success? ? SearchFlight::Jetstar::Parse.new(
           content: response,
