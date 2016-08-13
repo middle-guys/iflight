@@ -11,7 +11,7 @@ class FlightsController < ApplicationController
       child: 0,
       infant: 0,
       return_date: "15/08/2016",
-      round_type: "OW"
+      round_type: "RT"
     )
   end
 end
