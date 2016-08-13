@@ -1,7 +1,22 @@
 $(document).on 'turbolinks:load', ->
   return unless $("#flights-result").length > 0
-  
-  tmp = 
+
+  App.flights = App.cable.subscriptions.create {
+    channel: "FlightsChannel"
+    uuid: $("#uuid").val()
+  },
+  connected: ->
+    console.log('connected')
+    # Called when the subscription is ready for use on the server
+
+  disconnected: ->
+    console.log('disconnected')
+    # Called when the subscription has been terminated by the server
+
+  received: (data) ->
+    console.log(data)
+
+  tmp =
   'itinerary':
     'category': 'RT'
     'ori_airport':
@@ -163,7 +178,7 @@ $(document).on 'turbolinks:load', ->
   nav_lst_items = $('div.setup-panel .stepwizard-step a')
   wizard_contents = $('.setup-content')
   wizard_contents.hide()
-  
+
   nav_lst_items.click (e) ->
     e.preventDefault()
     $target = $($(this).attr('href'))
@@ -174,7 +189,7 @@ $(document).on 'turbolinks:load', ->
       wizard_contents.hide()
       $target.show()
     return
-  
+
   $('div.setup-panel .stepwizard-step a.btn-primary').trigger 'click'
 
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
@@ -205,7 +220,7 @@ $(document).on 'turbolinks:load', ->
       else $image_vje
 
     $info = $('<div/>', class: 'col-xs-6')
-    
+
     $depart = $('<div/>', class: 'depart').append($('<span/>',
       class: 'time'
       text: flight.from_time)).append($('<span/>',
@@ -253,7 +268,7 @@ $(document).on 'turbolinks:load', ->
       itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
     else
       itinerary.return_flight = tmp.depart_flights[$(this).data('index')]
-    
+
     curStep = $(this).closest ".setup-content"
     curStepBtn = curStep.attr "id"
     nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
