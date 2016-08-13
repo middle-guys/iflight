@@ -5,15 +5,15 @@ class Order < ApplicationRecord
   has_many :flights
   has_many :passengers
 
-  enum status: {
-    reserving: "reserving",
-    done: "done",
-    failed: "failed",
-    cancelled: "canceled"
-  }
+  enum status: [
+    :reserving,
+    :done,
+    :failed,
+    :cancelled
+  ]
 
-  enum category: {
-    one_way: "one way",
-    two_way: "two way"
-  }
+  enum category: [
+    :one_way,
+    :two_way
+  ]
 end

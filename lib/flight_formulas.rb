@@ -18,19 +18,19 @@ module FlightFormulas
     round_type == "RT"
   end
 
-  def format_day(date)
-    date.strftime("%d")
+  def format_day(date_str)
+    date_str.to_date.strftime("%d")
   end
 
-  def format_date_jet(date)
-    date.strftime("%d/%m/%Y")
+  def format_date_jet(date_str)
+    date_str.to_date.strftime("%d/%m/%Y")
   end
 
-  def format_date_vna(date)
-    date.strftime("%Y-%m-%d")
+  def format_date_vna(date_str)
+    date_str.to_date.strftime("%Y-%m-%d")
   end
 
-  def format_month(date)
-    date.strftime("%Y-%m")
+  def format_month(date_str)
+    date_str.to_date.strftime("%Y-%m")
   end
 end

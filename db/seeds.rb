@@ -97,9 +97,9 @@ airport_WAS = Airport.create(code: 'WAS', name: 'Washington', name_unsigned: 'Wa
 airport_RGN = Airport.create(code: 'RGN', name: 'Yangon', name_unsigned: 'Yangon', short_name: 'Yangon', is_domestic: 0)
 airport_ZRH = Airport.create(code: 'ZRH', name: 'Zurich', name_unsigned: 'Zurich', short_name: 'Zurich', is_domestic: 0)
 
-plane_vietnam = PlaneCategory.create(category: 'vietnam airline', name: "Vietnam Airline", short_name: "VNAirline")
-plane_jetstar = PlaneCategory.create(category: 'jetstar', name: "Jetstar", short_name: "Jetstar")
-plane_vietjet = PlaneCategory.create(category: 'vietjet', name: "Vietjet Air", short_name: "Vietjet")
+plane_vietnam = PlaneCategory.create(category: :vietnam_airlines, name: "Vietnam Airlines", short_name: "VNAirline")
+plane_jetstar = PlaneCategory.create(category: :jetstar, name: "Jetstar", short_name: "Jetstar")
+plane_vietjet = PlaneCategory.create(category: :vietjet_air, name: "Vietjet Air", short_name: "Vietjet")
 
 Route.create(ori_airport_id: airport_BMV.id, des_airport_id: airport_HPH.id, is_domestic: 1)
 Route.create(ori_airport_id: airport_BMV.id, des_airport_id: airport_SGN.id, is_domestic: 1)

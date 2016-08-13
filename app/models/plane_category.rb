@@ -1,8 +1,9 @@
 class PlaneCategory < ApplicationRecord
   has_many :flights
-  enum category: {
-    vietjet: "vietjet",
-    jetstar: "jetstar",
-    vietnam_airline: "vietnam airline"
-  }
+
+  enum category: [
+    :vietjet_air,
+    :jetstar,
+    :vietnam_airlines
+  ]
 end
