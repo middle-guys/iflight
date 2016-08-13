@@ -1,375 +1,61 @@
-<div class="row flight-results-header-wrapper">
-  <%= link_to nil do %>
-    <div class="col-sm-1 flight-results-header bell">
-    <i class="fa fa-bell" aria-hidden="true"></i>
-    </div>
-  <% end %>
-  <div class="col-sm-10 col-sm-offset-1 flight-results-header select-header">
-    <div class="round-type">Select Departure</div>
-    <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
-  </div>
-</div>
-<div class="flight-results-wrapper container">
-  <div class="row">
-    <div class="col-sm-12 price-info-bar">
-      Pricing is include ticket price and all taxes for all passengers      
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/vjet.png", alt: "Vietjet Air") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
+<div id="flights-result">
+  <div class="container">
+    <div class="row flights-result-header stepwizard">
+      <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+          <a href="#step-1" class="btn btn-primary btn-circle">1</a>
+          <p>Departure</p>
+        </div>
+        <div class="stepwizard-step">
+          <a href="#step-2" class="btn btn-default btn-circle" disabled="disabled">2</a>
+          <p>Return</p>
+        </div>
+        <div class="stepwizard-step">
+          <a href="#step-3" class="btn btn-default btn-circle" disabled="disabled">3</a>
+          <p>Passengers</p>
+        </div>
+        <div class="stepwizard-step">
+          <a href="#step-4" class="btn btn-default btn-circle" disabled="disabled">4</a>
+          <p>Summary</p>
+        </div>
       </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
     </div>
   </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
+  <div class="container flights-result-wrapper">
+    <div id="step-1" class="setup-content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="select-header">
+            <div class="round-type">Select Departure</div>
+            <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
+          </div>
+          <div class="price-info-bar">
+            Pricing is include ticket price and all taxes for all passengers      
+          </div>
+        </div>
       </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
+      <div id="depature-flights"></div>
+    </div>
+    <div id="step-2" class="setup-content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="select-header">
+            <div class="round-type">Select Return</div>
+            <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
+          </div>
+          <div class="price-info-bar">
+            Pricing is include ticket price and all taxes for all passengers      
+          </div>
+        </div>
       </div>
+      <div id="return-flights"></div>
     </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
+    <div id="step-3" class="setup-content">
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>Summary</h3>
+          <button class="btn btn-success btn-lg">Book now!</button>
+        </div>
       </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
-  </div>
-  <div class="row flight-result">
-    <div class="col-xs-3">
-      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
-    </div>
-    <div class="col-xs-6">
-      <div class="depart">
-        <span class="time">15:30</span>
-        <span class="stop-station">SGN</span>
-      </div>
-      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-      <div class="arrive">
-        <span class="time">16:30</span>
-        <span class="stop-station">BMV</span>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <button type="button" class="btn btn-primary price">
-        12.000 VND
-      </button>
-    </div>
   </div>
 </div>

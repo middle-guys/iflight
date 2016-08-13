@@ -20,3 +20,4 @@
 //= require turbolinks
 //= require init
 //= require homes
+//= require flights
