@@ -10,19 +10,17 @@ $(document).on 'turbolinks:load', ->
   },
   connected: ->
     console.log('connected')
-    # Called when the subscription is ready for use on the server
 
   disconnected: ->
     console.log('disconnected')
-    # Called when the subscription has been terminated by the server
 
   received: (result) ->
     tmp = result.data
     itinerary = tmp.itinerary
     tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
-    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if itinerary.category == 'RT'
+    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.is_round_trip(itinerary.category)
     loadDepartureFlights()
-    loadReturnFlights() if itinerary.category == 'RT'
+    loadReturnFlights() if App.is_round_trip(itinerary.category)
     registerButtonPriceClick()
 
   nav_lst_items = $('div.setup-panel .stepwizard-step a')

@@ -21,6 +21,7 @@
 //= require init
 //= require sort_by
 //= require number_formatter
+//= require itinerary_helper
 //= require homes
 //= require cable
 //= require flights
