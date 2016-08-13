@@ -19,6 +19,7 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require init
+//= require sort_by
 //= require homes
 //= require cable
 //= require flights

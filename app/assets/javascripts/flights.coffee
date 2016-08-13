@@ -18,6 +18,8 @@ $(document).on 'turbolinks:load', ->
 
   received: (result) ->
     tmp = result.data
+    tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
+    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if itinerary.category == 'RT'
     itinerary = tmp.itinerary
     loadDepartureFlights()
     loadReturnFlights() if itinerary.category == 'RT'
