@@ -169,13 +169,13 @@ $(document).on 'turbolinks:load', ->
     $target = $($(this).attr('href'))
     $item = $(this)
     if !$item.is('[disabled]')
-      nav_lst_items.removeClass('btn-primary').addClass 'btn-default visited'
-      $item.addClass 'btn-primary'
+      nav_lst_items.removeClass('current').addClass 'btn-secondary'
+      $item.addClass 'current'
       wizard_contents.hide()
       $target.show()
     return
   
-  $('div.setup-panel .stepwizard-step a.btn-primary').trigger 'click'
+  $('div.setup-panel .stepwizard-step a.current').trigger 'click'
 
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
     $wrapper = $('<div/>', class: 'row flight-result')
@@ -256,6 +256,7 @@ $(document).on 'turbolinks:load', ->
     
     curStep = $(this).closest ".setup-content"
     curStepBtn = curStep.attr "id"
+    $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
     nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
     nextStepWizard.removeAttr('disabled').trigger('click')
 

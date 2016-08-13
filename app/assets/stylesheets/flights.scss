@@ -40,8 +40,14 @@ $border-grey: #DDD;
 
   .visited {
     color: #fff;
-    background-color: #c3b618;
-    border-color: #c3b618;
+    background-color: $brand-second-darker;
+    border-color: $brand-second-darker;
+  }
+
+  .current {
+    color: #fff;
+    background-color: $brand-second;
+    border-color: $brand-second;
   }
 }
 
