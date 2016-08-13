@@ -5,5 +5,5 @@ class Passenger < ApplicationRecord
     :adult,
     :child,
     :infant
-  }
+  ]
 end
