@@ -20,6 +20,7 @@
 //= require turbolinks
 //= require init
 //= require sort_by
+//= require number_formatter
 //= require homes
 //= require cable
 //= require flights

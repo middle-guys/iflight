@@ -18,9 +18,9 @@ $(document).on 'turbolinks:load', ->
 
   received: (result) ->
     tmp = result.data
+    itinerary = tmp.itinerary
     tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
     tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if itinerary.category == 'RT'
-    itinerary = tmp.itinerary
     loadDepartureFlights()
     loadReturnFlights() if itinerary.category == 'RT'
     registerButtonPriceClick()
@@ -91,12 +91,12 @@ $(document).on 'turbolinks:load', ->
 
     $button = $('<div/>',
       class: 'col-xs-3'
-      html: $('<button/>',
+      html: $('<a/>',
         class: 'btn btn-primary price'
-        type: 'button'
+        href: '#'
         'data-index': index
         'data-type': round_type
-        text: flight.price_adult))
+        text: App.format_vnd(flight.price_adult)))
 
     return $wrapper.append($image).append($info).append($button).appendTo(id_container)
 
@@ -109,7 +109,7 @@ $(document).on 'turbolinks:load', ->
       return generateFlightsRow('#return-flights', i, 'return', tmp.itinerary.des_airport, tmp.itinerary.ori_airport, flight)
 
   registerButtonPriceClick = ->
-    $('button.price').click (e) ->
+    $('a.price').click (e) ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
         itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
