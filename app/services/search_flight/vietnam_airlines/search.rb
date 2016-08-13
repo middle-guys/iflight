@@ -12,7 +12,6 @@ module SearchFlight
 
       def call
         agent = self.agent
-
         @response = agent.get build_path
 
         self.update_proxy_count(agent.proxy_addr)
