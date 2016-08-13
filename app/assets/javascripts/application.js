@@ -20,4 +20,5 @@
 //= require turbolinks
 //= require init
 //= require homes
+//= require cable
 //= require flights
