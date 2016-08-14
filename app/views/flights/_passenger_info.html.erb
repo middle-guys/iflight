@@ -1,0 +1,64 @@
+<form id="passenger-info" class="form-horizontal" role="form">
+  <div class="step-title">
+    <div class="row">
+      <div class="col-xs-9 offset-xs-1">
+        <h4>Passenger(s)</h4>
+      </div>
+    </div>
+  </div>
+  <div id="passenger-info-container"></div>
+  <div class="step-title">
+    <div class="row">
+      <div class="col-xs-9 offset-xs-1">
+        <h4>Contact</h4>
+      </div>
+    </div>
+  </div>
+  <div class="pax-info-wrapper">
+    <div class="row">
+      <div class="col-xs-3 col-sm-2 offset-xs-1">
+        <div class="form-group">
+          <select class="form-control">
+            <option value="1">MR</option>
+            <option value="2">MS</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7">
+        <div class="form-group">
+          <input type="text" class="form-control" name="contactname" placeholder="CONTACT FULL NAME">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-sm-2 offset-xs-1">
+        <div class="form-group">
+          <label>Phone</label>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7">
+        <div class="form-group">
+          <input type="text" pattern="\d*" class="form-control" name="contactphone" placeholder="PHONE NUMBER">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-sm-2 offset-xs-1">
+        <div class="form-group">
+          <label>Email</label>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7">
+        <div class="form-group">
+          <input type="email" class="form-control" name="contactemail" placeholder="EMAIL">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8 offset-xs-2" style="text-align: center;">
+      <button class="btn btn-lg btn-secondary">Back</button>
+      <button class="btn btn-lg btn-primary" type="submit">Continue</button>
+    </div>
+  </div>
+</form>  

@@ -2,6 +2,11 @@ class FlightsController < ApplicationController
   def index
     @uuid = SecureRandom.uuid
 
+    @ori_airport = Airport.find(params[:ori_airport_id])
+    @des_airport = Airport.find(params[:des_airport_id])
+    @from_date = params[:from_date]
+    @to_date = params[:to_date]
+
     CrawlFlightsJob.perform_later(
       uuid: @uuid,
       ori_code: "SGN",

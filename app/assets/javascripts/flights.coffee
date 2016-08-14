@@ -81,7 +81,7 @@ $(document).on 'turbolinks:load', ->
       curStepBtn = curStep.attr "id"
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
-      nextStepWizard.removeAttr('disabled').trigger('click')
+      nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
 
   # generate passenger information
   addPassengerInfo = (index, category, itinerary) ->
@@ -102,10 +102,12 @@ $(document).on 'turbolinks:load', ->
     template = $('#passenger-template').html()
     $('#passenger-info-container').append(Mustache.render(template, pax_data))
 
+    # validate input name
     $('input[name="'+name_input+'"]').rules 'add',
       required: true
       wordCount: ['2']
 
+    # validate input date of DoB infant
     if category == App.PAX_INFANT
       $('input[name="'+date_name_input+'"]').rules 'add',
       required: true
