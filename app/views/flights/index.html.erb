@@ -4,7 +4,7 @@
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
-          <a href="#step-1" class="btn current btn-circle">1</a>
+          <a href="#step-1" class="btn btn-secondary btn-circle" disabled="disabled">1</a>
           <p>Departure</p>
         </div>
         <div class="stepwizard-step">
@@ -12,7 +12,7 @@
           <p>Return</p>
         </div>
         <div class="stepwizard-step">
-          <a href="#step-3" class="btn btn-secondary btn-circle" disabled="disabled">3</a>
+          <a href="#step-3" class="btn current btn-circle">3</a>
           <p>Passengers</p>
         </div>
         <div class="stepwizard-step">
@@ -22,41 +22,258 @@
       </div>
     </div>
   </div>
-  <div class="container flights-result-wrapper">
-    <div id="step-1" class="setup-content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="select-header">
-            <div class="round-type">Select Departure</div>
-            <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
-          </div>
-          <div class="price-info-bar">
-            Pricing is include ticket price and all taxes for all passengers
+  <div class="flights-result-wrapper">
+    <div class="container">
+      <div id="step-1" class="setup-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="select-header">
+              <div class="round-type">Select Departure</div>
+              <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
+            </div>
+            <div class="price-info-bar">
+              Pricing is include ticket price and all taxes for all passengers
+            </div>
           </div>
         </div>
+        <div id="depature-flights"></div>
       </div>
-      <div id="depature-flights"></div>
     </div>
-    <div id="step-2" class="setup-content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="select-header">
-            <div class="round-type">Select Return</div>
-            <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
-          </div>
-          <div class="price-info-bar">
-            Pricing is include ticket price and all taxes for all passengers
+    <div class="container">
+      <div id="step-2" class="setup-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="select-header">
+              <div class="round-type">Select Return</div>
+              <div class="date">SGN <i class="fa fa-plane" aria-hidden="true"></i> BMV, Thu, 22/11/2016</div>
+            </div>
+            <div class="price-info-bar">
+              Pricing is include ticket price and all taxes for all passengers
+            </div>
           </div>
         </div>
+        <div id="return-flights"></div>
       </div>
-      <div id="return-flights"></div>
     </div>
-    <div id="step-3" class="setup-content">
-      <div class="row">
-        <div class="col-xs-12">
-          <h3>Summary</h3>
-          <button class="btn btn-success btn-lg">Book now!</button>
-        </div>
+    <div class="container">
+      <div id="step-3" class="setup-content">
+        <form class="form-horizontal" role="form">
+          <div class="pax-title">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <h4>Passenger(s)</h4>
+              </div>
+            </div>
+          </div>
+          <div class="pax-info-wrapper">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <div class="pax-number-wrapper">
+                  <h5 class="pax-number">
+                    Passenger 1:
+                    <span class="pax-type">Adult</span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>MR</option>
+                    <option>MS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="FULL NAME">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Baggage depart</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>0 kg (0 VND)</option>
+                    <option>10 kg (140,000 VND)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Baggage return</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>0 kg (0 VND)</option>
+                    <option>10 kg (140,000 VND)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pax-info-wrapper">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <div class="pax-number-wrapper">
+                  <h5 class="pax-number">
+                    Passenger 2:
+                    <span class="pax-type">Child</span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>MSTR</option>
+                    <option>MISS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="FULL NAME">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Baggage depart</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>0 kg (0 VND)</option>
+                    <option>10 kg (140,000 VND)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Baggage return</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>0 kg (0 VND)</option>
+                    <option>10 kg (140,000 VND)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pax-info-wrapper">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <div class="pax-number-wrapper">
+                  <h5 class="pax-number">
+                    Passenger 3:
+                    <span class="pax-type">Infant</span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>MSTR</option>
+                    <option>MISS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="FULL NAME">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Date of birth</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="DD/MM/YYYY">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pax-title">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <h4>Contact</h4>
+              </div>
+            </div>
+          </div>
+          <div class="pax-info-wrapper">
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>MR</option>
+                    <option>MS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="contactname" placeholder="CONTACT FULL NAME">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Phone</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="text" pattern="\d*" class="form-control" name="contactphone" placeholder="PHONE NUMBER">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 offset-xs-1">
+                <div class="form-group">
+                  <label>Email</label>
+                </div>
+              </div>
+              <div class="col-xs-7 col-sm-7">
+                <div class="form-group">
+                  <input type="email" class="form-control" name="contactemail" placeholder="EMAIL">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8 offset-xs-2" style="text-align: center;">
+              <button class="btn btn-lg btn-secondary">Back</button>
+              <button class="btn btn-lg btn-primary" type="submit">Continue</button>
+            </div>
+          </div>
+        </form>  
       </div>
+    </div>
   </div>
 </div>

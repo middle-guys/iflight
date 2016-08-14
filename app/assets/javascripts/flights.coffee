@@ -4,6 +4,7 @@ $(document).on 'turbolinks:load', ->
   tmp = {}
   itinerary = {}
 
+  # loading data from server
   App.flights = App.cable.subscriptions.create {
     channel: "FlightsChannel"
     uuid: $("#uuid").val()
@@ -23,6 +24,7 @@ $(document).on 'turbolinks:load', ->
     loadReturnFlights() if App.is_round_trip(itinerary.category)
     registerButtonPriceClick()
 
+  # setup wizard
   nav_lst_items = $('div.setup-panel .stepwizard-step a')
   wizard_contents = $('.setup-content')
   wizard_contents.hide()
@@ -40,6 +42,7 @@ $(document).on 'turbolinks:load', ->
   
   $('div.setup-panel .stepwizard-step a.current').trigger 'click'
 
+  # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
     $wrapper = $('<div/>', class: 'row flight-result')
 
@@ -119,5 +122,41 @@ $(document).on 'turbolinks:load', ->
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').trigger('click')
+
+  # generate passenger information
+  
+
+  # validate passenger form
+  $('form').validate
+    rules:
+      contactname:
+        required: true
+        minlength: 5
+      contactphone:
+        required: true
+        number: true
+        minlength: 10
+        maxlength: 11
+      contactemail:
+        required: true
+        email: true
+    highlight: (element) ->
+      $(element).closest('.form-group').addClass 'has-danger'
+      return
+    unhighlight: (element) ->
+      $(element).closest('.form-group').removeClass 'has-danger'
+      return
+    success: (element) ->
+      $(element).closest('.form-group').addClass 'has-success'
+      return
+
+    errorElement: 'div'
+    errorClass: 'form-control-feedback'
+    errorPlacement: (error, element) ->
+      if element.parent('.input-group').length
+        error.insertAfter element.parent()
+      else
+        error.insertAfter element
+      return
 
   return

@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require bootstrap-datepicker
 //= require jquery.bootstrap-touchspin
+//= require jquery.validate
 //= require tether
 //= require bootstrap-sprockets
 //= require turbolinks
