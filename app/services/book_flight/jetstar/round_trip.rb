@@ -1,10 +1,10 @@
 module BookFlight
   module Jetstar
     class RoundTrip < JetstarFormulas
-      attr_accessor :agent_local, :params
+      attr_accessor :agent, :params
 
-      def initialize(agent_local, params)
-        @agent_local = agent_local
+      def initialize(agent, params)
+        @agent = agent
         @params = params
       end
 
@@ -18,7 +18,7 @@ module BookFlight
         depart_flight_price_selection = nil
 
         depart_flight_code_square.parent.search("td.selection").each do |price_selection|
-          if price_selection.text.include? number_to_currency_jetstar 890000
+          if price_selection.text.include? format_currency 890000
             depart_flight_price_selection = price_selection
             break
           end
@@ -33,7 +33,7 @@ module BookFlight
         return_flight_price_selection = nil
 
         return_flight_code_square.parent.search("td.selection").each do |price_selection|
-          if price_selection.text.include? number_to_currency_jetstar 890000
+          if price_selection.text.include? format_currency 890000
             return_flight_price_selection = price_selection
             break
           end

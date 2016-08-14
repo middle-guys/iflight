@@ -18,7 +18,7 @@ module BookFlight
         flight_price_selection = nil
 
         flight_code_square.parent.search("td.selection").each do |price_selection|
-          if price_selection.text.include? number_to_currency_jetstar 2020000
+          if price_selection.text.include? format_currency 2020000
             flight_price_selection = price_selection
             break
           end

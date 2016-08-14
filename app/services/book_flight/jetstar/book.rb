@@ -1,20 +1,20 @@
 module BookFlight
   module Jetstar
     class Book < JetstarFormulas
-      attr_accessor :agent_local
+      attr_accessor :agent
 
       def initialize
-        @agent_local = self.agent
+        @agent = agent_with_proxy
       end
 
       def call
         login
 
-        round_trip?("RT") ? BookFlight::Jetstar::RoundTrip.new(agent_local, nil).call : BookFlight::Jetstar::OneWay.new(agent_local, nil).call
+        round_trip?("RT") ? BookFlight::Jetstar::RoundTrip.new(agent, nil).call : BookFlight::Jetstar::OneWay.new(agent, nil).call
       end
 
       def login
-        agent_local.post(
+        agent.post(
           "https://agenthub.jetstar.com/newtradeloginagent.aspx",
           {
             "__EVENTTARGET" => "",
