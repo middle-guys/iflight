@@ -6,7 +6,7 @@ module BookFlight
     def call
       params = {
         itinerary: {
-          category: "OW",
+          category: "RT",
           ori_airport: {
             code: "SGN",
             name: "Hồ Chí Minh",
@@ -32,7 +32,7 @@ module BookFlight
           flight_code: "BL 788",
           from_time: "9:20",
           to_time: "10:40",
-          price_no_fee: 890000,
+          price_no_fee: 1020000,
           price_adult: 1081000,
           price_child: 1041000,
           price_infant: 150000,

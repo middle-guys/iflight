@@ -15,9 +15,9 @@ module BookFlight
       end
 
       def call
-        search_page = search
+        select_price_page = search
 
-        selected_price_element = get_selected_price_element(search_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
+        selected_price_element = get_selected_price_element(select_price_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
         return 404 unless selected_price_element
 
@@ -25,10 +25,12 @@ module BookFlight
 
         checkout_page = fill_info
 
-        File.open("out.html", "wb") do |f|
-          f.write checkout_page.body
-          f.close
-        end
+        reservation_page = checkout
+
+        {
+          reservation_code: reservation_page.at("#booking-data booking")["pnr"],
+          holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
+        }
       end
 
       def search
@@ -79,70 +81,11 @@ module BookFlight
       end
 
       def fill_info
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListTitle_1:MR
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_1:Nguyen
-        # default-value-lastname-1:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_1:Van Tien
-        # default-value-firstname-1:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_1:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_1:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_1:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_1:1
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxProgramNumber_1:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_1:QF
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListTitle_3:MRS
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_3:Nguyen
-        # default-value-lastname-2:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_3:Thi Lien
-        # default-value-firstname-2:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_3:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_3:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_3:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_3:2
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxProgramNumber_3:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_3:QF
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListTitle_5:MISS
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_5:Nguyen
-        # default-value-lastname-3:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_5:Ngoc Nhi
-        # default-value-firstname-3:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_5:31
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_5:3
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_5:2008
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_5:2
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxProgramNumber_5:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_5:QF
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListTitle_6:MSTR
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_6:Nguyen
-        # default-value-lastname-4:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_6:Tien Len
-        # default-value-firstname-4:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_6:31
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_6:12
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_6:2006
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_6:1
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxProgramNumber_6:
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_6:QF
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_2:Nguyen
-        # default-value-lastname-5:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_2:Ngan Khanh
-        # default-value-firstname-5:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListAssign_2:1
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_2:31
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_2:3
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_2:2015
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_2:2
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxLastName_4:Nguyen
-        # default-value-lastname-6:Họ
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxFirstName_4:Tien Dat
-        # default-value-firstname-6:Tên đệm & Tên
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListAssign_4:1
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateDay_4:31
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateMonth_4:10
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListBirthDateYear_4:2014
-        # AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_4:1
-
         body = {
+          "__EVENTTARGET" => "AgentControlGroupPassengerView$ButtonSubmit",
+          "__EVENTARGUMENT" => "",
+          "__VIEWSTATE" => "",
+          "pageToken" => "",
           "AgentControlGroupPassengerView$AgentContactInputViewPassengerView$DropDownListTitle" => title_adult(contact[:gender]),
           "AgentControlGroupPassengerView$AgentContactInputViewPassengerView$TextBoxLastName" => last_name(contact[:full_name]),
           "AgentControlGroupPassengerView$AgentContactInputViewPassengerView$TextBoxFirstName" => first_name(contact[:full_name]),
@@ -228,11 +171,41 @@ module BookFlight
           body["AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_#{current_index_child}"] = "QF"
         end
 
-        ap body
         agent.post(
           "https://agenthub.jetstar.com/AgentPassenger.aspx",
           body
         )
+      end
+
+      def checkout
+        agent.post(
+          "https://agenthub.jetstar.com/AgentPay.aspx",
+          {
+            "__EVENTTARGET" => "",
+            "__EVENTARGUMENT" => "",
+            "__VIEWSTATE" => "",
+            "pageToken" => "",
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$PaymentMethodDropDown" => "ExternalAccount-HOLD",
+            "card_number1" => "",
+            "card_number2" => "",
+            "card_number3" => "",
+            "card_number4" => "",
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$TextBoxCC__AccountHolderName" => "",
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$DropDownListEXPDAT_Month" => Time.now.month,
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$DropDownListEXPDAT_Year" => Time.now.year,
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$TextBoxCC__VerificationCode" => "",
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$TextBoxACCTNO" => "",
+            "inlineDCCAjaxSucceeded" => "false",
+            "ControlGroupAgentPayView$PaymentSectionAgentPayView$UpdatePanelAgentPayView$PaymentInputAgentPayView$TextBoxVoucherAccount_VO_ACCTNO" => "",
+            "ControlGroupAgentPayView$AgreementInputAgentPayView$CheckBoxAgreement" => "on",
+            "summary-amount-total" => "NaN",
+            "ControlGroupAgentPayView$ButtonSubmit" => ""
+          }
+        )
+        agent.get "https://agenthub.jetstar.com/Wait.aspx"
+        agent.get "https://agenthub.jetstar.com/Wait.aspx"
+
+        agent.get "https://agenthub.jetstar.com/htl2-Itinerary.aspx"
       end
     end
   end
