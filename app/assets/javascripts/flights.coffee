@@ -83,6 +83,20 @@ $(document).on 'turbolinks:load', ->
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
 
+  $('a.back').click (e) ->
+    e.preventDefault()
+    curStep = $(this).closest ".setup-content"
+    curStepBtn = curStep.attr "id"
+    prevStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().prev().children('a')
+    prevStepWizard.trigger('click')
+  $('a.next').click (e) ->
+    e.preventDefault()
+    if $('form#passenger-info').valid()
+      curStep = $(this).closest ".setup-content"
+      curStepBtn = curStep.attr "id"
+      nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
+      nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
+
   # generate passenger information
   addPassengerInfo = (index, category, itinerary) ->
     name_input = App.paxCategoryName(category) + index
@@ -138,15 +152,15 @@ $(document).on 'turbolinks:load', ->
   # validate passenger form
   $('form#passenger-info').validate
     rules:
-      contactname:
+      contact_name:
         required: true
         wordCount: ['2']
-      contactphone:
+      contact_phone:
         required: true
         number: true
         minlength: 10
         maxlength: 11
-      contactemail:
+      contact_email:
         required: true
         email: true
     highlight: (element) ->

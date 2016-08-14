@@ -4,7 +4,7 @@
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
-          <a href="#step-1" class="btn current btn-circle">1</a>
+          <a href="#step-1" class="btn btn-secondary btn-circle" disabled="disabled">1</a>
           <p>Departure</p>
         </div>
         <div class="stepwizard-step">
@@ -16,59 +16,77 @@
           <p>Passengers</p>
         </div>
         <div class="stepwizard-step">
-          <a href="#step-4" class="btn btn-secondary btn-circle" disabled="disabled">4</a>
+          <a href="#step-4" class="btn current btn-circle">4</a>
           <p>Summary</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="flights-result-wrapper">
-    <div class="container">
-      <div id="step-1" class="setup-content">
-        <div class="step-title">
+  <%= form_tag orders_path, method: 'post' do %>
+    <div class="flights-result-wrapper">
+      <div class="container">
+        <div id="step-1" class="setup-content">
+          <div class="step-title">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <h4>Select Departure</h4>
+                <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @from_date %></div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xs-9 offset-xs-1">
-              <h4>Select Departure</h4>
-              <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @from_date %></div>
+              <div class="price-info-bar">
+                Pricing is include ticket price and all taxes for all passengers
+              </div>
             </div>
           </div>
+          <div id="depature-flights"></div>
         </div>
-        <div class="row">
-          <div class="col-xs-9 offset-xs-1">
-            <div class="price-info-bar">
-              Pricing is include ticket price and all taxes for all passengers
-            </div>
-          </div>
-        </div>
-        <div id="depature-flights"></div>
       </div>
-    </div>
-    <div class="container">
-      <div id="step-2" class="setup-content">
-        <div class="step-title">
+      <div class="container">
+        <div id="step-2" class="setup-content">
+          <div class="step-title">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <h4>Select Return</h4>
+                <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @to_date %></div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xs-9 offset-xs-1">
-              <h4>Select Return</h4>
-              <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @to_date %></div>
+              <div class="price-info-bar">
+                Pricing is include ticket price and all taxes for all passengers
+              </div>
+            </div>
+          </div>
+          <div id="return-flights"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div id="step-3" class="setup-content">
+          <%= render 'passenger_info' %>
+        </div>
+      </div>
+      <div class="container">
+        <div id="step-4" class="setup-content">
+          <div class="step-title">
+            <div class="row">
+              <div class="col-xs-9 offset-xs-1">
+                <h4>Summary</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 offset-xs-2" style="text-align: center;">
+                <button type="submit" class="btn btn-primary btn-lg">BOOK NOW!</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-9 offset-xs-1">
-            <div class="price-info-bar">
-              Pricing is include ticket price and all taxes for all passengers
-            </div>
-          </div>
-        </div>
-        <div id="return-flights"></div>
       </div>
     </div>
-    <div class="container">
-      <div id="step-3" class="setup-content">
-        <%= render 'passenger_info' %>
-      </div>
-    </div>
-  </div>
+  <% end %>
 </div>
 <%= render 'passenger_template' %>
 <%= render 'flight_details_template' %>
