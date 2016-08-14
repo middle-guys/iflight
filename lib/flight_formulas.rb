@@ -25,6 +25,22 @@ module FlightFormulas
   end
 
   def format_month(date_str)
+    date_str.to_date.strftime("%m")
+  end
+
+  def format_year(date_str)
+    date_str.to_date.strftime("%Y")
+  end
+
+  def format_year_month(date_str)
     date_str.to_date.strftime("%Y-%m")
+  end
+
+  def first_name(full_name)
+    full_name.match(" ").post_match
+  end
+
+  def last_name(full_name)
+    full_name.match(" ").pre_match
   end
 end

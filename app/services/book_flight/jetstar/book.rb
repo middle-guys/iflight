@@ -1,16 +1,17 @@
 module BookFlight
   module Jetstar
     class Book < JetstarFormulas
-      attr_accessor :agent
+      attr_accessor :agent, :params
 
-      def initialize
+      def initialize(params)
         @agent = agent_with_proxy
+        @params = params
       end
 
       def call
         login
 
-        round_trip?("RT") ? BookFlight::Jetstar::RoundTrip.new(agent, nil).call : BookFlight::Jetstar::OneWay.new(agent, nil).call
+        round_trip?(params[:itinerary][:category]) ? BookFlight::Jetstar::RoundTrip.new(agent, params).call : BookFlight::Jetstar::OneWay.new(agent, params).call
       end
 
       def login

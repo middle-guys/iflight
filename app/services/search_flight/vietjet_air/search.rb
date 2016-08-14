@@ -51,8 +51,8 @@ module SearchFlight
           "txtNumAdults" => params[:adult],
           "dlstDepDate_Day" => format_day(params[:depart_date]),
           "dlstRetDate_Day" => format_day(round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
-          "dlstRetDate_Month" => format_month(params[:depart_date]),
-          "dlstDepDate_Month" => format_month(round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
+          "dlstRetDate_Month" => format_year_month(params[:depart_date]),
+          "dlstDepDate_Month" => format_year_month(round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
           "lstDestAP" => params[:des_code],
           "lstOrigAP" => params[:ori_code]
         }
@@ -89,8 +89,8 @@ module SearchFlight
           "DebugID" => round_trip?(params[:round_type]) ? "43" : "06",
           "dlstRetDate_Day" => format_day(Date.today),
           "dlstDepDate_Day" => format_day(Date.today),
-          "dlstDepDate_Month" => format_month(Date.today),
-          "dlstRetDate_Month" => format_month(Date.today)
+          "dlstDepDate_Month" => format_year_month(Date.today),
+          "dlstRetDate_Month" => format_year_month(Date.today)
         }
       end
 
