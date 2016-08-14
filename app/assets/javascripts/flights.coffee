@@ -19,9 +19,9 @@ $(document).on 'turbolinks:load', ->
     tmp = result.data
     itinerary = tmp.itinerary
     tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
-    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.is_round_trip(itinerary.category)
+    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
     loadDepartureFlights()
-    loadReturnFlights() if App.is_round_trip(itinerary.category)
+    loadReturnFlights() if App.isRoundTrip(itinerary.category)
     registerButtonPriceClick()
 
   # setup wizard
@@ -44,62 +44,20 @@ $(document).on 'turbolinks:load', ->
 
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
-    $wrapper = $('<div/>', class: 'row flight-result')
+    flight_details =
+      from_time: flight.from_time
+      to_time: flight.to_time
+      ori_code: depart_airport.code
+      des_code: arrive_airport.code
+      price: App.format_vnd(flight.price_adult)
+      index: index
+      round_type: round_type
+      is_jetstar: App.is_jetstar(flight.airline_type)
+      is_vietjet: App.is_vietjet(flight.airline_type)
+      is_vnairline: App.is_vnairline(flight.airline_type)
 
-    $image_vje = $('<div/>',
-      class: 'col-xs-3'
-      html: $('<img/>',
-        src: 'http://' + window.location.host + '/assets/airlines/vjet.png'
-        alt: 'Vietjet Air'))
-
-    $image_vna = $('<div/>',
-      class: 'col-xs-3'
-      html: $('<img/>',
-        src: 'http://' + window.location.host + '/assets/airlines/vna.png'
-        alt: 'Vietnam Airline'))
-
-    $image_jet = $('<div/>',
-      class: 'col-xs-3'
-      html: $('<img/>',
-        src: 'http://' + window.location.host + '/assets/airlines/jet.png'
-        alt: 'Jetstar'))
-
-    $image = switch
-      when flight.airline_type == 'vietnam_airlines' then $image_vna
-      when flight.airline_type == 'jetstar' then $image_jet
-      when flight.airline_type == 'vietjet_air' then $image_vje
-      else $image_vje
-
-    $info = $('<div/>', class: 'col-xs-6')
-
-    $depart = $('<div/>', class: 'depart').append($('<span/>',
-      class: 'time'
-      text: flight.from_time)).append($('<span/>',
-      class: 'stop-station'
-      text: depart_airport.code))
-
-    $arrow = $('<div/>',
-      class: 'arrow-right',
-      html: '<i class="fa fa-long-arrow-right" aria-hidden="true"></i>')
-
-    $arrive = $('<div/>', class: 'arrive').append($('<span/>',
-      class: 'time'
-      text: flight.to_time)).append($('<span/>',
-      class: 'stop-station'
-      text: arrive_airport.code))
-
-    $info.append($depart).append($arrow).append($arrive)
-
-    $button = $('<div/>',
-      class: 'col-xs-3'
-      html: $('<a/>',
-        class: 'btn btn-primary price'
-        href: '#'
-        'data-index': index
-        'data-type': round_type
-        text: App.format_vnd(flight.price_adult)))
-
-    return $wrapper.append($image).append($info).append($button).appendTo(id_container)
+    template = $('#flight-details-template').html()
+    return $(id_container).append(Mustache.render(template, flight_details))
 
   loadDepartureFlights = ->
     $.each tmp.depart_flights, (i, flight) ->
@@ -114,8 +72,10 @@ $(document).on 'turbolinks:load', ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
         itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
+        generatePassengersInfo(itinerary) if !App.isRoundTrip(itinerary.category)
       else
         itinerary.return_flight = tmp.depart_flights[$(this).data('index')]
+        generatePassengersInfo(itinerary)
 
       curStep = $(this).closest ".setup-content"
       curStepBtn = curStep.attr "id"
@@ -124,14 +84,61 @@ $(document).on 'turbolinks:load', ->
       nextStepWizard.removeAttr('disabled').trigger('click')
 
   # generate passenger information
-  
+  addPassengerInfo = (index, category, itinerary) ->
+    name_input = App.paxCategoryName(category) + index
+    date_name_input = 'date' + App.paxCategoryName(category) + index
+    pax_data = 
+      no: index
+      category: App.paxCategoryName(category)
+      titles: App.titles(category)
+      bag_depart_options: App.baggages(itinerary.depart_flight.airline_type)
+      round_trip: App.isRoundTrip(itinerary.category)
+      is_infant: false
+      name_input: name_input
+      date_name_input: date_name_input
+    pax_data.bag_return_options = App.baggages(itinerary.return_flight.airline_type) if App.isRoundTrip(itinerary.category)
+    pax_data.is_infant = category == App.PAX_INFANT ? true : false
+
+    template = $('#passenger-template').html()
+    $('#passenger-info-container').append(Mustache.render(template, pax_data))
+
+    $('input[name="'+name_input+'"]').rules 'add',
+      required: true
+      wordCount: ['2']
+
+    if category == App.PAX_INFANT
+      $('input[name="'+date_name_input+'"]').rules 'add',
+      required: true
+      vietnameseDate: true
+
+  generatePassengersInfo = (itinerary) ->
+    $('#passenger-info-container').html('')
+
+    index = 1
+    i = 1
+    while i <= itinerary.adult_num
+      addPassengerInfo(index, App.PAX_ADULT, itinerary)
+      i++
+      index++
+
+    i = 1
+    while i <= itinerary.child_num
+      addPassengerInfo(index, App.PAX_CHILD, itinerary)
+      i++
+      index++
+
+    i = 1
+    while i <= itinerary.infant_num
+      addPassengerInfo(index, App.PAX_INFANT, itinerary)
+      i++
+      index++
 
   # validate passenger form
-  $('form').validate
+  $('form#passenger-info').validate
     rules:
       contactname:
         required: true
-        minlength: 5
+        wordCount: ['2']
       contactphone:
         required: true
         number: true
@@ -145,9 +152,6 @@ $(document).on 'turbolinks:load', ->
       return
     unhighlight: (element) ->
       $(element).closest('.form-group').removeClass 'has-danger'
-      return
-    success: (element) ->
-      $(element).closest('.form-group').addClass 'has-success'
       return
 
     errorElement: 'div'

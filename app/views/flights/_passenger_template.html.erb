@@ -1,0 +1,80 @@
+<div id="passenger-template" style="display: none;">
+  <div class="pax-info-wrapper">
+    <div class="row">
+      <div class="col-xs-9 offset-xs-1">
+        <div class="pax-number-wrapper">
+          <h5 class="pax-number">
+            Passenger {{no}}:
+            <span class="pax-type">{{category}}</span>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-sm-2 offset-xs-1">
+        <div class="form-group">
+          <select class="form-control">
+            {{#titles}}
+              <option value="{{value}}">{{name}}</option>
+            {{/titles}}
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7">
+        <div class="form-group">
+          <input type="text" class="form-control" name="{{name_input}}" placeholder="FULL NAME">
+        </div>
+      </div>
+    </div>
+    {{^is_infant}}
+      <div class="row">
+        <div class="col-xs-3 col-sm-2 offset-xs-1">
+          <div class="form-group">
+            <label>Baggage depart</label>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7">
+          <div class="form-group">
+            <select class="form-control">
+              {{#bag_depart_options}}
+                <option value="{{weight}}">{{weight}} kg ({{price}})</option>
+              {{/bag_depart_options}}
+            </select>
+          </div>
+        </div>
+      </div>
+      {{#round_trip}}
+        <div class="row">
+          <div class="col-xs-3 col-sm-2 offset-xs-1">
+            <div class="form-group">
+              <label>Baggage return</label>
+            </div>
+          </div>
+          <div class="col-xs-7 col-sm-7">
+            <div class="form-group">
+              <select class="form-control">
+                {{#bag_return_options}}
+                  <option value="{{weight}}">{{weight}} kg ({{price}})</option>
+                {{/bag_return_options}}
+              </select>
+            </div>
+          </div>
+        </div>
+      {{/round_trip}}
+    {{/is_infant}}
+    {{#is_infant}}
+      <div class="row">
+        <div class="col-xs-3 col-sm-2 offset-xs-1">
+          <div class="form-group">
+            <label>Date of birth</label>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7">
+          <div class="form-group">
+            <input type="text" class="form-control" name="{{date_name_input}}" placeholder="DD/MM/YYYY">
+          </div>
+        </div>
+      </div>
+    {{/is_infant}}
+  </div>
+</div>
