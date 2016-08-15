@@ -72,10 +72,10 @@ $(document).on 'turbolinks:load', ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
         itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
-        generatePassengersInfo(itinerary) if !App.isRoundTrip(itinerary.category)
+        updateBaggage(itinerary) if !App.isRoundTrip(itinerary.category)
       else
-        itinerary.return_flight = tmp.depart_flights[$(this).data('index')]
-        generatePassengersInfo(itinerary)
+        itinerary.return_flight = tmp.return_flights[$(this).data('index')]
+        updateBaggage(itinerary)
 
       curStep = $(this).closest ".setup-content"
       curStepBtn = curStep.attr "id"
@@ -89,94 +89,68 @@ $(document).on 'turbolinks:load', ->
     curStepBtn = curStep.attr "id"
     prevStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().prev().children('a')
     prevStepWizard.trigger('click')
+
   $('a.next').click (e) ->
     e.preventDefault()
-    if $('form#passenger-info').valid()
+    if $('form#new_order').valid()
       curStep = $(this).closest ".setup-content"
       curStepBtn = curStep.attr "id"
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
 
   # generate passenger information
-  addPassengerInfo = (index, category, itinerary) ->
-    name_input = App.paxCategoryName(category) + index
-    date_name_input = 'date' + App.paxCategoryName(category) + index
-    pax_data = 
-      no: index
-      category: App.paxCategoryName(category)
-      titles: App.titles(category)
-      bag_depart_options: App.baggages(itinerary.depart_flight.airline_type)
-      round_trip: App.isRoundTrip(itinerary.category)
-      is_infant: false
-      name_input: name_input
-      date_name_input: date_name_input
-    pax_data.bag_return_options = App.baggages(itinerary.return_flight.airline_type) if App.isRoundTrip(itinerary.category)
-    pax_data.is_infant = category == App.PAX_INFANT ? true : false
+  updateBaggage = (itinerary) ->
+    updateOptionsBaggage(itinerary, 'select[name*="depart_lug_weight"]', itinerary.depart_flight.airline_type)
+    updateOptionsBaggage(itinerary, 'select[name*="return_lug_weight"]', itinerary.return_flight.airline_type) if App.isRoundTrip(itinerary.category)
 
-    template = $('#passenger-template').html()
-    $('#passenger-info-container').append(Mustache.render(template, pax_data))
-
-    # validate input name
-    $('input[name="'+name_input+'"]').rules 'add',
-      required: true
-      wordCount: ['2']
-
-    # validate input date of DoB infant
-    if category == App.PAX_INFANT
-      $('input[name="'+date_name_input+'"]').rules 'add',
-      required: true
-      vietnameseDate: true
-
-  generatePassengersInfo = (itinerary) ->
-    $('#passenger-info-container').html('')
-
-    index = 1
-    i = 1
-    while i <= itinerary.adult_num
-      addPassengerInfo(index, App.PAX_ADULT, itinerary)
-      i++
-      index++
-
-    i = 1
-    while i <= itinerary.child_num
-      addPassengerInfo(index, App.PAX_CHILD, itinerary)
-      i++
-      index++
-
-    i = 1
-    while i <= itinerary.infant_num
-      addPassengerInfo(index, App.PAX_INFANT, itinerary)
-      i++
-      index++
+  updateOptionsBaggage = (itinerary, select_selector, airline_type) ->
+    $(select_selector).each (index, val) ->
+      bag_options = App.baggages(airline_type)
+      select = $(this)
+      select.html('')
+      $.each bag_options, (key, value) ->
+        select.append($('<option></option>').attr('value', value.weight).text(value.weight + ' kg (' + value.price + ')' ))
 
   # validate passenger form
-  $('form#passenger-info').validate
-    rules:
-      contact_name:
+  applyFormValidation = ->
+    $('form#new_order').validate
+      rules:
+        "order[contact_name]":
+          required: true
+          wordCount: ['2']
+        "order[contact_phone]":
+          required: true
+          number: true
+          minlength: 10
+          maxlength: 11
+        "order[contact_email]":
+          required: true
+          email: true
+      highlight: (element) ->
+        $(element).closest('.form-group').addClass 'has-danger'
+        return
+      unhighlight: (element) ->
+        $(element).closest('.form-group').removeClass 'has-danger'
+        return
+
+      errorElement: 'div'
+      errorClass: 'form-control-feedback'
+      errorPlacement: (error, element) ->
+        if element.parent('.input-group').length
+          error.insertAfter element.parent()
+        else
+          error.insertAfter element
+        return
+    $('input[name*="name"]').each (index, val) ->
+      $(this).rules 'add',
         required: true
         wordCount: ['2']
-      contact_phone:
-        required: true
-        number: true
-        minlength: 10
-        maxlength: 11
-      contact_email:
-        required: true
-        email: true
-    highlight: (element) ->
-      $(element).closest('.form-group').addClass 'has-danger'
-      return
-    unhighlight: (element) ->
-      $(element).closest('.form-group').removeClass 'has-danger'
-      return
 
-    errorElement: 'div'
-    errorClass: 'form-control-feedback'
-    errorPlacement: (error, element) ->
-      if element.parent('.input-group').length
-        error.insertAfter element.parent()
-      else
-        error.insertAfter element
-      return
+    $('input[name*="dob"]').each (index, val) ->
+      $(this).rules 'add',
+        required: true
+        vietnameseDate: true
+
+  applyFormValidation()
 
   return

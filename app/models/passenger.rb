@@ -6,4 +6,9 @@ class Passenger < ApplicationRecord
     :child,
     :infant
   ]
+
+  enum gender: [
+    :male,
+    :female
+  ]
 end

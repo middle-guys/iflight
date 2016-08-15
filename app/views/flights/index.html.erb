@@ -4,7 +4,7 @@
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
-          <a href="#step-1" class="btn btn-secondary btn-circle" disabled="disabled">1</a>
+          <a href="#step-1" class="btn current btn-circle">1</a>
           <p>Departure</p>
         </div>
         <div class="stepwizard-step">
@@ -16,13 +16,13 @@
           <p>Passengers</p>
         </div>
         <div class="stepwizard-step">
-          <a href="#step-4" class="btn current btn-circle">4</a>
+          <a href="#step-4" class="btn btn-secondary btn-circle" disabled="disabled">4</a>
           <p>Summary</p>
         </div>
       </div>
     </div>
   </div>
-  <%= form_tag orders_path, method: 'post' do %>
+  <%= form_for @order do |f| %>
     <div class="flights-result-wrapper">
       <div class="container">
         <div id="step-1" class="setup-content">
@@ -66,7 +66,7 @@
       </div>
       <div class="container">
         <div id="step-3" class="setup-content">
-          <%= render 'passenger_info' %>
+          <%= render partial: 'passenger_info', locals: {f: f} %>
         </div>
       </div>
       <div class="container">
@@ -88,5 +88,4 @@
     </div>
   <% end %>
 </div>
-<%= render 'passenger_template' %>
 <%= render 'flight_details_template' %>

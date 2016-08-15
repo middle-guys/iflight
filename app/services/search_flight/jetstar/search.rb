@@ -29,7 +29,7 @@ module SearchFlight
 
       def build_options
         {
-          body: self.round_trip?(params[:round_type]) ? two_way_options : one_way_options,
+          body: self.round_trip?(params[:round_type]) ? round_trip_options : one_way_options,
           headers: {
             "Accept-Encoding" => "gzip, deflate",
             "Content-Type" => "application/x-www-form-urlencoded"
@@ -65,7 +65,7 @@ module SearchFlight
         }
       end
 
-      def two_way_options
+      def round_trip_options
         {
           "search-origin01" => "",
           "search-destination01" => "",

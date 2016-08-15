@@ -5,7 +5,74 @@
     </div>
   </div>
 </div>
-<div id="passenger-info-container"></div>
+<%= f.fields_for :passengers do |px| %>
+  <div class="pax-info-wrapper">
+    <div class="row">
+      <div class="col-xs-9 offset-xs-1">
+        <div class="pax-number-wrapper">
+          <h5 class="pax-number">
+            Passenger <%= px.object.no %>:
+            <span class="pax-type"><%= category_name(px.object) %></span>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-sm-2 offset-xs-1">
+        <div class="form-group">
+          <%= px.select :gender, title_options(px.object), {}, {class: "form-control"} %>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7">
+        <div class="form-group">
+          <%= px.text_field :name, class: "form-control", placeholder: "FULL NAME" %>
+        </div>
+      </div>
+    </div>
+    <% unless px.object.infant? %>
+      <div class="row">
+        <div class="col-xs-3 col-sm-2 offset-xs-1">
+          <div class="form-group">
+            <label>Baggage depart</label>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7">
+          <div class="form-group">
+            <%= px.select :depart_lug_weight, {}, {}, {class: "form-control"} %>
+          </div>
+        </div>
+      </div>
+      <% if f.object.round_trip? %>
+        <div class="row">
+          <div class="col-xs-3 col-sm-2 offset-xs-1">
+            <div class="form-group">
+              <label>Baggage return</label>
+            </div>
+          </div>
+          <div class="col-xs-7 col-sm-7">
+            <div class="form-group">
+              <%= px.select :return_lug_weight, {}, {}, {class: "form-control"} %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% if px.object.infant? %>
+      <div class="row">
+        <div class="col-xs-3 col-sm-2 offset-xs-1">
+          <div class="form-group">
+            <label>Date of birth</label>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7">
+          <div class="form-group">
+            <%= px.text_field :dob, class: "form-control", placeholder: "DD/MM/YYYY" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <div class="step-title">
   <div class="row">
     <div class="col-xs-9 offset-xs-1">
@@ -17,15 +84,12 @@
   <div class="row">
     <div class="col-xs-3 col-sm-2 offset-xs-1">
       <div class="form-group">
-        <select class="form-control" name="contact_gender">
-          <option value="1">MR</option>
-          <option value="2">MS</option>
-        </select>
+        <%= f.select :contact_gender, "<option value=1>MR</option><option value=2>MS</option>".html_safe, {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="col-xs-7 col-sm-7">
       <div class="form-group">
-        <input type="text" class="form-control" name="contact_name" placeholder="CONTACT FULL NAME">
+        <%= f.text_field :contact_name, class: "form-control", placeholder: "PHONE CONTACT FULL NAME" %>
       </div>
     </div>
   </div>
@@ -37,7 +101,7 @@
     </div>
     <div class="col-xs-7 col-sm-7">
       <div class="form-group">
-        <input type="text" pattern="\d*" class="form-control" name="contact_phone" placeholder="PHONE NUMBER">
+        <%= f.text_field :contact_phone, class: "form-control", placeholder: "PHONE NUMBER", pattern: "\\d*" %>
       </div>
     </div>
   </div>
@@ -49,7 +113,7 @@
     </div>
     <div class="col-xs-7 col-sm-7">
       <div class="form-group">
-        <input type="email" class="form-control" name="contact_email" placeholder="EMAIL">
+        <%= f.email_field :contact_email, class: "form-control", placeholder: "EMAIL" %>
       </div>
     </div>
   </div>
