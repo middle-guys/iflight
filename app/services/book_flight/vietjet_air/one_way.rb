@@ -23,15 +23,16 @@ module BookFlight
 
         fill_info_page = select_price(selected_price_element)
 
-        checkout_page = fill_info
+        pick_luggage_page = fill_info
+
+        checkout_page = pick_luggage(pick_luggage_page)
+
+        confirm_info_page = checkout
 
         File.open("out.html", "wb") do |f|
           f.write checkout_page.body
           f.close
         end
-
-        # reservation_page = checkout
-
         # {
         #   reservation_code: reservation_page.at("#booking-data booking")["pnr"],
         #   holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
@@ -162,8 +163,90 @@ module BookFlight
         )
       end
 
-      def checkout
+      def pick_luggage(pick_luggage_page)
+        body = {
+          "__VIEWSTATE" => "",
+          "__VIEWSTATEGENERATOR" => "",
+          "SesID" => "",
+          "DebugID" => "35",
+          "button" => "continue",
+          "m1th" => "2",
+          "m1p" => "1",
+          "ctrSeatAssM" => "1",
+          "ctrSeatAssP" => itinerary[:adult_num] + itinerary[:child_num],
+          "-1" => "-1",
+          "shpsel" => "",
+          "chkInsuranceNo" => "N"
+        }
 
+        list_select_elements = pick_luggage_page.search(".lstShopSelect")
+
+        itinerary[:adult_num].times do |index|
+          current_adult = adult_passengers[index]
+          lst_pax_item = list_select_elements[index]
+          current_luggage_index = luggage_index(current_adult[:luggage_depart])
+
+          if current_adult[:luggage_depart] == 0
+            body[lst_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_pax_item.at("option:nth(#{current_luggage_index})")
+            body[lst_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        itinerary[:child_num].times do |index|
+          current_index = itinerary[:adult_num] + index
+          current_child = child_passengers[index]
+          lst_pax_item = list_select_elements[current_index]
+          current_luggage_index = luggage_index(current_child[:luggage_depart])
+
+          if current_child[:luggage_depart] == 0
+            body[lst_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_pax_item.at("option:nth(#{current_luggage_index})")
+            body[lst_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        (itinerary[:adult_num] + itinerary[:child_num]).times do |index|
+          current_index = index + 1
+
+          body["m1p#{current_index}"] = ""
+          body["m1p#{current_index}rpg"] = ""
+          body["hidPaxItem:-#{current_index}:17:2:0"] = "2ƒNAƒ17ƒ2157808ƒ40000ƒFalseƒ3ƒBun XaoƒVJ175 - Ha NoiƒNAƒ2157808ƒ1ƒBun Xao Singaporeƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:64:2:0"] = "2ƒNAƒ64ƒ2158540ƒ55000ƒFalseƒ3ƒCombo Bun XaoƒVJ175 - Ha NoiƒNAƒ2158540ƒ1ƒCombo Bun Xaoƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:24:2:0"] = "2ƒNAƒ24ƒ2158052ƒ40000ƒFalseƒ3ƒMi YƒVJ175 - Ha NoiƒNAƒ2158052ƒ1ƒMi Yƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:92:2:0"] = "2ƒNAƒ92ƒ2378594ƒ55000ƒFalseƒ3ƒCombo My YƒVJ175 - Ha NoiƒNAƒ2378594ƒ1ƒCombo My Yƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+        end
+
+        agent.post(
+          "https://agent.vietjetair.com/AddOns.aspx?lang=vi&st=sl&sesid=",
+          body
+        )
+      end
+
+      def checkout
+        agent.post(
+          "https://agent.vietjetair.com/Payments.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "DebugID" => "",
+            "SesID" => "",
+            "lstPmtType" => "5,PL,0,V,0,0,0",
+            "txtCardNo" => "",
+            "dlstExpiry" => "2015/11/30",
+            "txtCVC" => "",
+            "txtCardholder" => "",
+            "txtAddr1" => "",
+            "txtCity" => "",
+            "txtPCode" => "",
+            "lstCtry" => "-1",
+            "lstProv" => "-1",
+            "txtPhone" => ""
+          }
+        )
       end
     end
   end

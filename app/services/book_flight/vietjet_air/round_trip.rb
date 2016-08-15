@@ -28,7 +28,9 @@ module BookFlight
 
         fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
 
-        checkout_page = fill_info
+        pick_luggage_page = fill_info
+
+        checkout_page = pick_luggage(pick_luggage_page)
 
         File.open("out.html", "wb") do |f|
           f.write checkout_page.body
@@ -169,8 +171,166 @@ module BookFlight
         )
       end
 
-      def checkout
+      def pick_luggage(pick_luggage_page)
+        list_select_elements = pick_luggage_page.search(".lstShopSelect")
 
+        body = {
+          "__VIEWSTATE" => "",
+          "__VIEWSTATEGENERATOR" => "",
+          "SesID" => "",
+          "DebugID" => "35",
+          "button" => "continue",
+          "m1th" => "2",
+          "m1p" => "1",
+          "ctrSeatAssM" => "1",
+          "ctrSeatAssP" => itinerary[:adult_num] + itinerary[:child_num],
+          "-1" => "-1",
+          "shpsel" => "",
+          "chkInsuranceNo" => "N"
+        }
+
+        itinerary[:adult_num].times do |index|
+          current_adult = adult_passengers[index]
+          lst_pax_item = list_select_elements[index]
+          current_luggage_index = luggage_index(current_adult[:luggage_depart])
+
+          if current_adult[:luggage_depart] == 0
+            body[lst_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_pax_item.at("option:nth(#{current_luggage_index})")
+            body[lst_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        itinerary[:child_num].times do |index|
+          current_index = itinerary[:adult_num] + index
+          current_child = child_passengers[index]
+          lst_pax_item = list_select_elements[current_index]
+          current_luggage_index = luggage_index(current_child[:luggage_depart])
+
+          if current_child[:luggage_depart] == 0
+            body[lst_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_pax_item.at("option:nth(#{current_luggage_index})")
+            body[lst_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        (itinerary[:adult_num] + itinerary[:child_num]).times do |index|
+          current_index = index + 1
+
+          body["m1p#{current_index}"] = ""
+          body["m1p#{current_index}rpg"] = ""
+          body["hidPaxItem:-#{current_index}:17:2:0"] = "2ƒNAƒ17ƒ2157808ƒ40000ƒFalseƒ3ƒBun XaoƒVJ175 - Ha NoiƒNAƒ2157808ƒ1ƒBun Xao Singaporeƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:64:2:0"] = "2ƒNAƒ64ƒ2158540ƒ55000ƒFalseƒ3ƒCombo Bun XaoƒVJ175 - Ha NoiƒNAƒ2158540ƒ1ƒCombo Bun Xaoƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:24:2:0"] = "2ƒNAƒ24ƒ2158052ƒ40000ƒFalseƒ3ƒMi YƒVJ175 - Ha NoiƒNAƒ2158052ƒ1ƒMi Yƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:92:2:0"] = "2ƒNAƒ92ƒ2378594ƒ55000ƒFalseƒ3ƒCombo My YƒVJ175 - Ha NoiƒNAƒ2378594ƒ1ƒCombo My Yƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+        end
+
+        agent.post(
+          "https://agent.vietjetair.com/AddOns.aspx?lang=vi&st=sl&sesid=",
+          body
+        )
+      end
+      def pick_luggage(pick_luggage_page)
+        # "ctrSeatAssM" => "2",
+        # "lstPaxItem:-1:2:25:0" => "2:-1:1137296:2",
+        # "hidPaxItem:-1:2:2:0" => "2|NA|2|1137296|130000|False|3|Goi (Bag) 15kgs|VJ175|NA|1137296|1|Goi Hanh Ly (Prepaid Baggage) 15kgs|130,000 VND|130000|13000.00|0|0",
+        # "lstPaxItem:-2:2:57:0" => "4:-2:1138026:2",
+        # "hidPaxItem:-2:4:2:0" => "2|NA|4|1138026|200000|False|3|Goi (Bag) 25kgs|VJ175|NA|1138026|1|Goi Hanh Ly (Prepaid Baggage) 25kg|200,000 VND|200000|20000.00|0|0",
+        # "lstPaxItem:-3:2:89:0" => "52:-3:1138391:2",
+        # "hidPaxItem:-3:52:2:0" => "2|NA|52|1138391|350000|False|3|Goi (Bag) 35kgs|VJ175|NA|1138391|1|Goi Hanh Ly (Prepaid Baggage) 35kgs|350,000 VND|350000|35000.00|0|0",
+        # "lstPaxItem:-4:2:121:0" => "91:-4:2378349:2",
+        # "hidPaxItem:-4:91:2:0" => "2|NA|91|2378349|400000|False|3|Goi (Bag) 40kgs|VJ175|NA|2378349|1|Goi Hanh Ly (Prepaid Baggage) 40kgs|400,000 VND|400000|40000.00|0|0",
+
+        body = {
+          "__VIEWSTATE" => "",
+          "__VIEWSTATEGENERATOR" => "",
+          "SesID" => "",
+          "DebugID" => "35",
+          "button" => "continue",
+          "m1th" => "2",
+          "m1p" => "1",
+          "m2th" => "11",
+          "m2p" => "1",
+          "ctrSeatAssM" => "1",
+          "ctrSeatAssP" => itinerary[:adult_num] + itinerary[:child_num],
+          "-1" => "-1",
+          "shpsel" => "",
+          "chkInsuranceNo" => "N"
+        }
+
+        list_select_elements = pick_luggage_page.search(".lstShopSelect")
+
+        itinerary[:adult_num].times do |index|
+          current_adult = adult_passengers[index]
+          lst_depart_pax_item = list_select_elements[2 * index]
+          lst_return_pax_item = list_select_elements[2 * index + 1]
+          current_depart_luggage_index = luggage_index(current_adult[:luggage_depart])
+          current_return_luggage_index = luggage_index(current_adult[:luggage_return])
+
+          if current_adult[:luggage_depart] == 0
+            body[lst_depart_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_depart_pax_item.at("option:nth(#{current_depart_luggage_index})")
+            body[lst_depart_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+
+          if current_adult[:luggage_return] == 0
+            body[lst_return_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_return_pax_item.at("option:nth(#{current_return_luggage_index})")
+            body[lst_return_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        itinerary[:child_num].times do |index|
+          current_index = 2 * (itinerary[:adult_num] + index)
+          current_child = child_passengers[index]
+          lst_depart_pax_item = list_select_elements[current_index]
+          lst_return_pax_item = list_select_elements[current_index + 1]
+          current_depart_luggage_index = luggage_index(current_child[:luggage_depart])
+          current_return_luggage_index = luggage_index(current_child[:luggage_return])
+
+          if current_child[:luggage_depart] == 0
+            body[lst_depart_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_depart_pax_item.at("option:nth(#{current_depart_luggage_index})")
+            body[lst_depart_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+
+          if current_child[:luggage_return] == 0
+            body[lst_return_pax_item["name"]] = "-1"
+          else
+            option_pax_item = lst_return_pax_item.at("option:nth(#{current_return_luggage_index})")
+            body[lst_return_pax_item["name"]] = option_pax_item["value"]
+            body["hidPaxItem:#{option_pax_item['hidpaxitem']}"] = option_pax_item["hidpaxvalue"]
+          end
+        end
+
+        (itinerary[:adult_num] + itinerary[:child_num]).times do |index|
+          current_index = index + 1
+
+          body["m1p#{current_index}"] = ""
+          body["m1p#{current_index}rpg"] = ""
+          body["m2p#{current_index}"] = ""
+          body["m2p#{current_index}rpg"] = ""
+          body["hidPaxItem:-#{current_index}:17:2:0"] = "2ƒNAƒ17ƒ2157808ƒ40000ƒFalseƒ3ƒBun XaoƒVJ175 - Ha NoiƒNAƒ2157808ƒ1ƒBun Xao Singaporeƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:64:2:0"] = "2ƒNAƒ64ƒ2158540ƒ55000ƒFalseƒ3ƒCombo Bun XaoƒVJ175 - Ha NoiƒNAƒ2158540ƒ1ƒCombo Bun Xaoƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:24:2:0"] = "2ƒNAƒ24ƒ2158052ƒ40000ƒFalseƒ3ƒMi YƒVJ175 - Ha NoiƒNAƒ2158052ƒ1ƒMi Yƒ40,000 VNDƒ40000ƒ4000.00ƒ0ƒ0"
+          body["hidPaxItem:-#{current_index}:92:2:0"] = "2ƒNAƒ92ƒ2378594ƒ55000ƒFalseƒ3ƒCombo My YƒVJ175 - Ha NoiƒNAƒ2378594ƒ1ƒCombo My Yƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
+        end
+
+        ap body
+        agent.post(
+          "https://agent.vietjetair.com/AddOns.aspx?lang=vi&st=sl&sesid=",
+          body
+        )
       end
     end
   end

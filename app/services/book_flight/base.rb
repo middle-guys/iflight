@@ -6,7 +6,7 @@ module BookFlight
     def call
       params = {
         itinerary: {
-          category: "RT",
+          category: "OW",
           ori_airport: {
             code: "SGN",
             name: "Hồ Chí Minh",
@@ -32,7 +32,7 @@ module BookFlight
           flight_code: "VJ184",
           from_time: "9:20",
           to_time: "10:40",
-          price_no_fee: 900000,
+          price_no_fee: 799000,
           price_adult: 1081000,
           price_child: 1041000,
           price_infant: 150000,
@@ -60,28 +60,28 @@ module BookFlight
             full_name: "Nguyen Van Tien",
             category: 1,
             gender: 1,
-            luggage_depart: 15,
-            luggage_return: 0
+            luggage_depart: 0,
+            luggage_return: 30
           },
           {
             full_name: "Nguyen Thi Lien",
             category: 1,
             gender: 2,
-            luggage_depart: 0,
-            luggage_return: 0
+            luggage_depart: 15,
+            luggage_return: 35
           },
           {
             full_name: "Nguyen Tien Len",
             category: 2,
             gender: 1,
-            luggage_depart: 0,
-            luggage_return: 0
+            luggage_depart: 20,
+            luggage_return: 40
           },
           {
             full_name: "Nguyen Ngoc Nhi",
             category: 2,
             gender: 2,
-            luggage_depart: 0,
+            luggage_depart: 25,
             luggage_return: 0
           },
           {

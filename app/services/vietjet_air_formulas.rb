@@ -39,4 +39,25 @@ class VietjetAirFormulas
       "F"
     end
   end
+
+  def luggage_index(weight)
+    case weight
+    when 0
+      1
+    when 15
+      2
+    when 20
+      3
+    when 25
+      4
+    when 30
+      5
+    when 35
+      6
+    when 40
+      7
+    else
+      1
+    end
+  end
 end
