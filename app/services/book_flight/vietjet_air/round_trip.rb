@@ -28,8 +28,10 @@ module BookFlight
 
         fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
 
+        checkout_page = fill_info
+
         File.open("out.html", "wb") do |f|
-          f.write fill_info_page.body
+          f.write checkout_page.body
           f.close
         end
 
@@ -92,7 +94,79 @@ module BookFlight
       end
 
       def fill_info
+        body = {
+          "__VIEWSTATE" => "",
+          "__VIEWSTATEGENERATOR" => "",
+          "SesID" => "",
+          "DebugID" => "11",
+          "button" => "continue",
+          "txtPax1_City" => "Ho Chi Minh",
+          "txtPax1_Ctry" => "234",
+          "txtPax1_Prov" => "-1",
+          "txtPax1_EMail" => contact[:email],
+          "txtPax1_Phone1" => contact[:phone],
+          "txtPax1_Phone2" => contact[:phone],
+          "txtPax1_Addr1" => "8/24 Hoang Hoa Tham - Binh Thanh",
+          "txtResNotes" => ""
+        }
 
+        itinerary[:adult_num].times do |index|
+          current_index = index + 1
+          current_adult = adult_passengers[index]
+
+          body["txtPax#{current_index}_Gender"] = gender(current_adult[:gender])
+          body["txtPax#{current_index}_LName"] = last_name(current_adult[:full_name])
+          body["txtPax#{current_index}_FName"] = first_name(current_adult[:full_name])
+          body["txtPax#{current_index}_DOB_Day"] = ""
+          body["txtPax#{current_index}_DOB_Month"] = ""
+          body["txtPax#{current_index}_DOB_Year"] = ""
+          body["txtPax#{current_index}_Passport"] = ""
+          body["dlstPax#{current_index}_PassportExpiry_Day"] = ""
+          body["dlstPax#{current_index}_PassportExpiry_Month"] = ""
+          body["lstPax#{current_index}_PassportCtry"] = ""
+          body["txtPax#{current_index}_Nationality"] = ""
+          body["hidPax#{current_index}_Search"] = "-1"
+
+          current_infant = infant_passengers[index]
+          if current_infant
+            body["chkPax#{current_index}_Infant"] = "on"
+            body["txtPax#{current_index}_Infant_DOB_Day"] = format_day(current_infant[:dob])
+            body["txtPax#{current_index}_Infant_DOB_Month"] = format_month(current_infant[:dob])
+            body["txtPax#{current_index}_Infant_DOB_Year"] = format_year(current_infant[:dob])
+            body["txtPax#{current_index}_Infant_FName"] = last_name(current_infant[:full_name])
+            body["txtPax#{current_index}_Infant_LName"] = first_name(current_infant[:full_name])
+          else
+            body["txtPax#{current_index}_Infant_DOB_Day"] = ""
+            body["txtPax#{current_index}_Infant_DOB_Month"] = ""
+            body["txtPax#{current_index}_Infant_DOB_Year"] = ""
+            body["txtPax#{current_index}_Infant_FName"] = ""
+            body["txtPax#{current_index}_Infant_LName"] = ""
+          end
+        end
+
+        itinerary[:child_num].times do |index|
+          current_index = itinerary[:adult_num] + index + 1
+          current_child = child_passengers[index]
+
+          body["txtPax#{current_index}_Gender"] = "C"
+          body["txtPax#{current_index}_LName"] = last_name(current_child[:full_name])
+          body["txtPax#{current_index}_FName"] = first_name(current_child[:full_name])
+          body["txtPax#{current_index}_Phone1"] = ""
+          body["txtPax#{current_index}_DOB_Day"] = ""
+          body["txtPax#{current_index}_DOB_Month"] = ""
+          body["txtPax#{current_index}_DOB_Year"] = ""
+          body["txtPax#{current_index}_Passport"] = ""
+          body["dlstPax#{current_index}_PassportExpiry_Day"] = ""
+          body["dlstPax#{current_index}_PassportExpiry_Month"] = ""
+          body["lstPax#{current_index}_PassportCtry"] = ""
+          body["txtPax#{current_index}_Nationality"] = ""
+          body["hidPax#{current_index}_Search"] = "-1"
+        end
+
+        agent.post(
+          "https://agent.vietjetair.com/Details.aspx?lang=vi&st=sl&sesid=",
+          body
+        )
       end
 
       def checkout

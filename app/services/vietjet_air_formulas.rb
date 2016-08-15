@@ -31,4 +31,12 @@ class VietjetAirFormulas
   def format_currency(number)
     number_to_currency(number, delimiter: ",", format: "%n VND", precision: 0)
   end
+
+  def gender(gender_id)
+    if gender_id == 1
+      "M"
+    else
+      "F"
+    end
+  end
 end
