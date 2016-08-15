@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  include FlightFormulas
+
   def new
     @uuid = SecureRandom.uuid
     @ori_airport = Airport.find(params[:ori_airport_id])
@@ -10,7 +12,7 @@ class OrdersController < ApplicationController
     @infant = params[:infant_num].to_i
 
     @order = Order.new
-    if params[:itinerary_type] == "RT"
+    if self.round_trip?(params[:itinerary_type])
       @order.category = :round_trip
     else
       @order.category = :one_way
@@ -38,21 +40,21 @@ class OrdersController < ApplicationController
 
     flight_depart = @order.flights.new
     flight_depart.category = :depart
-    if params[:itinerary_type] == "RT"
+    if self.round_trip?(params[:itinerary_type])
       flight_return = @order.flights.new
       flight_return.category = :return      
     end
 
     CrawlFlightsJob.perform_later(
       uuid: @uuid,
-      ori_code: "SGN",
-      des_code: "HAN",
-      depart_date: "14/08/2016",
-      adult: 2,
-      child: 1,
-      infant: 1,
-      return_date: "15/08/2016",
-      round_type: "RT"
+      ori_code: @ori_airport.code,
+      des_code: @des_airport.code,
+      depart_date: @from_date,
+      return_date: @to_date,
+      adult: @adult,
+      child: @child,
+      infant: @infant,
+      round_type: params[:itinerary_type]
     )
   end
 
