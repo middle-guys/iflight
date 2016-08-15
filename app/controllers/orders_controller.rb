@@ -65,6 +65,6 @@ class OrdersController < ApplicationController
 
   private
     def order_params
-      params.require(:order).permit(:category, :from_date, :to_date, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob])
+      params.require(:order).permit(:category, :from_date, :to_date, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], flights_attributes: [:category, :airline_type, :flight_code, :from_time, :to_time, :price_no_fee])
     end
 end

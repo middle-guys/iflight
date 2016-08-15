@@ -67,21 +67,21 @@ $(document).on "turbolinks:load", ->
   ]
   titles_adult = [
     {
-      value: 1
+      value: 'male'
       name: 'MR'
     }
     {
-      value: 2
+      value: 'female'
       name: 'MS'
     }
   ]
   titles_child = [
     {
-      value: 1
+      value: 'male'
       name: 'MSTR'
     }
     {
-      value: 2
+      value: 'female'
       name: 'MISS'
     }
   ]

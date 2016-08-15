@@ -11,11 +11,11 @@ module PassengersHelper
     end
   end
 
-  def title_options(passenger)
-    if passenger.adult?
-      return "<option value=1>MR</option><option value=2>MS</option>".html_safe
+  def title_options(is_adult)
+    if is_adult
+      return "<option value='male'>MR</option><option value='female'>MS</option>".html_safe
     else
-      return "<option value=1>MSTR</option><option value=2>MISS</option>".html_safe
+      return "<option value='male'>MSTR</option><option value='female'>MISS</option>".html_safe
     end
   end
 end
