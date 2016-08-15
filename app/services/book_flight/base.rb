@@ -6,7 +6,7 @@ module BookFlight
     def call
       params = {
         itinerary: {
-          category: "OW",
+          category: "RT",
           ori_airport: {
             code: "SGN",
             name: "Hồ Chí Minh",
@@ -21,8 +21,8 @@ module BookFlight
             short_name: "HN",
             is_domestic: true
           },
-          depart_date: "16/08/2016",
-          return_date: "17/08/2016",
+          depart_date: "18/08/2016",
+          return_date: "19/08/2016",
           adult_num: 2,
           child_num: 2,
           infant_num: 2

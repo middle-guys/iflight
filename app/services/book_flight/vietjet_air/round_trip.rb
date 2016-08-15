@@ -32,19 +32,16 @@ module BookFlight
 
         checkout_page = pick_luggage(pick_luggage_page)
 
-        File.open("out.html", "wb") do |f|
-          f.write checkout_page.body
-          f.close
-        end
+        confirm_info_page = checkout
 
-        # checkout_page = fill_info
+        process_page = confirm_info
 
-        # reservation_page = checkout
+        reservation_page = process
 
-        # {
-        #   reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-        #   holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
-        # }
+        {
+          reservation_code: reservation_page.at("span.ResNumber").text,
+          holding_date: reservation_page.at("form h1:nth(2)").text
+        }
       end
 
       def search
@@ -234,17 +231,8 @@ module BookFlight
           body
         )
       end
-      def pick_luggage(pick_luggage_page)
-        # "ctrSeatAssM" => "2",
-        # "lstPaxItem:-1:2:25:0" => "2:-1:1137296:2",
-        # "hidPaxItem:-1:2:2:0" => "2|NA|2|1137296|130000|False|3|Goi (Bag) 15kgs|VJ175|NA|1137296|1|Goi Hanh Ly (Prepaid Baggage) 15kgs|130,000 VND|130000|13000.00|0|0",
-        # "lstPaxItem:-2:2:57:0" => "4:-2:1138026:2",
-        # "hidPaxItem:-2:4:2:0" => "2|NA|4|1138026|200000|False|3|Goi (Bag) 25kgs|VJ175|NA|1138026|1|Goi Hanh Ly (Prepaid Baggage) 25kg|200,000 VND|200000|20000.00|0|0",
-        # "lstPaxItem:-3:2:89:0" => "52:-3:1138391:2",
-        # "hidPaxItem:-3:52:2:0" => "2|NA|52|1138391|350000|False|3|Goi (Bag) 35kgs|VJ175|NA|1138391|1|Goi Hanh Ly (Prepaid Baggage) 35kgs|350,000 VND|350000|35000.00|0|0",
-        # "lstPaxItem:-4:2:121:0" => "91:-4:2378349:2",
-        # "hidPaxItem:-4:91:2:0" => "2|NA|91|2378349|400000|False|3|Goi (Bag) 40kgs|VJ175|NA|2378349|1|Goi Hanh Ly (Prepaid Baggage) 40kgs|400,000 VND|400000|40000.00|0|0",
 
+      def pick_luggage(pick_luggage_page)
         body = {
           "__VIEWSTATE" => "",
           "__VIEWSTATEGENERATOR" => "",
@@ -326,10 +314,61 @@ module BookFlight
           body["hidPaxItem:-#{current_index}:92:2:0"] = "2ƒNAƒ92ƒ2378594ƒ55000ƒFalseƒ3ƒCombo My YƒVJ175 - Ha NoiƒNAƒ2378594ƒ1ƒCombo My Yƒ55,000 VNDƒ55000ƒ5500.00ƒ0ƒ0"
         end
 
-        ap body
         agent.post(
           "https://agent.vietjetair.com/AddOns.aspx?lang=vi&st=sl&sesid=",
           body
+        )
+      end
+
+      def checkout
+        agent.post(
+          "https://agent.vietjetair.com/Payments.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "button" => "3rd",
+            "DebugID" => "",
+            "SesID" => "",
+            "lstPmtType" => "5,PL,0,V,0,0,0",
+            "txtCardNo" => "",
+            "dlstExpiry" => "2015/11/30",
+            "txtCVC" => "",
+            "txtCardholder" => "",
+            "txtAddr1" => "",
+            "txtCity" => "",
+            "txtPCode" => "",
+            "lstCtry" => "-1",
+            "lstProv" => "-1",
+            "txtPhone" => ""
+          }
+        )
+      end
+
+      def confirm_info
+        agent.post(
+          "https://agent.vietjetair.com/Confirm.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "DebugID" => "36",
+            "button" => "continue",
+            "txtPax1_Gender" => "F",
+            "txtPax1_LName" => "Pham",
+            "txtPax1_FName" => "Thi Minh Chau",
+            "chkIAgree" => "on"
+          }
+        )
+      end
+
+      def process
+        agent.post(
+          "https://agent.vietjetair.com/Processing.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "SesID" => "",
+            "DebugID" => "36"
+          }
         )
       end
     end

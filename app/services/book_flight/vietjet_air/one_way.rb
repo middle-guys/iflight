@@ -29,14 +29,14 @@ module BookFlight
 
         confirm_info_page = checkout
 
-        File.open("out.html", "wb") do |f|
-          f.write checkout_page.body
-          f.close
-        end
-        # {
-        #   reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-        #   holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
-        # }
+        process_page = confirm_info
+
+        reservation_page = process
+
+        {
+          reservation_code: reservation_page.at("span.ResNumber").text,
+          holding_date: reservation_page.at("form h1:nth(2)").text
+        }
       end
 
       def search
@@ -232,6 +232,8 @@ module BookFlight
           "https://agent.vietjetair.com/Payments.aspx?lang=vi&st=sl&sesid=",
           {
             "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "button" => "3rd",
             "DebugID" => "",
             "SesID" => "",
             "lstPmtType" => "5,PL,0,V,0,0,0",
@@ -245,6 +247,34 @@ module BookFlight
             "lstCtry" => "-1",
             "lstProv" => "-1",
             "txtPhone" => ""
+          }
+        )
+      end
+
+      def confirm_info
+        agent.post(
+          "https://agent.vietjetair.com/Confirm.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "DebugID" => "36",
+            "button" => "continue",
+            "txtPax1_Gender" => "F",
+            "txtPax1_LName" => "Pham",
+            "txtPax1_FName" => "Thi Minh Chau",
+            "chkIAgree" => "on"
+          }
+        )
+      end
+
+      def process
+        agent.post(
+          "https://agent.vietjetair.com/Processing.aspx?lang=vi&st=sl&sesid=",
+          {
+            "__VIEWSTATE" => "",
+            "__VIEWSTATEGENERATOR" => "",
+            "SesID" => "",
+            "DebugID" => "36"
           }
         )
       end
