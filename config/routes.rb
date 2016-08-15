@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }
 
-  get 'flights/index'
-
   resources :routes do
     collection do
       get 'destination'
