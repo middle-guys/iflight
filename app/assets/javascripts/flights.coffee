@@ -72,9 +72,11 @@ $(document).on 'turbolinks:load', ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
         itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
+        updateFlight(itinerary.depart_flight, 0)
         updateBaggage(itinerary) if !App.isRoundTrip(itinerary.category)
       else
         itinerary.return_flight = tmp.return_flights[$(this).data('index')]
+        updateFlight(itinerary.return_flight, 1)
         updateBaggage(itinerary)
 
       curStep = $(this).closest ".setup-content"
@@ -99,6 +101,13 @@ $(document).on 'turbolinks:load', ->
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
 
   # generate passenger information
+  updateFlight = (flight, index) ->
+    $('input[name="order[flights_attributes]['+index+'][airline_type]"]').val(flight.airline_type)
+    $('input[name="order[flights_attributes]['+index+'][flight_code]"]').val(flight.flight_code)
+    $('input[name="order[flights_attributes]['+index+'][from_time]"]').val(flight.from_time)
+    $('input[name="order[flights_attributes]['+index+'][to_time]"]').val(flight.to_time)
+    $('input[name="order[flights_attributes]['+index+'][price_no_fee]"]').val(flight.price_no_fee)
+
   updateBaggage = (itinerary) ->
     updateOptionsBaggage(itinerary, 'select[name*="depart_lug_weight"]', itinerary.depart_flight.airline_type)
     updateOptionsBaggage(itinerary, 'select[name*="return_lug_weight"]', itinerary.return_flight.airline_type) if App.isRoundTrip(itinerary.category)

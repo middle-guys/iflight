@@ -5,6 +5,9 @@ class FlightsController < ApplicationController
     @des_airport = Airport.find(params[:des_airport_id])
     @from_date = params[:from_date]
     @to_date = params[:to_date]
+    @adult = params[:adult_num].to_i
+    @child = params[:child_num].to_i
+    @infant = params[:infant_num].to_i
 
     @order = Order.new
     if params[:itinerary_type] == "RT"
@@ -14,23 +17,30 @@ class FlightsController < ApplicationController
     end
 
     pax_no = 1
-    params[:adult_num].to_i.times do |i|
+    @adult.times do |i|
       passenger = @order.passengers.new
       passenger.category = :adult
       passenger.no = pax_no
       pax_no += 1
     end
-    params[:child_num].to_i.times do |i|
+    @child.times do |i|
       passenger = @order.passengers.new
       passenger.category = :child
       passenger.no = pax_no
       pax_no += 1
     end
-    params[:infant_num].to_i.times do |i|
+    @infant.times do |i|
       passenger = @order.passengers.new
       passenger.category = :infant
       passenger.no = pax_no
       pax_no += 1
+    end
+
+    flight_depart = @order.flights.new
+    flight_depart.category = :depart
+    if params[:itinerary_type] == "RT"
+      flight_return = @order.flights.new
+      flight_return.category = :return      
     end
 
     CrawlFlightsJob.perform_later(

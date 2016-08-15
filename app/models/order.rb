@@ -6,6 +6,7 @@ class Order < ApplicationRecord
   has_many :passengers
 
   accepts_nested_attributes_for :passengers
+  accepts_nested_attributes_for :flights
 
   enum status: [
     :reserving,
