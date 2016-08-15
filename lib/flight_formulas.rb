@@ -36,6 +36,10 @@ module FlightFormulas
     date_str.to_date.strftime("%Y-%m")
   end
 
+  def format_date(date_str)
+    date_str.to_date.strftime("%d/%m/%Y")
+  end
+
   def first_name(full_name)
     full_name.match(" ").post_match
   end

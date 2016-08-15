@@ -29,10 +29,10 @@ module BookFlight
         },
         depart_flight: {
           airline_type: "jetstar",
-          flight_code: "BL 788",
+          flight_code: "VJ184",
           from_time: "9:20",
           to_time: "10:40",
-          price_no_fee: 1020000,
+          price_no_fee: 900000,
           price_adult: 1081000,
           price_child: 1041000,
           price_infant: 150000,
@@ -40,10 +40,10 @@ module BookFlight
         },
         return_flight: {
           airline_type: "jetstar",
-          flight_code: "BL 799",
+          flight_code: "VJ175",
           from_time: "9:35",
           to_time: "10:55",
-          price_no_fee: 890000,
+          price_no_fee: 900000,
           price_adult: 652000,
           price_child: 612000,
           price_infant: 150000,
@@ -105,7 +105,8 @@ module BookFlight
         price_luggage_return: 80000
       }
 
-      BookFlight::Jetstar::Book.new(params).call
+      # BookFlight::Jetstar::Book.new(params).call
+      BookFlight::VietjetAir::Book.new(params).call
     end
   end
 end
