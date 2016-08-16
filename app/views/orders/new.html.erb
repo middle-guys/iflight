@@ -26,6 +26,8 @@
     <%= f.hidden_field :category, value: f.object.category %>
     <%= f.hidden_field :ori_airport_id, value: @ori_airport.id %>
     <%= f.hidden_field :des_airport_id, value: @des_airport.id %>
+    <%= f.hidden_field :date_depart, value: @date_depart %>
+    <%= f.hidden_field :date_return, value: @date_return %>
     <%= f.hidden_field :adult, value: @adult %>
     <%= f.hidden_field :child, value: @child %>
     <%= f.hidden_field :infant, value: @infant %>
@@ -47,7 +49,7 @@
             <div class="row">
               <div class="col-xs-9 offset-xs-1">
                 <h4>Select Departure</h4>
-                <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @from_date %></div>
+                <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></div>
               </div>
             </div>
           </div>
@@ -67,7 +69,7 @@
             <div class="row">
               <div class="col-xs-9 offset-xs-1">
                 <h4>Select Return</h4>
-                <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @to_date %></div>
+                <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
               </div>
             </div>
           </div>

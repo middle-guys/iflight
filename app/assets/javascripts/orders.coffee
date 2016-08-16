@@ -45,8 +45,8 @@ $(document).on 'turbolinks:load', ->
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
     flight_details =
-      from_time: flight.from_time
-      to_time: flight.to_time
+      time_depart: flight.time_depart
+      time_arrive: flight.time_arrive
       ori_code: depart_airport.code
       des_code: arrive_airport.code
       price: App.format_vnd(flight.price_adult)

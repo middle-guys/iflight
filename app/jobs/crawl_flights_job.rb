@@ -19,8 +19,8 @@ class CrawlFlightsJob < ApplicationJob
         category: params[:round_type],
         ori_airport: Airport.find_by(code: params[:ori_code]),
         des_airport: Airport.find_by(code: params[:des_code]),
-        from_date: params[:depart_date],
-        to_date: params[:return_date],
+        date_depart: params[:date_depart],
+        date_return: params[:date_return],
         adult_num: params[:adult],
         child_num: params[:child],
         infant_num: params[:infant]
