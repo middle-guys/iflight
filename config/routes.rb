@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders
+  resources :orders do
+    member do
+      post 'confirmation'
+    end
+  end
 
   match '/webhook' => 'homes#webhook', via: [:get, :post]
 end

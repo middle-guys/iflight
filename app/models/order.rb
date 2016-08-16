@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :flights
 
   enum status: [
+    :init,
     :reserving,
     :done,
     :failed,

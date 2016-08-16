@@ -25,28 +25,28 @@ class OrdersController < ApplicationController
 
     pax_no = 1
     @adult.times do |i|
-      passenger = @order.passengers.new
+      passenger = @order.passengers.build
       passenger.category = :adult
       passenger.no = pax_no
       pax_no += 1
     end
     @child.times do |i|
-      passenger = @order.passengers.new
+      passenger = @order.passengers.build
       passenger.category = :child
       passenger.no = pax_no
       pax_no += 1
     end
     @infant.times do |i|
-      passenger = @order.passengers.new
+      passenger = @order.passengers.build
       passenger.category = :infant
       passenger.no = pax_no
       pax_no += 1
     end
 
-    flight_depart = @order.flights.new
+    flight_depart = @order.flights.build
     flight_depart.category = :depart
     if self.round_trip?(params[:itinerary_type])
-      flight_return = @order.flights.new
+      flight_return = @order.flights.build
       flight_return.category = :return      
     end
 
@@ -66,14 +66,23 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.order_number = Order.generate_order_number
-    byebug
+    @order.user = User.first
+    @order.status = :init
+    if @order.save
+      redirect_to action: "confirmation", id: @order.id
+    else
+      flash[:error] = "Something wrongs ! #{@order.errors.full_messages.to_sentence}"
+      byebug
+      redirect_to :back
+    end
   end
 
-  def show
+  def confirmation
+    @order = Order.find(params[:id])
   end
 
   private
     def order_params
-      params.require(:order).permit(:category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
+      params.require(:order).permit(:category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob])
     end
 end
