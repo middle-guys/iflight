@@ -4,6 +4,7 @@ describe "user sign in" do
   it "allows users to sign in after they have registered" do
     user = User.new(:email    => "alindeman@example.com",
                        :password => "ilovegrapes")
+    user.skip_confirmation!
     user.save! validate: false
 
     visit "/users/sign_in"
