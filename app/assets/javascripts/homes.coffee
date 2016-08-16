@@ -48,9 +48,9 @@ $(document).on 'turbolinks:load', ->
 
   $('.lbl_itinerary_type').click (e) ->
     if e.currentTarget.htmlFor == 'itinerary_type_round_trip'
-      $('#to_date').prop 'disabled', false
+      $('#date_return').prop 'disabled', false
     else
-      $('#to_date').prop 'disabled', true
+      $('#date_return').prop 'disabled', true
     return
 
   $('input[name="adult_num"]').TouchSpin

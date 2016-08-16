@@ -7,16 +7,20 @@
           <a href="#step-1" class="btn current btn-circle">1</a>
           <p>Departure</p>
         </div>
+        <% if @is_round_trip %>
+          <div class="stepwizard-step">
+            <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
+            <p>Return</p>
+          </div>
+          <% @step_number += 1 %>
+        <% end %>
         <div class="stepwizard-step">
-          <a href="#step-2" class="btn btn-secondary btn-circle" disabled="disabled">2</a>
-          <p>Return</p>
-        </div>
-        <div class="stepwizard-step">
-          <a href="#step-3" class="btn btn-secondary btn-circle" disabled="disabled">3</a>
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
           <p>Passengers</p>
         </div>
+        <% @step_number += 1 %>
         <div class="stepwizard-step">
-          <a href="#step-4" class="btn btn-secondary btn-circle" disabled="disabled">4</a>
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
           <p>Summary</p>
         </div>
       </div>
@@ -63,33 +67,38 @@
           <div id="depature-flights"></div>
         </div>
       </div>
-      <div class="container">
-        <div id="step-2" class="setup-content">
-          <div class="step-title">
+      <% @step_number = 2 %>
+      <% if @is_round_trip %>
+        <div class="container">
+          <div id="step-<%= @step_number %>" class="setup-content">
+            <div class="step-title">
+              <div class="row">
+                <div class="col-xs-9 offset-xs-1">
+                  <h4>Select Return</h4>
+                  <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-xs-9 offset-xs-1">
-                <h4>Select Return</h4>
-                <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
+                <div class="price-info-bar">
+                  Pricing is include ticket price and all taxes for all passengers
+                </div>
               </div>
             </div>
+            <div id="return-flights"></div>
           </div>
-          <div class="row">
-            <div class="col-xs-9 offset-xs-1">
-              <div class="price-info-bar">
-                Pricing is include ticket price and all taxes for all passengers
-              </div>
-            </div>
-          </div>
-          <div id="return-flights"></div>
         </div>
-      </div>
+        <% @step_number += 1 %>
+      <% end %>
       <div class="container">
-        <div id="step-3" class="setup-content">
+        <div id="step-<%= @step_number %>" class="setup-content">
           <%= render partial: 'passenger_info', locals: {f: f} %>
         </div>
       </div>
+      <% @step_number += 1 %>
       <div class="container">
-        <div id="step-4" class="setup-content">
+        <div id="step-<%= @step_number %>" class="setup-content">
           <div class="step-title">
             <div class="row">
               <div class="col-xs-9 offset-xs-1">

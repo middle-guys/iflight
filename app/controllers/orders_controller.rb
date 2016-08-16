@@ -12,12 +12,15 @@ class OrdersController < ApplicationController
     @adult = params[:adult_num].to_i
     @child = params[:child_num].to_i
     @infant = params[:infant_num].to_i
+    @step_number = 2
 
     @order = Order.new
     if self.round_trip?(params[:itinerary_type])
       @order.category = :round_trip
+      @is_round_trip = true
     else
       @order.category = :one_way
+      @is_round_trip = false
     end
 
     pax_no = 1
