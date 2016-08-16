@@ -23,7 +23,7 @@ class Order < ApplicationRecord
   def self.generate_order_number
     loop do
       @order_number = SecureRandom.hex(16/4).upcase
-      break unless Order.exist?(order_number: @order_number)
+      break unless Order.exists?(order_number: @order_number)
     end
     @order_number
   end

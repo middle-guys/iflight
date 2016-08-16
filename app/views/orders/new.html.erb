@@ -26,19 +26,18 @@
     <%= f.hidden_field :category, value: f.object.category %>
     <%= f.hidden_field :ori_airport_id, value: @ori_airport.id %>
     <%= f.hidden_field :des_airport_id, value: @des_airport.id %>
-    <%= f.hidden_field :from_date, value: @from_date %>
-    <%= f.hidden_field :to_date, value: @to_date %>
     <%= f.hidden_field :adult, value: @adult %>
     <%= f.hidden_field :child, value: @child %>
     <%= f.hidden_field :infant, value: @infant %>
 
     <%= f.fields_for :flights do |flight| %>
       <%= flight.hidden_field :category, value: flight.object.category %>
-      <%= flight.hidden_field :airline_type, value: "" %>
-      <%= flight.hidden_field :flight_code, value: "" %>
-      <%= flight.hidden_field :from_time, value: "" %>
-      <%= flight.hidden_field :to_time, value: "" %>
-      <%= flight.hidden_field :price_no_fee, value: "" %>
+      <%= flight.hidden_field :plane_category_id, value: "" %>
+      <%= flight.hidden_field :code_flight, value: "" %>
+      <%= flight.hidden_field :time_depart, value: "" %>
+      <%= flight.hidden_field :time_arrive, value: "" %>
+      <%= flight.hidden_field :price_web, value: "" %>
+      <%= flight.hidden_field :price_total, value: "" %>
     <% end %>
 
     <div class="flights-result-wrapper">

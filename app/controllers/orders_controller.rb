@@ -1,3 +1,5 @@
+require "flight_formulas"
+
 class OrdersController < ApplicationController
   include FlightFormulas
 
@@ -5,8 +7,8 @@ class OrdersController < ApplicationController
     @uuid = SecureRandom.uuid
     @ori_airport = Airport.find(params[:ori_airport_id])
     @des_airport = Airport.find(params[:des_airport_id])
-    @from_date = params[:from_date]
-    @to_date = params[:to_date]
+    @depart_date = params[:depart_date]
+    @return_date = params[:return_date]
     @adult = params[:adult_num].to_i
     @child = params[:child_num].to_i
     @infant = params[:infant_num].to_i
@@ -49,8 +51,8 @@ class OrdersController < ApplicationController
       uuid: @uuid,
       ori_code: @ori_airport.code,
       des_code: @des_airport.code,
-      depart_date: @from_date,
-      return_date: @to_date,
+      depart_date: @depart_date,
+      return_date: @return_date,
       adult: @adult,
       child: @child,
       infant: @infant,
@@ -59,6 +61,8 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.new(order_params)
+    @order.order_number = Order.generate_order_number
     byebug
   end
 
@@ -67,6 +71,6 @@ class OrdersController < ApplicationController
 
   private
     def order_params
-      params.require(:order).permit(:category, :from_date, :to_date, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], flights_attributes: [:category, :airline_type, :flight_code, :from_time, :to_time, :price_no_fee])
+      params.require(:order).permit(:category, :from_date, :to_date, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
     end
 end
