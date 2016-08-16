@@ -1,6 +1,6 @@
 module BookFlight
-  module Jetstar
-    class RoundTrip < JetstarFormulas
+  module VietnamAirlines
+    class RoundTrip < VietnamAirlinesFormulas
       attr_accessor :agent, :itinerary, :depart_flight, :return_flight, :passengers, :contact, :adult_passengers, :child_passengers, :infant_passengers
 
       def initialize(agent, params)

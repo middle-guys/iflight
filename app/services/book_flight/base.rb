@@ -106,7 +106,7 @@ module BookFlight
       }
 
       # BookFlight::Jetstar::Book.new(params).call
-      BookFlight::VietjetAir::Book.new(params).call
+      BookFlight::VietnamAirlines::Book.new(params).call
     end
   end
 end

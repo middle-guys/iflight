@@ -1,13 +1,12 @@
 module BookFlight
-  module Jetstar
-    class RoundTrip < JetstarFormulas
-      attr_accessor :agent, :itinerary, :depart_flight, :return_flight, :passengers, :contact, :adult_passengers, :child_passengers, :infant_passengers
+  module VietnamAirlines
+    class OneWay < VietnamAirlinesFormulas
+      attr_accessor :agent, :itinerary, :depart_flight, :passengers, :contact, :adult_passengers, :child_passengers, :infant_passengers
 
       def initialize(agent, params)
         @agent = agent
         @itinerary = params[:itinerary]
         @depart_flight = params[:depart_flight]
-        @return_flight = params[:return_flight]
         @passengers = params[:passengers]
         @contact = params[:contact]
         @adult_passengers = passengers.select{ |x| x[:category] == 1 }
@@ -16,17 +15,13 @@ module BookFlight
       end
 
       def call
-        search_page = search
+        select_price_page = search
 
-        depart_selected_price_element = get_selected_price_element(search_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
+        selected_price_element = get_selected_price_element(select_price_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
-        return 404 unless depart_selected_price_element
+        return 404 unless selected_price_element
 
-        return_selected_price_element = get_selected_price_element(search_page, "return", return_flight[:flight_code], return_flight[:price_no_fee])
-
-        return 404 unless return_selected_price_element
-
-        fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
+        fill_info_page = select_price(selected_price_element)
 
         checkout_page = fill_info
 
@@ -46,42 +41,37 @@ module BookFlight
             "__EVENTARGUMENT" => "",
             "__VIEWSTATE" => "",
             "pageToken" => "",
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$RadioButtonMarketStructure" => "RoundTrip",
+            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$RadioButtonMarketStructure" => "OneWay",
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketOrigin1" => itinerary[:ori_airport][:code],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketDestination1" => itinerary[:des_airport][:code],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextboxDepartureDate1" => format_date(itinerary[:depart_date]),
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextboxDepartureDate2" => format_date(itinerary[:return_date]),
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_ADT" => itinerary[:adult_num],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_CHD" => itinerary[:child_num],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_INFANT" => itinerary[:infant_num],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_ADT" => itinerary[:adult_num],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_CHD" => itinerary[:child_num],
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_INFANT" => itinerary[:infant_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$numberTrips" => 2,
             "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$ButtonSubmit" => ""
           }
         )
       end
 
-      def select_price(depart_flight_price_selection, return_flight_price_selection)
+      def select_price(flight_price_selection)
         body = {
           "__EVENTTARGET" => "ControlGroupAgentSelectView$ButtonSubmit",
           "__EVENTARGUMENT" => "",
           "__VIEWSTATE" => "",
           "pageToken" => "",
-          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$HiddenFieldTabIndex1" => 3,
-          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$HiddenFieldTabIndex2" => 4,
-          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$market1" => depart_flight_price_selection.at("input")["value"],
-          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$market2" => return_flight_price_selection.at("input")["value"],
+          "bannerFileName" => "",
           "baggage-selection-toggler" => "on",
-          "AgentAdditionalBaggagePassengerView$AdditionalBaggageDropDownListJourney0" => "BG15",
-          "AgentAdditionalBaggagePassengerView$AdditionalBaggageDropDownListJourney1" => "BG15",
-          "marketstructure" => "RoundTrip"
+          "marketstructure" => "OneWay",
+          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$HiddenFieldTabIndex1" => 2,
+          "ControlGroupAgentSelectView$AvailabilityInputAgentSelectView$market1" => flight_price_selection.at("input")["value"],
+          "AgentAdditionalBaggagePassengerView$AdditionalBaggageDropDownListJourney0" => "BG15"
         }
 
         (itinerary[:adult_num] + itinerary[:child_num]).times do |index|
           body["AgentAdditionalBaggagePassengerView$AdditionalBaggageDropDownListJourney0Pax#{index}"] = luggage(passengers[index][:luggage_depart])
-          body["AgentAdditionalBaggagePassengerView$AdditionalBaggageDropDownListJourney1Pax#{index}"] = luggage(passengers[index][:luggage_return])
         end
 
         agent.post(
@@ -90,7 +80,7 @@ module BookFlight
         )
       end
 
-       def fill_info
+      def fill_info
         body = {
           "__EVENTTARGET" => "AgentControlGroupPassengerView$ButtonSubmit",
           "__EVENTARGUMENT" => "",
@@ -115,7 +105,6 @@ module BookFlight
 
         (itinerary[:adult_num] + itinerary[:child_num]).times do |index|
           body["AgentControlGroupPassengerView$AgentUnitMapSeatsView$HiddenEquipmentConfiguration_0_PassengerNumber_#{index}"] = ""
-          body["AgentControlGroupPassengerView$AgentUnitMapSeatsView$HiddenEquipmentConfiguration_1_PassengerNumber_#{index}"] = ""
         end
 
         current_index_adult = 0
@@ -215,6 +204,7 @@ module BookFlight
         )
         agent.get "https://agenthub.jetstar.com/Wait.aspx"
         agent.get "https://agenthub.jetstar.com/Wait.aspx"
+
         agent.get "https://agenthub.jetstar.com/htl2-Itinerary.aspx"
       end
     end
