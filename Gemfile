@@ -24,7 +24,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
@@ -33,7 +33,9 @@ gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'font-awesome-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'rollbar'
+gem 'awesome_print'
+gem 'mechanize'
+gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -58,6 +60,10 @@ group :development do
   gem 'rb-fsevent', :require => false # Mac OSX
   gem 'guard-compass'
   gem 'guard-livereload', '~> 2.5', require: false
+end
+
+group :production, :staging do
+  gem 'rails_12factor', '~> 0.0.3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       get 'destination'
     end
   end
+
+  match '/webhook' => 'homes#webhook', via: [:get, :post]
 end

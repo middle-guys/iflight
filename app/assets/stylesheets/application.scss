@@ -5,9 +5,9 @@ $brand-second-darker: #e8c501;
 $brand-grey: #80828b;
 
 @import "bootstrap";
-@import "jquery-ui.css";
-@import "bootstrap-datepicker3.standalone.css";
-@import "jquery.bootstrap-touchspin.css";
+@import "jquery-ui";
+@import "bootstrap-datepicker3.standalone";
+@import "jquery.bootstrap-touchspin";
 @import "font-awesome";
 @import "global";
 @import "header";
