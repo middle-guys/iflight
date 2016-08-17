@@ -1,9 +1,11 @@
-Welcome to example.com, <%= @alert.name %>
+Welcome to Iflight, <%= @alert.name %>
 ===============================================
  
-You have successfully signed up to example.com,
-your username is: <%= @alert.name %>.
+You have successfully subbcrible notification on our website.
  
-To login to the site, just follow this link: <%= @url %>.
- 
+We will send to you notification when the ticket price less than your price expectation.
+
 Thanks for joining and have a great day!
+
+If you want not get notification, please click link below to unsubcrible
+<%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token) %>

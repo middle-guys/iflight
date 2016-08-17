@@ -4,15 +4,15 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @alert.name %></h1>
-    <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token) %>
+    <h1>Welcome to Iflight, <%= @alert.name %></h1>
     <p>
-      You have successfully signed up to example.com,
-      your username is: <%= @alert.name %>.<br>
+      You have successfully subbcrible notification on our website.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      We will send to you notification when the ticket price less than your price expectation.
     </p>
     <p>Thanks for joining and have a great day!</p>
+    <p>If you want not get notification, please click link below to unsubcrible</p>
+    <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token) %>
   </body>
 </html>

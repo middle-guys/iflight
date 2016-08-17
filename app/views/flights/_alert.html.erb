@@ -13,9 +13,11 @@
               <%= f.object.errors.full_messages.to_sentence %>
             </div>
           <% end %>
+          <input type="hidden" value="<%= @trip_type%>" name= "trip_type"/>
           <%= f.hidden_field :ori_air_id, :value => @ori_airport_id%>
           <%= f.hidden_field :des_air_id, :value => @des_airport_id%>
           <%= f.hidden_field :time_start, :value => @from_date%>
+          <input type="hidden" value="<%= @to_date%>" name= "todate"/>
           <div class="form-group">
             <label for="usr">Enter your name</label>
             <% if user_signed_in? %>

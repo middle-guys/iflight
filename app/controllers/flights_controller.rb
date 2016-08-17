@@ -5,5 +5,6 @@ class FlightsController < ApplicationController
   	@des_airport_id = params["des_airport_id"]
   	@from_date = params["from_date"]
   	@to_date = params["to_date"]
+  	@trip_type = params["itinerary_type"]
   end
 end
