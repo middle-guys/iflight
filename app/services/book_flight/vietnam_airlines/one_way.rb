@@ -30,7 +30,7 @@ module BookFlight
       end
 
       def close
-        # browser.close
+        browser.close
       end
     end
   end

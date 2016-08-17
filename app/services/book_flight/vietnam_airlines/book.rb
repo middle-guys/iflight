@@ -1,4 +1,4 @@
-require 'open-uri'
+require "watir-webdriver"
 module BookFlight
   module VietnamAirlines
     class Book < VietnamAirlinesFormulas

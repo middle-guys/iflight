@@ -15,24 +15,24 @@ module BookFlight
             is_domestic: true
           },
           des_airport: {
-            code: "HAN",
+            code: "DAD",
             name: "Hà Nội",
             name_unsigned: "Ha Noi",
             short_name: "HN",
             is_domestic: true
           },
-          depart_date: "18/08/2016",
-          return_date: "19/08/2016",
+          depart_date: "19/08/2016",
+          return_date: "20/08/2016",
           adult_num: 2,
           child_num: 2,
           infant_num: 2
         },
         depart_flight: {
           airline_type: "jetstar",
-          flight_code: "VJ184",
+          flight_code: "VN7242",
           from_time: "9:20",
           to_time: "10:40",
-          price_no_fee: 799000,
+          price_no_fee: 1099000,
           price_adult: 1081000,
           price_child: 1041000,
           price_infant: 150000,
