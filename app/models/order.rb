@@ -5,15 +5,27 @@ class Order < ApplicationRecord
   has_many :flights
   has_many :passengers
 
-  enum status: [
+  accepts_nested_attributes_for :passengers
+  accepts_nested_attributes_for :flights
+
+  enum status: {
+    init: "init",
     reserving: "reserving",
     done: "done",
     failed: "failed",
     cancelled: "cancelled"
-  ]
+  }
 
-  enum category: [
+  enum category: {
     one_way: "one_way",
     round_trip: "round_trip"
-  ]
+  }
+
+  def self.generate_order_number
+    loop do
+      @order_number = SecureRandom.hex(16/4).upcase
+      break unless Order.exists?(order_number: @order_number)
+    end
+    @order_number
+  end
 end

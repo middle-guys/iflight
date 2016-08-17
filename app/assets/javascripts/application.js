@@ -15,12 +15,16 @@
 //= require jquery-ui
 //= require bootstrap-datepicker
 //= require jquery.bootstrap-touchspin
+//= require jquery.validate
+//= require mustache
 //= require tether
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require init
 //= require sort_by
 //= require number_formatter
+//= require itinerary_helper
+//= require validator_helper
 //= require homes
 //= require cable
-//= require flights
+//= require orders

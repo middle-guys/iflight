@@ -3,11 +3,15 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }
 
-  get 'flights/index'
-
   resources :routes do
     collection do
       get 'destination'
+    end
+  end
+
+  resources :orders do
+    member do
+      post 'confirmation'
     end
   end
 

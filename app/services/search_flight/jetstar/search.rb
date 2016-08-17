@@ -62,7 +62,7 @@ module SearchFlight
         }
       end
 
-      def two_way_options
+      def round_trip_options
         {
           "search-origin01" => "",
           "search-destination01" => "",
