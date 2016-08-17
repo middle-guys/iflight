@@ -180,3 +180,47 @@ $border-grey: #DDD;
   font-size: 0.8em;
   color: $brand-grey;
 }
+
+.flight-wrapper, .pax-wrapper {
+  margin-bottom: 3em;
+}
+
+.flight-title p, .pax-title p {
+  background-color: $brand-second;
+  padding-top: .5em;
+  padding-bottom: .5em;
+  padding-left: .8em;
+  color: #000000;
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
+.flight-block {
+  padding-left: .5em;
+  border: 1px solid #ededed;
+  border-top: 0;
+  padding-top: 1em;
+
+  .flight-img-logo {
+    display: inline-block;
+    float: left;
+    height: 80px;
+
+    img {
+      width: 60px;
+    }
+  }
+
+  p {
+    margin-left: 4em;
+  }
+}
+
+.pax-block {
+  padding-left: .5em;
+  border: 1px solid #ededed;
+  border-top: 0;
+  padding-top: 1em;
+  p {
+    margin-left: .5em;
+  }
+}

@@ -2,67 +2,82 @@ $(document).on "turbolinks:load", ->
   bag_vjet = [
     {
       weight: 0
-      price: App.format_vnd(0)
+      price_str: App.format_vnd(0)
+      price: 0
     }
     {
       weight: 15
-      price: App.format_vnd(143000)
+      price_str: App.format_vnd(143000)
+      price: 143000
     }
     {
       weight: 20
-      price: App.format_vnd(165000)
+      price_str: App.format_vnd(165000)
+      price: 165000
     }
     {
       weight: 25
-      price: App.format_vnd(220000)
+      price_str: App.format_vnd(220000)
+      price: 220000
     }
     {
       weight: 30
-      price: App.format_vnd(330000)
+      price_str: App.format_vnd(330000)
+      price: 330000
     }
     {
       weight: 35
-      price: App.format_vnd(385000)
+      price_str: App.format_vnd(385000)
+      price: 385000
     }
     {
       weight: 40
-      price: App.format_vnd(440000)
+      price_str: App.format_vnd(440000)
+      price: 440000
     }
   ]
   bag_jet = [
     {
       weight: 0
-      price: App.format_vnd(0)
+      price_str: App.format_vnd(0)
+      price: 0
     }
     {
       weight: 15
-      price: App.format_vnd(150000)
+      price_str: App.format_vnd(150000)
+      price: 150000
     }
     {
       weight: 20
-      price: App.format_vnd(170000)
+      price_str: App.format_vnd(170000)
+      price: 170000
     }
     {
       weight: 25
-      price: App.format_vnd(230000)
+      price_str: App.format_vnd(230000)
+      price: 230000
     }
     {
       weight: 30
-      price: App.format_vnd(300000)
+      price_str: App.format_vnd(300000)
+      price: 300000
     }
     {
       weight: 35
-      price: App.format_vnd(350000)
+      price_str: App.format_vnd(350000)
+      price: 350000
     }
     {
       weight: 40
-      price: App.format_vnd(400000)
+      price_str: App.format_vnd(400000)
+      price: 400000
     }
   ]
   bag_vna = [
     {
       weight: 20
-      price: App.format_vnd(0)
+      price_str: App.format_vnd(0)
+      price: 0
     }
   ]
   titles_adult = [
@@ -99,6 +114,20 @@ $(document).on "turbolinks:load", ->
       when airline_category == 'jetstar' then bag_jet
       when airline_category == 'vietjet_air' then bag_vjet
       else return []
+
+  App.plane_category_name = (airline_category) ->
+    switch
+      when airline_category == 'vietnam_airlines' then 'Vietnam Airline'
+      when airline_category == 'jetstar' then 'Jetstar'
+      when airline_category == 'vietjet_air' then 'Vietjet Air'
+      else return ''
+
+  App.plane_img_name = (airline_category) ->
+    switch
+      when airline_category == 'vietnam_airlines' then 'vna.png'
+      when airline_category == 'jetstar' then 'jet.png'
+      when airline_category == 'vietjet_air' then 'vjet.png'
+      else return ''
 
   App.is_vnairline = (airline_category) ->
     return airline_category == 'vietnam_airlines'

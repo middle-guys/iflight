@@ -20,7 +20,7 @@
         </div>
         <% @step_number += 1 %>
         <div class="stepwizard-step">
-          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle"><%= @step_number %></a>
           <p>Summary</p>
         </div>
       </div>
@@ -99,21 +99,11 @@
       <% @step_number += 1 %>
       <div class="container">
         <div id="step-<%= @step_number %>" class="setup-content">
-          <div class="step-title">
-            <div class="row">
-              <div class="col-xs-9 offset-xs-1">
-                <h4>Summary</h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-8 offset-xs-2" style="text-align: center;">
-                <button type="submit" class="btn btn-primary btn-lg">BOOK NOW!</button>
-              </div>
-            </div>
-          </div>
+          <%= render 'summary' %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 <%= render 'flight_details_template' %>
+<%= render 'summary_flight_template' %>

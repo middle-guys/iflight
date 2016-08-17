@@ -72,11 +72,15 @@ $(document).on 'turbolinks:load', ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
         itinerary.depart_flight = tmp.depart_flights[$(this).data('index')]
-        updateFlight(itinerary.depart_flight, 0)
+        updateFlightSummary(itinerary.depart_flight, '#flight-depart')
+        updateFlightHiddenFields(itinerary.depart_flight, 0)
+        updatePriceTotalSummary(itinerary)
         updateBaggage(itinerary) if !App.isRoundTrip(itinerary.category)
       else
         itinerary.return_flight = tmp.return_flights[$(this).data('index')]
-        updateFlight(itinerary.return_flight, 1)
+        updateFlightSummary(itinerary.return_flight, '#flight-return')
+        updateFlightHiddenFields(itinerary.return_flight, 1)
+        updatePriceTotalSummary(itinerary)
         updateBaggage(itinerary)
 
       curStep = $(this).closest ".setup-content"
@@ -101,7 +105,7 @@ $(document).on 'turbolinks:load', ->
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
 
   # generate passenger information
-  updateFlight = (flight, index) ->
+  updateFlightHiddenFields = (flight, index) ->
     $('input[name="order[flights_attributes]['+index+'][plane_category_id]"]').val(flight.plane_category_id)
     $('input[name="order[flights_attributes]['+index+'][airline_type]"]').val(flight.airline_type)
     $('input[name="order[flights_attributes]['+index+'][code_flight]"]').val(flight.code_flight)
@@ -120,7 +124,47 @@ $(document).on 'turbolinks:load', ->
       select = $(this)
       select.html('')
       $.each bag_options, (key, value) ->
-        select.append($('<option></option>').attr('value', value.weight).text(value.weight + ' kg (' + value.price + ')' ))
+        select.append($('<option></option>').attr('value', value.weight).attr('price', value.price).text(value.weight + ' kg (' + value.price_str + ')' ))
+
+  # update summary tab
+  updatePriceTotalSummary = (itinerary) ->
+    tmp_price_total = itinerary.depart_flight.price_total
+    if itinerary.return_flight != undefined
+      tmp_price_total = tmp_price_total + itinerary.return_flight.price_total
+
+    $('select[name*="lug_weight"] option:selected').each (index, val) ->
+      tmp_price_total = tmp_price_total + parseInt($(this).attr('price'))
+
+    $('.pax-block .price-total').html(App.format_vnd(tmp_price_total))
+
+  updateFlightSummary = (flight, id_container) ->
+    flight.plane_category_name = App.plane_category_name(flight.airline_type)
+    flight.is_jetstar = App.is_jetstar(flight.airline_type)
+    flight.is_vietjet = App.is_vietjet(flight.airline_type)
+    flight.is_vnairline = App.is_vnairline(flight.airline_type)
+    flight.price_total_str = App.format_vnd(flight.price_total)
+    template = $('#summary-flight-template').html()
+    return $(id_container).html(Mustache.render(template, flight))
+
+  updateContactSummary = ->
+    $('.contact-block span.title').html($('select#order_contact_gender option:selected').text())
+    $('.contact-block span.name').html($('input[name="order[contact_name]"]').val())
+    $('.contact-block span.phone').html($('input[name="order[contact_phone]"]').val())
+    $('.contact-block span.email').html($('input[name="order[contact_email]"]').val())
+
+  registerContactEvents = ->
+    $("[data-behavior~=update-summary]").focusout ->
+      updateContactSummary()
+    $('select#order_contact_gender').change ->
+      updateContactSummary()
+
+  registerContactEvents()
+
+  registerSelectBaggageEvents = ->
+    $('select[name*="lug_weight"]').change ->
+      updatePriceTotalSummary(itinerary)
+
+  registerSelectBaggageEvents()
 
   # validate passenger form
   applyFormValidation = ->
