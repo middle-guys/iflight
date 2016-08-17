@@ -1,5 +1,7 @@
 module FlightFormulas
-  def agent
+  include ActionView::Helpers::NumberHelper
+
+  def agent_with_proxy
     agent = Mechanize.new
     agent.set_proxy(proxy, ENV["PROXY_PORT"], ENV["PROXY_USERNAME"], ENV["PROXY_PASSWORD"])
 
@@ -22,15 +24,27 @@ module FlightFormulas
     date_str.to_date.strftime("%d")
   end
 
-  def format_date_jet(date_str)
+  def format_month(date_str)
+    date_str.to_date.strftime("%m")
+  end
+
+  def format_year(date_str)
+    date_str.to_date.strftime("%Y")
+  end
+
+  def format_year_month(date_str)
+    date_str.to_date.strftime("%Y-%m")
+  end
+
+  def format_date(date_str)
     date_str.to_date.strftime("%d/%m/%Y")
   end
 
-  def format_date_vna(date_str)
-    date_str.to_date.strftime("%Y-%m-%d")
+  def first_name(full_name)
+    full_name.match(" ").post_match
   end
 
-  def format_month(date_str)
-    date_str.to_date.strftime("%Y-%m")
+  def last_name(full_name)
+    full_name.match(" ").pre_match
   end
 end

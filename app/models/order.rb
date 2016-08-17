@@ -8,18 +8,18 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :passengers
   accepts_nested_attributes_for :flights
 
-  enum status: [
-    :init,
-    :reserving,
-    :done,
-    :failed,
-    :cancelled
-  ]
+  enum status: {
+    init: "init",
+    reserving: "reserving",
+    done: "done",
+    failed: "failed",
+    cancelled: "cancelled"
+  }
 
-  enum category: [
-    :one_way,
-    :round_trip
-  ]
+  enum category: {
+    one_way: "one_way",
+    round_trip: "round_trip"
+  }
 
   def self.generate_order_number
     loop do
