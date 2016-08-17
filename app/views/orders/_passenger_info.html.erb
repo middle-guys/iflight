@@ -7,6 +7,7 @@
 </div>
 <%= f.fields_for :passengers do |px| %>
   <%= px.hidden_field :category, value: px.object.category %>
+  <%= px.hidden_field :no, value: px.object.no %>
   <div class="pax-info-wrapper">
     <div class="row">
       <div class="col-xs-9 offset-xs-1">

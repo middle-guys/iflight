@@ -77,7 +77,9 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    @order = Order.find(params[:id])
+    @order = Order.last
+    @flight_depart = @order.flights.first
+    @flight_return = @order.flights.last
   end
 
   private
