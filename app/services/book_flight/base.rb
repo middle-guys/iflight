@@ -6,7 +6,7 @@ module BookFlight
     def call
       params = {
         itinerary: {
-          category: "RT",
+          category: "OW",
           ori_airport: {
             code: "SGN",
             name: "Hồ Chí Minh",
