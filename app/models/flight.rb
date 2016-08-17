@@ -1,5 +1,5 @@
 class Flight < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, inverse_of: :flights
   belongs_to :plane_category
 
   enum category: [

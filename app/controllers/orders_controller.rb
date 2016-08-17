@@ -72,7 +72,6 @@ class OrdersController < ApplicationController
       redirect_to action: "confirmation", id: @order.id
     else
       flash[:error] = "Something wrongs ! #{@order.errors.full_messages.to_sentence}"
-      byebug
       redirect_to :back
     end
   end
@@ -83,6 +82,10 @@ class OrdersController < ApplicationController
 
   private
     def order_params
-      params.require(:order).permit(:category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender, :adult, :child, :infant, :ori_airport_id, :des_airport_id, passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
+      params.require(:order).permit(
+        :category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender, 
+        :adult, :child, :infant, :ori_airport_id, :des_airport_id, 
+        passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], 
+        flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
     end
 end

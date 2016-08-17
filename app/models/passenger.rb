@@ -1,5 +1,5 @@
 class Passenger < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, inverse_of: :passengers
 
   enum category: [
     :adult,
