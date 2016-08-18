@@ -60,4 +60,11 @@ class VietjetAirFormulas
       1
     end
   end
+
+  def get_holding_date(str)
+    first_index = str.index /[0-9]/
+    last_index = str.index ")"
+
+    str[first_index..last_index].to_datetime
+  end
 end

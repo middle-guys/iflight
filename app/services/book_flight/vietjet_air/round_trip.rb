@@ -16,32 +16,36 @@ module BookFlight
       end
 
       def call
-        select_price_page = search
+        begin
+          select_price_page = search
 
-        depart_selected_price_element = get_selected_price_element(select_price_page, "toDepDiv", depart_flight[:flight_code], depart_flight[:price_no_fee])
+          depart_selected_price_element = get_selected_price_element(select_price_page, "toDepDiv", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
-        return 404 unless depart_selected_price_element
+          return 404 unless depart_selected_price_element
 
-        return_selected_price_element = get_selected_price_element(select_price_page, "toRetDiv", return_flight[:flight_code], return_flight[:price_no_fee])
+          return_selected_price_element = get_selected_price_element(select_price_page, "toRetDiv", return_flight[:flight_code], return_flight[:price_no_fee])
 
-        return 404 unless return_selected_price_element
+          return 404 unless return_selected_price_element
 
-        fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
+          fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
 
-        pick_luggage_page = fill_info
+          pick_luggage_page = fill_info
 
-        checkout_page = pick_luggage(pick_luggage_page)
+          checkout_page = pick_luggage(pick_luggage_page)
 
-        confirm_info_page = checkout
+          confirm_info_page = checkout
 
-        process_page = confirm_info
+          process_page = confirm_info
 
-        reservation_page = process
+          reservation_page = process
 
-        {
-          reservation_code: reservation_page.at("span.ResNumber").text,
-          holding_date: reservation_page.at("form h1:nth(2)").text
-        }
+          {
+            reservation_code: reservation_page.at("span.ResNumber").text,
+            holding_date: reservation_page.at("form h1:nth(2)").text
+          }
+        rescue
+          404
+        end
       end
 
       def search

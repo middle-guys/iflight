@@ -1,112 +1,70 @@
 module BookFlight
   class Base
-    def initialize
+    attr_accessor :params
+    def initialize(params)
+      @params = params
     end
 
     def call
-      params = {
-        itinerary: {
-          category: "OW",
-          ori_airport: {
-            code: "SGN",
-            name: "Hồ Chí Minh",
-            name_unsigned: "Ho Chi Minh",
-            short_name: "HCM",
-            is_domestic: true
-          },
-          des_airport: {
-            code: "DAD",
-            name: "Hà Nội",
-            name_unsigned: "Ha Noi",
-            short_name: "HN",
-            is_domestic: true
-          },
-          depart_date: "19/08/2016",
-          return_date: "20/08/2016",
-          adult_num: 2,
-          child_num: 2,
-          infant_num: 2
-        },
-        depart_flight: {
-          airline_type: "jetstar",
-          flight_code: "VN7242",
-          from_time: "9:20",
-          to_time: "10:40",
-          price_no_fee: 1099000,
-          price_adult: 1081000,
-          price_child: 1041000,
-          price_infant: 150000,
-          price_total: 1081000
-        },
-        return_flight: {
-          airline_type: "jetstar",
-          flight_code: "VJ175",
-          from_time: "9:35",
-          to_time: "10:55",
-          price_no_fee: 900000,
-          price_adult: 652000,
-          price_child: 612000,
-          price_infant: 150000,
-          price_total: 652000
-        },
-        contact: {
-          full_name: "Le Do Na",
-          gender: 1,
-          phone: "0933554440",
-          email: "ledona@gmail.com"
-        },
-        passengers: [
-          {
-            full_name: "Nguyen Van Tien",
-            category: 1,
-            gender: 1,
-            luggage_depart: 0,
-            luggage_return: 30
-          },
-          {
-            full_name: "Nguyen Thi Lien",
-            category: 1,
-            gender: 2,
-            luggage_depart: 15,
-            luggage_return: 35
-          },
-          {
-            full_name: "Nguyen Tien Len",
-            category: 2,
-            gender: 1,
-            luggage_depart: 20,
-            luggage_return: 40
-          },
-          {
-            full_name: "Nguyen Ngoc Nhi",
-            category: 2,
-            gender: 2,
-            luggage_depart: 25,
-            luggage_return: 0
-          },
-          {
-            full_name: "Nguyen Tien Dat",
-            category: 3,
-            gender: 1,
-            luggage_depart: 0,
-            luggage_return: 0,
-            dob: "31/08/2014"
-          },
-          {
-            full_name: "Nguyen Ngan Khanh",
-            category: 3,
-            gender: 2,
-            luggage_depart: 0,
-            luggage_return: 0,
-            dob: "31/03/2015"
-          }
-        ],
-        price_luggage_depart: 80000,
-        price_luggage_return: 80000
-      }
+      depart_reservation = nil
+      return_reservation = nil
 
-      # BookFlight::Jetstar::Book.new(params).call
-      BookFlight::VietnamAirlines::Book.new(params).call
+      if params[:itinerary][:category] == "OW" || params[:depart_flight][:airline_type] == params[:return_flight][:airline_type]
+        if vietnam_airlines?(params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::VietnamAirlines::Book.new(params).call
+        elsif jetstar?(params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::Jetstar::Book.new(params).call
+        elsif vietjet_air?(params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::VietjetAir::Book.new(params).call
+        end
+      else
+        depart_params = Marshal.load(Marshal.dump(params))
+        return_params = Marshal.load(Marshal.dump(params))
+
+        depart_params[:itinerary][:category] = "OW"
+
+        return_params[:itinerary][:category] = "OW"
+        return_params[:itinerary][:ori_airport] = params[:itinerary][:des_airport]
+        return_params[:itinerary][:des_airport] = params[:itinerary][:ori_airport]
+        return_params[:depart_flight] = params[:return_flight]
+        return_params[:itinerary][:depart_date] = params[:itinerary][:return_date]
+        return_params[:passengers].each_with_index do |passenger, index|
+          passenger[:luggage_depart] = params[:passengers][index][:luggage_return]
+        end
+
+        if vietnam_airlines?(depart_params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::VietnamAirlines::Book.new(depart_params).call
+        elsif jetstar?(depart_params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::Jetstar::Book.new(depart_params).call
+        elsif vietjet_air?(depart_params[:depart_flight][:airline_type])
+          depart_reservation = BookFlight::VietjetAir::Book.new(depart_params).call
+        end
+
+        if vietnam_airlines?(return_params[:depart_flight][:airline_type])
+          return_reservation = BookFlight::VietnamAirlines::Book.new(return_params).call
+        elsif jetstar?(return_params[:depart_flight][:airline_type])
+          return_reservation = BookFlight::Jetstar::Book.new(return_params).call
+        elsif vietjet_air?(return_params[:depart_flight][:airline_type])
+          return_reservation = BookFlight::VietjetAir::Book.new(return_params).call
+        end
+      end
+
+      {
+        depart_reservation: depart_reservation,
+        return_reservation: return_reservation
+      }
+    end
+
+    def vietnam_airlines?(airline_type)
+      airline_type == PlaneCategory.categories[:vietnam_airlines]
+    end
+
+    def vietjet_air?(airline_type)
+      airline_type == PlaneCategory.categories[:vietjet_air]
+    end
+
+    def jetstar?(airline_type)
+      airline_type == PlaneCategory.categories[:jetstar]
     end
   end
 end

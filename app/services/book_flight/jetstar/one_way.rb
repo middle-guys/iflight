@@ -15,44 +15,51 @@ module BookFlight
       end
 
       def call
-        select_price_page = search
+        begin
+          select_price_page = search
 
-        selected_price_element = get_selected_price_element(select_price_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
+          selected_price_element = get_selected_price_element(select_price_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
-        return 404 unless selected_price_element
+          return 404 unless selected_price_element
 
-        fill_info_page = select_price(selected_price_element)
+          fill_info_page = select_price(selected_price_element)
 
-        checkout_page = fill_info
+          checkout_page = fill_info
 
-        reservation_page = checkout
+          reservation_page = checkout
 
-        {
-          reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-          holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
-        }
+          #{:reservation_code=>"MEDRTW", :holding_date=>"2016-08-19T03:15:31.000Z"}
+          {
+            reservation_code: reservation_page.at("#booking-data booking")["pnr"],
+            holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
+          }
+        rescue
+          404
+        end
       end
 
       def search
+        body = {
+          "__EVENTTARGET" => "",
+          "__EVENTARGUMENT" => "",
+          "__VIEWSTATE" => "",
+          "pageToken" => "",
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$RadioButtonMarketStructure" => "OneWay",
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketOrigin1" => itinerary[:ori_airport][:code],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketDestination1" => itinerary[:des_airport][:code],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextboxDepartureDate1" => format_date(itinerary[:depart_date]),
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_ADT" => itinerary[:adult_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_CHD" => itinerary[:child_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_INFANT" => itinerary[:infant_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_ADT" => itinerary[:adult_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_CHD" => itinerary[:child_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_INFANT" => itinerary[:infant_num],
+          "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$ButtonSubmit" => ""
+        }
+        ap body
         agent.post(
           "https://agenthub.jetstar.com/TradeSalesHome.aspx",
-          {
-            "__EVENTTARGET" => "",
-            "__EVENTARGUMENT" => "",
-            "__VIEWSTATE" => "",
-            "pageToken" => "",
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$RadioButtonMarketStructure" => "OneWay",
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketOrigin1" => itinerary[:ori_airport][:code],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextBoxMarketDestination1" => itinerary[:des_airport][:code],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$TextboxDepartureDate1" => format_date(itinerary[:depart_date]),
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_ADT" => itinerary[:adult_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_CHD" => itinerary[:child_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListPassengerType_INFANT" => itinerary[:infant_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_ADT" => itinerary[:adult_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_CHD" => itinerary[:child_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_INFANT" => itinerary[:infant_num],
-            "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$ButtonSubmit" => ""
-          }
+          body
         )
       end
 
