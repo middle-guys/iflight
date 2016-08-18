@@ -1,4 +1,4 @@
-.logo { 
+/*.logo { 
   background: image-url('iflight-logo.png') no-repeat top left; 
   height: 55px;
   float: left;
@@ -11,6 +11,16 @@
   background-position: 0 -65px; 
   width: 126px;
   margin-left: 10px;
+}*/
+
+a.iflight-logo {
+  background-image: image-url('iflight-160x34.png');
+  background-repeat: no-repeat;
+  background-position-y: 22px;
+  display: block;
+  width: 160px;
+  height: 70px;
+  content: '';
 }
 
 nav.navbar.navbar-light {
