@@ -77,9 +77,11 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    @order = Order.last
-    @flight_depart = @order.flights.first
-    @flight_return = @order.flights.last
+    @order = Order.find(params[:id])
+    @order.flights.each do |flight|
+      @flight_depart = flight if flight.depart?
+      @flight_return = flight if flight.return?
+    end
   end
 
   private
