@@ -10,4 +10,8 @@ module ImagesHelper
       return ""
     end
   end
+
+  def random_place_img
+    rand(1..10)
+  end
 end
