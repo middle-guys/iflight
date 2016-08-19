@@ -53,7 +53,7 @@ module SearchFlight
               price_infant = calculate_price(price_web, fare_formula_infant)
 
               flights << {
-                plane_category_id: PlaneCategory.find_by(category: :jetstar).id
+                plane_category_id: PlaneCategory.find_by(category: :jetstar).id,
                 airline_type: PlaneCategory.categories[:jetstar],
                 code_flight: flight_code(flight_row),
                 from_time: from_time(flight_row),

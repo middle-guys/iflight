@@ -1,10 +1,9 @@
 $(document).on 'turbolinks:load', ->
   return unless $(".searching-form-wrapper").length > 0
-  
   routes = {}
   ori_id = '1'
 
-  $('#ori_airport_id').change( -> 
+  $('#ori_airport_id').change( ->
     $("#ori_airport_id option[value='']").remove() if $("#ori_airport_id option[value='']").length > 0
     $('button[type="submit"]').prop('disabled', false)
     ori_id = $('#ori_airport_id option:selected').val()
@@ -69,9 +68,48 @@ $(document).on 'turbolinks:load', ->
     max: 6
     step: 1
 
+  generateRecentlySearchingRow = (id_container, search) ->
+    recently_searching =
+      depart_flight: search.depart
+      return_flight: search.return
+      depart_date: search.depart_date
+      return_date: search.return_date
+      is_round_trip: App.isRoundTrip(search.itinerary_type)
+      is_one_way: !App.isRoundTrip(search.itinerary_type)
+
+    template = $('#recently-searching-template').html()
+    return $(id_container).append(Mustache.render(template, recently_searching))
+
+  if localStorage.history != undefined
+    history = JSON.parse(localStorage.history)
+    if history.length > 0
+      for search in history
+        return generateRecentlySearchingRow("#recently-searching", search)
+
+
   $(document).on 'click', '.searching-form-wrapper .dropdown-menu', (e) ->
     e.stopPropagation()
     return
+
+  $('form').on 'submit', ->
+    history = []
+    if localStorage.history
+      history = JSON.parse(localStorage.history)
+
+    history.push({
+      depart: $('#ori_airport_id option:selected').text(),
+      return: $('#des_airport_id option:selected').text(),
+      itinerary_type: $('input[name=itinerary_type]:checked').val(),
+      depart_date: $('#date_depart').val(),
+      return_date: $('#date_return').val(),
+      search_time: new Date()
+    });
+
+    if history.length > 6
+      history.shift()
+
+    localStorage.history = JSON.stringify(history)
+    return false
 
   $('input[name*="_num"]').on 'change', ->
     total_pax = cal_total_passengers()
