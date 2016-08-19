@@ -205,8 +205,8 @@ $(document).on 'turbolinks:load', ->
         "order[contact_phone]":
           required: true
           number: true
-          minlength: 10
-          maxlength: 11
+          # minlength: 10
+          # maxlength: 11
         "order[contact_email]":
           required: true
           email: true

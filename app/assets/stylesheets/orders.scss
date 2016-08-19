@@ -125,6 +125,7 @@ $border-grey: #DDD;
   position: relative;
   min-height: 100px;
   padding-top: 30px;
+  padding-bottom: 20px;
   text-align: center;
   border-radius: 0;
   border-top: 1px solid $border-grey;
@@ -233,5 +234,12 @@ $border-grey: #DDD;
   padding-top: 1em;
   p {
     margin-left: .5em;
+  }
+}
+.share-to-friend {
+  margin-top: .5em;
+
+  a {
+    color: #286090;
   }
 }

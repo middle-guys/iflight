@@ -20,7 +20,7 @@
         </div>
         <% @step_number += 1 %>
         <div class="stepwizard-step">
-          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle"><%= @step_number %></a>
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
           <p>Summary</p>
         </div>
       </div>
@@ -129,3 +129,22 @@
 </div>
 <%= render 'flight_details_template' %>
 <%= render 'summary_flight_template' %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Share to your friend</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
