@@ -8,6 +8,6 @@ class OrderMailer < ApplicationMailer
       @flight_return = flight if flight.return?
     end
     @passengers = @order.passengers
-    mail(to: 'coder.leo.le@gmail.com', subject: 'Receipt from iFlight')
+    mail(to: @order.contact_email, subject: 'Order information from iFlight')
   end
 end
