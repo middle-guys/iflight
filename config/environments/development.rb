@@ -53,10 +53,9 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.delivery_method = :smtp
-    ActionMailer::Base.smtp_settings = {
-    :user_name => 'iFlight',
-    :password => 'iflight12345',
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
     :domain => 'https://iflight.herokuapp.com',
     :address => 'smtp.sendgrid.net',
     :port => 587,
