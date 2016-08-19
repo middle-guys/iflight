@@ -54,12 +54,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.delivery_method = :smtp
-
-  config.action_mailer.smtp_settings = {
-    address: "in-v3.mailjet.com",
-    port: 587,
-    authentication: "plain",
-    user_name: ENV["MAILJET_USERNAME"],
-    password: ENV["MAILJET_PASSWORD"]
+    ActionMailer::Base.smtp_settings = {
+    :user_name => 'iFlight',
+    :password => 'iflight12345',
+    :domain => 'https://iflight.herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 end
