@@ -76,6 +76,7 @@ $(document).on 'turbolinks:load', ->
       return_date: search.return_date
       is_round_trip: App.isRoundTrip(search.itinerary_type)
       is_one_way: !App.isRoundTrip(search.itinerary_type)
+      search_time: (new Date(search.search_time)).toLocaleString()
 
     template = $('#recently-searching-template').html()
     return $(id_container).append(Mustache.render(template, recently_searching))
@@ -83,8 +84,8 @@ $(document).on 'turbolinks:load', ->
   if localStorage.history != undefined
     history = JSON.parse(localStorage.history)
     if history.length > 0
-      for search in history
-        return generateRecentlySearchingRow("#recently-searching", search)
+      for search in history.reverse()
+        generateRecentlySearchingRow("#recently-searching", search)
 
 
   $(document).on 'click', '.searching-form-wrapper .dropdown-menu', (e) ->
@@ -109,7 +110,7 @@ $(document).on 'turbolinks:load', ->
       history.shift()
 
     localStorage.history = JSON.stringify(history)
-    return false
+    return true
 
   $('input[name*="_num"]').on 'change', ->
     total_pax = cal_total_passengers()

@@ -1,16 +1,20 @@
-<div id="recently-searching-template" style="display: none;" class="card place-wrapper">
-  <img src=""/>
-  <div class="card-block">
-    <h4 class="card-title ori-des">{{depart_flight}} - {{return_flight}}</h4>
-    {{#is_round_trip}}
-      <p class="card-text date">{{depart_date}} - {{return_date}}</p>
-    {{/is_round_trip}}
+<div id="recently-searching-template" style="display: none;">
+  <div class="col-md-4">
+    <div class="card place-wrapper">
+      <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
+      <div class="card-block">
+        <h4 class="card-title ori-des">{{depart_flight}} - {{return_flight}}</h4>
+        {{#is_round_trip}}
+          <p class="card-text date">{{depart_date}} - {{return_date}}</p>
+        {{/is_round_trip}}
 
-    {{#is_one_way}}
-      <p class="card-text date">{{depart_date}}</p>
-    {{/is_one_way}}
+        {{#is_one_way}}
+          <p class="card-text date">{{depart_date}}</p>
+        {{/is_one_way}}
 
-    <p class="card-text time-search">at 12:00 18/11/2016</p>
-    <a href="#" class="btn btn-primary">Go</a>
+        <p class="card-text time-search">at {{search_time}}</p>
+        <a href="#" class="btn btn-primary">Go</a>
+      </div>
+    </div>
   </div>
 </div>
