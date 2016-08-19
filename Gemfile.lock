@@ -302,6 +302,7 @@ DEPENDENCIES
   compass
   crono
   devise
+  dotenv-rails
   factory_girl_rails
   ffaker
   font-awesome-rails
