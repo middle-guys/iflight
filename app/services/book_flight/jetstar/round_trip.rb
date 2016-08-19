@@ -16,26 +16,30 @@ module BookFlight
       end
 
       def call
-        search_page = search
+        begin
+          search_page = search
 
-        depart_selected_price_element = get_selected_price_element(search_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
+          depart_selected_price_element = get_selected_price_element(search_page, "depart", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
-        return 404 unless depart_selected_price_element
+          return 404 unless depart_selected_price_element
 
-        return_selected_price_element = get_selected_price_element(search_page, "return", return_flight[:flight_code], return_flight[:price_no_fee])
+          return_selected_price_element = get_selected_price_element(search_page, "return", return_flight[:flight_code], return_flight[:price_no_fee])
 
-        return 404 unless return_selected_price_element
+          return 404 unless return_selected_price_element
 
-        fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
+          fill_info_page = select_price(depart_selected_price_element, return_selected_price_element)
 
-        checkout_page = fill_info
+          checkout_page = fill_info
 
-        reservation_page = checkout
+          reservation_page = checkout
 
-        {
-          reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-          holding_date: reservation_page.at("#booking-data booking")["holddateutc"]
-        }
+          {
+            reservation_code: reservation_page.at("#booking-data booking")["pnr"],
+            holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
+          }
+        rescue
+          404
+        end
       end
 
       def search

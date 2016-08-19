@@ -16,7 +16,6 @@ module BookFlight
 
       def call
         search
-
         close
       end
 

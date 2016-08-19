@@ -15,60 +15,67 @@ module BookFlight
       end
 
       def call
-        select_price_page = search
+        begin
+          select_price_page = search
 
-        selected_price_element = get_selected_price_element(select_price_page, "toDepDiv", depart_flight[:flight_code], depart_flight[:price_no_fee])
+          selected_price_element = get_selected_price_element(select_price_page, "toDepDiv", depart_flight[:flight_code], depart_flight[:price_no_fee])
 
-        return 404 unless selected_price_element
+          return 404 unless selected_price_element
 
-        fill_info_page = select_price(selected_price_element)
+          fill_info_page = select_price(selected_price_element)
 
-        pick_luggage_page = fill_info
+          pick_luggage_page = fill_info
 
-        checkout_page = pick_luggage(pick_luggage_page)
+          checkout_page = pick_luggage(pick_luggage_page)
 
-        confirm_info_page = checkout
+          confirm_info_page = checkout
 
-        process_page = confirm_info
+          process_page = confirm_info
 
-        reservation_page = process
+          reservation_page = process
 
-        {
-          reservation_code: reservation_page.at("span.ResNumber").text,
-          holding_date: reservation_page.at("form h1:nth(2)").text
-        }
+          {
+            reservation_code: reservation_page.at("span.ResNumber").text,
+            holding_date: reservation_page.at("form h1:nth(2)").text
+          }
+        rescue
+          403
+        end
+        #reservation_code=>"36241020", :holding_date=>"Nếu không thanh toán, đến  19/08/2016 Fri 22:10 (GMT+7), đặt chỗ của bạn sẽ tự động bị hủy."
       end
 
       def search
+        body = {
+          "__VIEWSTATE" => "",
+          "__VIEWSTATEGENERATOR" => "",
+          "SesID" => "",
+          "DebugID" => "10",
+          "button" => "vfto",
+          "dlstDepDate_Day" => format_day(itinerary[:depart_date]),
+          "dlstDepDate_Month" => format_year_month(itinerary[:depart_date]),
+          "dlstRetDate_Day" => format_day(itinerary[:depart_date]),
+          "dlstRetDate_Month" => format_year_month(itinerary[:depart_date]),
+          "lstDepDateRange" => "0",
+          "lstRetDateRange" => "0",
+          "chkRoundTrip" => "",
+          "lstOrigAP" => itinerary[:ori_airport][:code],
+          "lstDestAP" => itinerary[:des_airport][:code],
+          "departure1" => format_date(itinerary[:depart_date]),
+          "departTime1" => "0000",
+          "departure2" => format_date(itinerary[:depart_date]),
+          "departTime2" => "0000",
+          "lstLvlService" => "1",
+          "lstResCurrency" => "VND",
+          "txtNumAdults" => itinerary[:adult_num],
+          "txtNumChildren" => itinerary[:child_num],
+          "txtNumInfants" => itinerary[:infant_num],
+          "lstCompanyList" => "3184ƒCTY TNHH TM&DV DL BAO GIA TRAN (SUB 2)",
+          "txtPONumber" => ""
+        }
+        ap body
         agent.post(
           "https://agent.vietjetair.com/ViewFlights.aspx?lang=vi&st=sl&sesid=",
-          {
-            "__VIEWSTATE" => "",
-            "__VIEWSTATEGENERATOR" => "",
-            "SesID" => "",
-            "DebugID" => "10",
-            "button" => "vfto",
-            "dlstDepDate_Day" => format_day(itinerary[:depart_date]),
-            "dlstDepDate_Month" => format_year_month(itinerary[:depart_date]),
-            "dlstRetDate_Day" => format_day(itinerary[:depart_date]),
-            "dlstRetDate_Month" => format_year_month(itinerary[:depart_date]),
-            "lstDepDateRange" => "0",
-            "lstRetDateRange" => "0",
-            "chkRoundTrip" => "",
-            "lstOrigAP" => itinerary[:ori_airport][:code],
-            "lstDestAP" => itinerary[:des_airport][:code],
-            "departure1" => format_date(itinerary[:depart_date]),
-            "departTime1" => "0000",
-            "departure2" => format_date(itinerary[:depart_date]),
-            "departTime2" => "0000",
-            "lstLvlService" => "1",
-            "lstResCurrency" => "VND",
-            "txtNumAdults" => itinerary[:adult_num],
-            "txtNumChildren" => itinerary[:child_num],
-            "txtNumInfants" => itinerary[:infant_num],
-            "lstCompanyList" => "3184ƒCTY TNHH TM&DV DL BAO GIA TRAN (SUB 2)",
-            "txtPONumber" => ""
-          }
+          body
         )
       end
 
