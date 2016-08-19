@@ -51,16 +51,27 @@
         <div id="step-1" class="setup-content">
           <div class="step-title">
             <div class="row">
-              <div class="col-xs-9 offset-xs-1">
+              <div class="col-xs-12">
                 <h4>Select Departure</h4>
                 <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-9 offset-xs-1">
+            <div class="col-sm-6">
               <div class="price-info-bar">
                 Pricing is include ticket price and all taxes for all passengers
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="sort-by">
+                Sort by:
+                <select id="sort-depart">
+                  <option value="price-asc">Price (low to high)</option>
+                  <option value="price-desc">Price (high to low)</option>
+                  <option value="time-asc">Depart time (early to late)</option>
+                  <option value="time-desc">Depart time (late to early)</option>
+                </select>
               </div>
             </div>
           </div>
@@ -73,16 +84,27 @@
           <div id="step-<%= @step_number %>" class="setup-content">
             <div class="step-title">
               <div class="row">
-                <div class="col-xs-9 offset-xs-1">
+                <div class="col-xs-12">
                   <h4>Select Return</h4>
                   <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-9 offset-xs-1">
+              <div class="col-sm-6">
                 <div class="price-info-bar">
                   Pricing is include ticket price and all taxes for all passengers
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="sort-by">
+                  Sort by:
+                  <select id="sort-return">
+                    <option value="price-asc">Price (low to high)</option>
+                    <option value="price-desc">Price (high to low)</option>
+                    <option value="time-asc">Depart time (early to late)</option>
+                    <option value="time-desc">Depart time (late to early)</option>
+                  </select>
                 </div>
               </div>
             </div>

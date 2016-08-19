@@ -60,10 +60,12 @@ $(document).on 'turbolinks:load', ->
     return $(id_container).append(Mustache.render(template, flight_details))
 
   loadDepartureFlights = ->
+    $('#depature-flights').html('')
     $.each tmp.depart_flights, (i, flight) ->
       return generateFlightsRow('#depature-flights', i, 'depart', tmp.itinerary.ori_airport, tmp.itinerary.des_airport, flight)
 
   loadReturnFlights = ->
+    $('#return-flights').html('')
     $.each tmp.return_flights, (i, flight) ->
       return generateFlightsRow('#return-flights', i, 'return', tmp.itinerary.des_airport, tmp.itinerary.ori_airport, flight)
 
@@ -165,6 +167,33 @@ $(document).on 'turbolinks:load', ->
       updatePriceTotalSummary(itinerary)
 
   registerSelectBaggageEvents()
+
+  updateFlightsResult = (flights, is_depart, criteria) ->
+    switch
+      when criteria == 'price-asc'
+        flights.sort(App.sort_by('price_adult', false, parseInt))
+      when criteria == 'price-desc'
+        flights.sort(App.sort_by('price_adult', true, parseInt))
+      when criteria == 'time-asc'
+        flights.sort(App.sort_by('time_depart', false, parseInt))
+      when criteria == 'time-desc'
+        flights.sort(App.sort_by('time_depart', true, parseInt))
+
+    if (is_depart)
+      loadDepartureFlights()
+    else
+      loadReturnFlights()
+
+    registerButtonPriceClick()
+
+  registerSelectSortEvents = ->
+    $('select#sort-depart').change ->
+      updateFlightsResult(tmp.depart_flights, true, $(this).find(':selected').val())
+
+    $('select#sort-return').change ->
+      updateFlightsResult(tmp.return_flights, false, $(this).find(':selected').val())
+
+  registerSelectSortEvents()
 
   # validate passenger form
   applyFormValidation = ->

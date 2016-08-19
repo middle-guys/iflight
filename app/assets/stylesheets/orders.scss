@@ -4,7 +4,8 @@ $border-grey: #DDD;
   padding-bottom: 3em;
 }
 
-.flights-result-header {
+.flights-result-wrapper {
+  height: 100vh;
 }
 .stepwizard {
   display: table;
@@ -171,7 +172,7 @@ $border-grey: #DDD;
   }
 }
 
-.price-info-bar {
+.price-info-bar, .sort-by {
   text-align: left;
   border-bottom: none;
   margin-top: 1em;
@@ -179,6 +180,16 @@ $border-grey: #DDD;
   padding-bottom: 1em;
   font-size: 0.8em;
   color: $brand-grey;
+}
+
+.sort-by {
+  text-align: right;
+}
+
+@media (max-width: 543px) {
+  .sort-by {
+    text-align: left;
+  }
 }
 
 .flight-wrapper, .pax-wrapper {
