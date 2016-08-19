@@ -82,6 +82,7 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
+  config.action_mailer.default_url_options = { :host => 'iflight.herokuapp.com' }
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.delivery_method = :smtp
     ActionMailer::Base.smtp_settings = {
