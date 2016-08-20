@@ -5,9 +5,16 @@ Rails.application.routes.draw do
   patch 'alerts/unsubscribe'
   get 'flights/index'
   resources :alerts
+
   resources :routes do
     collection do
       get 'destination'
+    end
+  end
+
+  resources :orders do
+    member do
+      get 'confirmation'
     end
   end
 

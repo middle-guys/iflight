@@ -1,0 +1,19 @@
+<div id="summary-flight-template" style="display: none;">
+  <div class="flight-img-logo">
+    {{#is_jetstar}}
+      <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
+    {{/is_jetstar}}
+
+    {{#is_vietjet}}
+      <%= image_tag("airlines/vjet.png", alt: "Vietjet Air") %>
+    {{/is_vietjet}}
+
+    {{#is_vnairline}}
+      <%= image_tag("airlines/vna.png", alt: "Vietnam Airline") %>
+    {{/is_vnairline}}
+  </div>
+  <p>{{plane_category_name}} ({{code_flight}})</p>
+  <p>{{time_depart}} - {{time_arrive}}</p>
+  <!-- <p>Ticket price: {{price_total_str}}</p>
+  <p>Baggage price: 0 VND</p> -->
+</div>

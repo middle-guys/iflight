@@ -1,4 +1,4 @@
-.logo { 
+/*.logo { 
   background: image-url('iflight-logo.png') no-repeat top left; 
   height: 55px;
   float: left;
@@ -11,4 +11,85 @@
   background-position: 0 -65px; 
   width: 126px;
   margin-left: 10px;
-} 
+}*/
+
+/*a.iflight-logo {
+  background-image: image-url('iflight-160x34.png');
+  background-repeat: no-repeat;
+  background-position-y: 22px;
+  display: block;
+  width: 160px;
+  height: 70px;
+  content: '';
+}*/
+
+nav.navbar.navbar-light {
+  padding: 0 1rem;
+}
+
+.navbar-right {
+  float: right;
+}
+
+.navbar .navbar-brand {
+  padding-top: 18px;
+  padding-bottom: 9px;
+  font-size: 1.7rem;
+}
+
+.navbar-nav .nav-link {
+  padding-top: 26px;
+  padding-bottom: 28px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $brand-primary;
+}
+
+nav {
+  ul.nav.navbar-nav {
+    li.nav-item {
+      padding-left: 1em;
+      padding-right: 1em;
+      margin-left: .5em;
+
+      &:hover {
+        background-color: $brand-primary;
+        a.nav-link {
+          color: white !important;
+        }
+      }
+
+      a.dropdown-item {
+        &:hover {
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  border: 1px solid rgba(195, 195, 195, 0.15);
+  border-radius: 0;
+  margin: -1px 0 0;
+}
+
+/*ul.nav {
+  li.dropdown {
+    position: relative;
+    float: left;
+    display: block;
+    padding-top: .425rem;
+    padding-bottom: .425rem;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 543px) {
+  ul.nav {
+    li.dropdown {
+      margin-left: 0;
+    }
+  }
+}*/

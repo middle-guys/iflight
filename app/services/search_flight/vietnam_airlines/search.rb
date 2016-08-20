@@ -1,9 +1,6 @@
-require "flight_formulas"
-
 module SearchFlight
   module VietnamAirlines
-    class Search
-      include FlightFormulas
+    class Search < VietnamAirlinesFormulas
       attr_accessor :params, :response
 
       def initialize(params)
@@ -11,15 +8,14 @@ module SearchFlight
       end
 
       def call
-        agent = self.agent
-
+        agent = agent_with_proxy
         @response = agent.get build_path
 
-        self.update_proxy_count(agent.proxy_addr)
+        update_proxy_count(agent.proxy_addr)
 
         success? ? SearchFlight::VietnamAirlines::Parse.new(
           content: response,
-          is_round_trip: self.round_trip?(params[:round_type]),
+          is_round_trip: round_trip?(params[:round_type]),
           adult: params[:adult],
           child: params[:child],
           infant: params[:infant]
@@ -32,8 +28,8 @@ module SearchFlight
         path << "&journeySpan=" << get_round_type
         path << "&origin=" << params[:ori_code]
         path << "&destination=" << params[:des_code]
-        path << "&departureDate=" << self.format_date_vna(params[:depart_date])
-        path << "&returnDate=" << self.format_date_vna(params[:return_date]) if self.round_trip?(params[:round_type])
+        path << "&departureDate=" << format_date(params[:depart_date])
+        path << "&returnDate=" << format_date(params[:return_date]) if round_trip?(params[:round_type])
         path << "&numAdults=" << params[:adult].to_s
         path << "&numChildren=" << params[:child].to_s
         path << "&numInfants=" << params[:infant].to_s
@@ -47,7 +43,7 @@ module SearchFlight
       end
 
       def get_round_type
-        self.round_trip?(params[:round_type]) ? "RT" : "OW"
+        round_trip?(params[:round_type]) ? "RT" : "OW"
       end
     end
   end

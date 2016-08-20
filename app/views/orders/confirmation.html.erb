@@ -1,0 +1,54 @@
+<div id="confirmation-order">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="confirm-header">
+        <%= image_tag("airline-ticket.png", alt: "airline ticket") %>
+        <div class="thanks">Thanks for your order!</div>
+        <p>Booking details has been send to <%= @order.contact_email %></p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row confirm-body">
+      <div class="col-md-8 offset-md-2">
+        <div class="itinerary">
+          <div class="row flight-details-wrapper">
+            <div class="col-xs-9">
+              <div class="row">
+                <div class="col-sm-3 flight-img-logo"><%= image_tag("airlines/#{plane_category_logo_name(@flight_depart.plane_category)}", alt: "#{plane_category_name(@flight_depart.plane_category)}") %></div>
+                <div class="col-sm-9">
+                  <h5><%= @order.ori_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @order.des_airport.code %>, <%= format_date(@order.date_depart) %></h5>
+                  <p><%= plane_category_name(@flight_depart.plane_category) %> (<%= @flight_depart.code_flight %>)</p>
+                  <p><%= format_time(@flight_depart.time_depart) %> - <%= format_time(@flight_depart.time_arrive) %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <h5><%= format_currency(@flight_depart.price_total) %></h5>
+            </div>
+          </div>
+          <% if @order.round_trip? %>
+            <div class="row flight-details-wrapper">
+              <div class="col-xs-9">
+                <div class="row">
+                  <div class="col-sm-3 flight-img-logo"><%= image_tag("airlines/#{plane_category_logo_name(@flight_return.plane_category)}", alt: "#{plane_category_name(@flight_return.plane_category)}") %></div>
+                  <div class="col-sm-9">
+                    <h5><%= @order.des_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @order.ori_airport.code %>, <%= format_date(@order.date_return) %></h5>
+                    <p><%= plane_category_name(@flight_return.plane_category) %> (<%= @flight_return.code_flight %>)</p>
+                    <p><%= format_time(@flight_return.time_depart) %> - <%= format_time(@flight_return.time_arrive) %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-3">
+                <h5><%= format_currency(@flight_return.price_total) %></h5>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="booking-btn">
+          <%= link_to "CONTINUE BOOKING", root_path, class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

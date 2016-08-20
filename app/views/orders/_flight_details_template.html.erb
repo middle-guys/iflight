@@ -1,0 +1,41 @@
+<div id="flight-details-template" style="display: none;">
+  <div class="row flight-result">
+    <div class="col-xs-3">
+      {{#is_jetstar}}
+        <%= image_tag("airlines/jet.png", alt: "Jetstar") %>
+      {{/is_jetstar}}
+
+      {{#is_vietjet}}
+        <%= image_tag("airlines/vjet.png", alt: "Vietjet Air") %>
+      {{/is_vietjet}}
+
+      {{#is_vnairline}}
+        <%= image_tag("airlines/vna.png", alt: "Vietnam Airline") %>
+      {{/is_vnairline}}
+
+    </div>
+    <div class="col-xs-6">
+      <div class="depart">
+        <span class="time">{{time_depart}}</span>
+        <span class="stop-station">{{ori_code}}</span>
+      </div>
+      <div class="arrow-right"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
+      <div class="arrive">
+        <span class="time">{{time_arrive}}</span>
+        <span class="stop-station">{{des_code}}</span>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <div>
+        <a href="#" class="btn btn-primary price" data-index={{index}} data-type="{{round_type}}">
+          {{price}}
+        </a>
+      </div>
+      <div class="share-to-friend">
+        <a href="#" data-toggle="modal" data-target="#myModal">
+          share with friend
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

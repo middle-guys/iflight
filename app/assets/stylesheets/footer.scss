@@ -1,0 +1,24 @@
+footer {
+  /*background-color: #262626;*/
+  background: image-url("footer-pattern.png") rgb(51, 51, 51);
+  
+  .ct-postfooter {
+    p {
+      color: #eeeeee;
+      font-size: 14px;
+      line-height: 24px;
+      border-top: 0px solid #f4f4f4;
+      padding: 21px 0;
+      font-weight: 400;
+      padding-top: 30px;
+      
+      span {
+        color: #7f8c97;
+      }
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+}

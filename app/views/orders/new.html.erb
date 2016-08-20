@@ -1,0 +1,150 @@
+<div id="flights-result">
+  <input type="hidden" name="uuid" id="uuid" value="<%= @uuid %>" />
+  <div class="container">
+    <div class="row flights-result-header stepwizard">
+      <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+          <a href="#step-1" class="btn current btn-circle">1</a>
+          <p>Departure</p>
+        </div>
+        <% if @is_round_trip %>
+          <div class="stepwizard-step">
+            <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
+            <p>Return</p>
+          </div>
+          <% @step_number += 1 %>
+        <% end %>
+        <div class="stepwizard-step">
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
+          <p>Passengers</p>
+        </div>
+        <% @step_number += 1 %>
+        <div class="stepwizard-step">
+          <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
+          <p>Summary</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= form_for @order do |f| %>
+    <%= f.hidden_field :category, value: f.object.category %>
+    <%= f.hidden_field :ori_airport_id, value: @ori_airport.id %>
+    <%= f.hidden_field :des_airport_id, value: @des_airport.id %>
+    <%= f.hidden_field :date_depart, value: @date_depart %>
+    <%= f.hidden_field :date_return, value: @date_return %>
+    <%= f.hidden_field :adult, value: @adult %>
+    <%= f.hidden_field :child, value: @child %>
+    <%= f.hidden_field :infant, value: @infant %>
+
+    <%= f.fields_for :flights do |flight| %>
+      <%= flight.hidden_field :category, value: flight.object.category %>
+      <%= flight.hidden_field :plane_category_id, value: "" %>
+      <%= flight.hidden_field :code_flight, value: "" %>
+      <%= flight.hidden_field :time_depart, value: "" %>
+      <%= flight.hidden_field :time_arrive, value: "" %>
+      <%= flight.hidden_field :price_web, value: "" %>
+      <%= flight.hidden_field :price_total, value: "" %>
+    <% end %>
+
+    <div class="flights-result-wrapper">
+      <div class="container">
+        <div id="step-1" class="setup-content">
+          <div class="step-title">
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Select Departure</h4>
+                <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="price-info-bar">
+                Pricing is include ticket price and all taxes for all passengers
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="sort-by">
+                Sort by:
+                <select id="sort-depart">
+                  <option value="price-asc">Price (low to high)</option>
+                  <option value="price-desc">Price (high to low)</option>
+                  <option value="time-asc">Depart time (early to late)</option>
+                  <option value="time-desc">Depart time (late to early)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div id="depature-flights"></div>
+        </div>
+      </div>
+      <% @step_number = 2 %>
+      <% if @is_round_trip %>
+        <div class="container">
+          <div id="step-<%= @step_number %>" class="setup-content">
+            <div class="step-title">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>Select Return</h4>
+                  <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="price-info-bar">
+                  Pricing is include ticket price and all taxes for all passengers
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="sort-by">
+                  Sort by:
+                  <select id="sort-return">
+                    <option value="price-asc">Price (low to high)</option>
+                    <option value="price-desc">Price (high to low)</option>
+                    <option value="time-asc">Depart time (early to late)</option>
+                    <option value="time-desc">Depart time (late to early)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="return-flights"></div>
+          </div>
+        </div>
+        <% @step_number += 1 %>
+      <% end %>
+      <div class="container">
+        <div id="step-<%= @step_number %>" class="setup-content">
+          <%= render partial: 'passenger_info', locals: {f: f} %>
+        </div>
+      </div>
+      <% @step_number += 1 %>
+      <div class="container">
+        <div id="step-<%= @step_number %>" class="setup-content">
+          <%= render 'summary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= render 'flight_details_template' %>
+<%= render 'summary_flight_template' %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Share to your friend</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

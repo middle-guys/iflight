@@ -1,0 +1,245 @@
+$border-grey: #DDD;
+
+#flights-result{
+  padding-bottom: 3em;
+}
+
+.flights-result-wrapper {
+  height: 100vh;
+}
+.stepwizard {
+  display: table;
+  width: 100%;
+  position: relative;
+
+  .stepwizard-row {
+    display: table-row;
+  }
+
+  .stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+  }
+
+  .stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+  }
+
+  .btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+  }
+
+  .visited {
+    color: #fff;
+    background-color: $brand-second-darker;
+    border-color: $brand-second-darker;
+  }
+
+  .current {
+    color: #fff;
+    background-color: $brand-second;
+    border-color: $brand-second;
+  }
+}
+
+.bell {
+  text-align: center;
+  font-size: 2rem;
+  color: black;
+
+  &:hover {
+    background-color: $brand-second-darker;
+  }
+}
+.round-type {
+  font-size: 1rem;
+  color: $brand-grey;
+}
+
+.step-title {
+  padding-top: 1.1em;
+  padding-bottom: 1.0em;
+  color: $brand-primary;
+  background: transparent;
+}
+
+.pax-number-wrapper {
+  position: relative;
+  clear: both;
+  border-bottom: solid 1px #e5e5e5;
+  height: 30px;
+  margin: 0 0 30px 0;
+  display: block;
+
+  .pax-number{
+    display: inline-block;
+    clear: both;
+    margin: 0;
+    background: #FFF;
+    padding-right: 10px;
+    position: absolute;
+    left: 0;
+    top: .6em;
+    color: $brand-primary;
+
+    .pax-type {
+      color: pink;
+    }
+  }
+}
+
+.pax-info-wrapper {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+}
+
+.pax-info-wrapper.even {
+  background: #eeeeee;
+}
+
+.divider {
+  content: " ";
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  z-order: 0;
+}
+
+.flight-result {
+  display: block;
+  position: relative;
+  min-height: 100px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  text-align: center;
+  border-radius: 0;
+  border-top: 1px solid $border-grey;
+  -webkit-transition-property: none;
+  transition-property: none;
+
+  &:hover {
+    background: #F0F0F0;
+  }
+
+  img {
+    max-width: 60px;
+  }
+
+  .depart, .arrive, .arrow-right{
+    float: left;
+  }
+
+  .depart, .arrive {
+    width: 20%;
+    display: inline-block;
+  }
+
+  .time, .stop-station {
+    display: block;
+  }
+
+  .time {
+    font-size: 1.2rem;
+  }
+
+  .stop-station {
+    font-size: 1rem;
+    color: $brand-grey;
+  }
+
+  .price {
+    font-size: 1.3rem;
+    min-width: 70%;
+  }
+
+  .arrow-right {
+    margin-top: 15px;
+    width: 40%;
+  }
+}
+
+.price-info-bar, .sort-by {
+  text-align: left;
+  border-bottom: none;
+  margin-top: 1em;
+  line-height: 1.5;
+  padding-bottom: 1em;
+  font-size: 0.8em;
+  color: $brand-grey;
+}
+
+.sort-by {
+  text-align: right;
+}
+
+@media (max-width: 543px) {
+  .sort-by {
+    text-align: left;
+  }
+}
+
+.flight-wrapper, .pax-wrapper {
+  margin-bottom: 3em;
+}
+
+.flight-title p, .pax-title p {
+  background-color: $brand-second;
+  padding-top: .5em;
+  padding-bottom: .5em;
+  padding-left: .8em;
+  color: #000000;
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
+.flight-block {
+  padding-left: .5em;
+  border: 1px solid #ededed;
+  border-top: 0;
+  padding-top: 1em;
+
+  .flight-img-logo {
+    display: inline-block;
+    float: left;
+    height: 80px;
+
+    img {
+      width: 60px;
+    }
+  }
+
+  p {
+    margin-left: 4em;
+  }
+}
+
+.pax-block {
+  padding-left: .5em;
+  border: 1px solid #ededed;
+  border-top: 0;
+  padding-top: 1em;
+  p {
+    margin-left: .5em;
+  }
+}
+.share-to-friend {
+  margin-top: .5em;
+
+  a {
+    color: #286090;
+  }
+}

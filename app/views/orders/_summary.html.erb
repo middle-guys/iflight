@@ -1,0 +1,64 @@
+<div class="step-title">
+  <div class="row">
+    <div class="col-xs-9">
+      <h4>Summary booking</h4>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7">
+    <div class="flight-wrapper">
+      <div class="flight-title">
+        <p>Depature: <%= @ori_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></p>
+      </div>
+      <div class="flight-block depart">
+        <div id="flight-depart"></div>
+      </div>
+    </div>
+    <% if @is_round_trip %>
+      <div class="flight-wrapper return">
+        <div class="flight-title">
+          <p>Return: <%= @des_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></p>
+        </div>
+        <div class="flight-block">
+          <div id="flight-return"></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4 offset-md-1">
+    <div class="pax-wrapper">
+      <div class="pax-title">
+        <p>Contact</p>
+      </div>
+      <div class="pax-block contact-block">
+        <p><span class="title"></span>. <span class="name"></span></p>
+        <p>Phone: <span class="phone"></span></p>
+        <p>Email: <span class="email"></span></p>
+      </div>
+    </div>
+    <!-- <div class="pax-wrapper">
+      <div class="pax-title">
+        <p>Passenger(s)</p>
+      </div>
+      <div class="pax-block">
+        <p>Mr. Ho Anh Nguyen</p>
+        <p>Mr. Ho Anh Nguyen</p>
+        <p>Mr. Ho Anh Nguyen</p>
+      </div>
+    </div> -->
+    <div class="pax-wrapper">
+      <div class="pax-title">
+        <p>Total price</p>
+      </div>
+      <div class="pax-block">
+        <p class="price-total"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-8 offset-xs-2" style="text-align: center;">
+    <button type="submit" class="btn btn-primary btn-lg">BOOK NOW!</button>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 .searching-form-wrapper {
-  padding-top: 60px;
-  padding-bottom: 60px;
-  background-image: image-url("home-bg-2.jpg");
-  background-position: 50% 50%;
+  padding-top: 10em;
+  padding-bottom: 10em;
+  background-image: url(/assets/home-bg-2-86a0ff8de01be2698200a38d86efea77e0a31e139a36d750f0597085656bef8f.jpg);
+  background-position: 50% 30%;
 
   .input-daterange {
     input {
@@ -78,5 +78,39 @@
       bottom: 100%;
     }
   }
+}
 
+.top-recent-search {
+  margin-bottom: 5em;
+  .title {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    h3 {
+      text-transform: uppercase;
+      span {
+        color: $brand-primary;
+      }
+    }
+  }
+
+  .place-wrapper {
+    img {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+    }
+
+    p {
+      margin-bottom: .3em;
+    }
+
+    p.time-search {
+      margin-bottom: 1.5em;
+      font-size: .8rem;
+      font-style: italic;
+      color: gray;
+    }
+  }
 }

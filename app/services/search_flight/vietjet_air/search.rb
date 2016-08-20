@@ -1,9 +1,6 @@
-require "flight_formulas"
-
 module SearchFlight
   module VietjetAir
-    class Search
-      include FlightFormulas
+    class Search < VietjetAirFormulas
       attr_accessor :params, :response
 
       def initialize(params)
@@ -11,16 +8,16 @@ module SearchFlight
       end
 
       def call
-        agent = self.agent
+        agent = agent_with_proxy
 
         first_response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", first_options, build_first_options[:headers]
         @response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", second_options, build_second_options(first_response)[:headers]
 
-        self.update_proxy_count(agent.proxy_addr)
+        update_proxy_count(agent.proxy_addr)
 
         success? ? SearchFlight::VietjetAir::Parse.new(
           content: response,
-          is_round_trip: self.round_trip?(params[:round_type]),
+          is_round_trip: round_trip?(params[:round_type]),
           adult: params[:adult],
           child: params[:child],
           infant: params[:infant]
@@ -52,10 +49,10 @@ module SearchFlight
           "txtNumInfants" => params[:infant],
           "txtNumChildren" => params[:child],
           "txtNumAdults" => params[:adult],
-          "dlstDepDate_Day" => self.format_day(params[:depart_date]),
-          "dlstRetDate_Day" => self.format_day(self.round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
-          "dlstRetDate_Month" => self.format_month(params[:depart_date]),
-          "dlstDepDate_Month" => self.format_month(self.round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
+          "dlstDepDate_Day" => format_day(params[:depart_date]),
+          "dlstRetDate_Day" => format_day(round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
+          "dlstRetDate_Month" => format_year_month(params[:depart_date]),
+          "dlstDepDate_Month" => format_year_month(round_trip?(params[:round_type]) ? params[:return_date] : params[:depart_date]),
           "lstDestAP" => params[:des_code],
           "lstOrigAP" => params[:ori_code]
         }
@@ -89,11 +86,11 @@ module SearchFlight
           "lstDestAP" => "-1",
           "__VIEWSTATEGENERATOR" => "35449566",
           "SesID" => "",
-          "DebugID" => self.round_trip?(params[:round_type]) ? "43" : "06",
-          "dlstRetDate_Day" => self.format_day(Date.today),
-          "dlstDepDate_Day" => self.format_day(Date.today),
-          "dlstDepDate_Month" => self.format_month(Date.today),
-          "dlstRetDate_Month" => self.format_month(Date.today)
+          "DebugID" => round_trip?(params[:round_type]) ? "43" : "06",
+          "dlstRetDate_Day" => format_day(Date.today),
+          "dlstDepDate_Day" => format_day(Date.today),
+          "dlstDepDate_Month" => format_year_month(Date.today),
+          "dlstRetDate_Month" => format_year_month(Date.today)
         }
       end
 
@@ -102,7 +99,7 @@ module SearchFlight
       end
 
       def get_round_type
-        self.round_trip?(params[:round_type]) ? "on" : ""
+        round_trip?(params[:round_type]) ? "on" : ""
       end
     end
   end

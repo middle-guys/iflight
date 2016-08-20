@@ -2,18 +2,30 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :des_airport, foreign_key: :des_airport_id, class_name: "Airport"
   belongs_to :ori_airport, foreign_key: :ori_airport_id, class_name: "Airport"
-  has_many :flights
-  has_many :passengers
+  has_many :flights, inverse_of: :order
+  has_many :passengers, inverse_of: :order
+
+  accepts_nested_attributes_for :passengers
+  accepts_nested_attributes_for :flights
 
   enum status: {
+    init: "init",
     reserving: "reserving",
     done: "done",
     failed: "failed",
-    cancelled: "canceled"
+    cancelled: "cancelled"
   }
 
   enum category: {
-    one_way: "one way",
-    two_way: "two way"
+    one_way: "one_way",
+    round_trip: "round_trip"
   }
+
+  def self.generate_order_number
+    loop do
+      @order_number = SecureRandom.hex(16/4).upcase
+      break unless Order.exists?(order_number: @order_number)
+    end
+    @order_number
+  end
 end
