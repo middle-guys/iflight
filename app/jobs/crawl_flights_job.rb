@@ -9,7 +9,7 @@ class CrawlFlightsJob < ApplicationJob
     # flight_vja = SearchFlight::VietjetAir::Search.new(params).call
     # flights_jet = SearchFlight::Jetstar::Search.new(params).call
     # flights_vna = SearchFlight::VietnamAirlines::Search.new(params).call
-    
+
     sleep 2 # For testing online
 
     data = {
@@ -175,6 +175,17 @@ class CrawlFlightsJob < ApplicationJob
         ] : []
     }
 
+    create_search_history(params)
     ActionCable.server.broadcast("flights-#{params[:uuid]}", data: data)
+  end
+
+  def create_search_history(params)
+    ori_airport = Airport.find_by_code(params[:ori_code])
+    des_airport = Airport.find_by_code(params[:des_code])
+    route = Route.find_by(ori_airport: ori_airport, des_airport: des_airport)
+
+    if route
+      SearchHistory.create(route: route)
+    end
   end
 end

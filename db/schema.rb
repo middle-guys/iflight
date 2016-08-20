@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816010241) do
+ActiveRecord::Schema.define(version: 20160820004020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,29 @@ ActiveRecord::Schema.define(version: 20160816010241) do
     t.boolean  "is_domestic"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "alerts", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.integer  "ori_air_id"
+    t.integer  "des_air_id"
+    t.datetime "time_start"
+    t.decimal  "price_expect"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "status"
+    t.string   "token"
+  end
+
+  create_table "crono_jobs", force: :cascade do |t|
+    t.string   "job_id",            null: false
+    t.text     "log"
+    t.datetime "last_performed_at"
+    t.boolean  "healthy"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["job_id"], name: "index_crono_jobs_on_job_id", unique: true, using: :btree
   end
 
   create_table "flights", force: :cascade do |t|
@@ -94,6 +117,13 @@ ActiveRecord::Schema.define(version: 20160816010241) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "search_histories", force: :cascade do |t|
+    t.integer  "route_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_search_histories_on_route_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -125,4 +155,5 @@ ActiveRecord::Schema.define(version: 20160816010241) do
   add_foreign_key "flights", "plane_categories"
   add_foreign_key "orders", "users"
   add_foreign_key "passengers", "orders"
+  add_foreign_key "search_histories", "routes"
 end
