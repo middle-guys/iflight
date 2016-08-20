@@ -4,7 +4,7 @@ class NotificationJob < ApplicationJob
   def perform
     #alerts = Alert.where(status:"active").select(:ori_air_id, :des_air_id, :time_start).distinct
     alerts = Alert.where(status: :active)
-    alerts.all.each do |alert|
+    alerts.each do |alert|
       search_tickets(alert)
     end
   end
