@@ -4,28 +4,27 @@
     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:303px;">
       <v:fill type="tile" src="https://www.filepicker.io/api/file/kmlo6MonRpWsVuuM47EG" color="#8b8284" />
       <v:textbox inset="0,0,0,0">
-    <![endif]-->
-    <div>
-      <center>
-        <table cellspacing="0" cellpadding="0" width="530" height="303" class="w320">
-          <tr>
-            <td valign="middle" style="vertical-align:middle; padding-right: 15px; padding-left: 15px; text-align:left;" height="303">
-
-              <table cellspacing="0" cellpadding="0" width="100%">
-                <tr>
-                  <td>
-                    <h1>THANKS FOR YOUR ORDER</h1><br>
-                    <br>
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-          </tr>
-        </table>
-      </center>
-    </div>
-    <!--[if gte mso 9]>
+        <![endif]-->
+        <div>
+          <center>
+            <table cellspacing="0" cellpadding="0" width="530" height="303" class="w320">
+              <tr>
+                <td valign="middle" style="vertical-align:middle; padding-right: 15px; padding-left: 15px; text-align:left;" height="303">
+                  <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                      <td>
+                        <h1>THANKS FOR YOUR ORDER</h1>
+                        <br>
+                        <br>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </center>
+        </div>
+        <!--[if gte mso 9]>
       </v:textbox>
     </v:rect>
     <![endif]-->
@@ -37,77 +36,65 @@
       <table cellspacing="0" cellpadding="0" width="500" class="w320">
         <tr>
           <td valign="top" style="border-bottom:1px solid #a1a1a1;">
-
-          <table cellspacing="0" cellpadding="0" class="force-full-width">
-            <tr>
-              <td style="padding: 30px 0;" class="mobile-padding">
-
-              <table class="force-full-width" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td style="text-align: left;">
-                    <span class="important-font">
-                      <%= @order.contact_name %> <br>
-                    </span>
-                    <%= @order.contact_phone %> <br>
-                    <%= @order.contact_email %> <br>
-                  </td>
-                  <td style="text-align: right; vertical-align:top;">
-                    <span class="important-font">
-                      Order number: <%= @order.order_number %><br>
-                    </span>
-                    <%= @order.created_at.strftime('%b %d, %Y') %>
-                  </td>
-                </tr>
-              </table>
-
-              </td>
-            </tr>
-            <tr>
-              <td style="padding-bottom: 30px;" class="mobile-padding">
-
-                <table class="force-full-width" cellspacing="0" cellpadding="0">
-                  <tr>
-
-                    <td class="mobile-block">
-                      <table cellspacing="0" cellpadding="0" class="force-full-width">
-                        <tr>
-                          <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                            Depart: <%= @order.ori_airport.code %> - <%= @order.des_airport.code %>, <%= format_date(@order.date_depart) %>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
-                            <table class="force-full-width" cellspacing="0" cellpadding="0">
-                              <tr>
-
-                                <td class="mobile-block" width="30%">
-                                  <%= image_tag("airlines/#{plane_category_logo_name(@flight_depart.plane_category)}", width: '60', height: '30') %>
-                                </td>
-
-                                <td class="mobile-block" width="70%">
-                                  <%= plane_category_name(@flight_depart.plane_category) %> (<%= @flight_depart.code_flight %>) <br>
-                                  <%= format_time(@flight_depart.time_depart) %> - <%= format_time(@flight_depart.time_arrive) %>
-                                </td>
-
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-
-                  </tr>
-                </table>
-
-              </td>
-            </tr>
-            <% if @order.round_trip? %>
+            <table cellspacing="0" cellpadding="0" class="force-full-width">
               <tr>
-                <td style="padding-bottom: 30px;" class="mobile-padding">
-
+                <td style="padding: 30px 0;" class="mobile-padding">
                   <table class="force-full-width" cellspacing="0" cellpadding="0">
                     <tr>
-
+                      <td style="text-align: left;">
+                        <span class="important-font">
+                        <%= @order.contact_name %> <br>
+                        </span>
+                        <%= @order.contact_phone %> <br>
+                        <%= @order.contact_email %> <br>
+                      </td>
+                      <td style="text-align: right; vertical-align:top;">
+                        <span class="important-font">
+                        Order number: <%= @order.order_number %><br>
+                        </span>
+                        <%= @order.created_at.strftime('%b %d, %Y') %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 30px;" class="mobile-padding">
+                  <table class="force-full-width" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="mobile-block">
+                        <table cellspacing="0" cellpadding="0" class="force-full-width">
+                          <tr>
+                            <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
+                              Depart: <%= @order.ori_airport.code %> - <%= @order.des_airport.code %>, <%= format_date(@order.date_depart) %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
+                              <table class="force-full-width" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td class="mobile-block" width="30%">
+                                    <%= image_tag("airlines/#{plane_category_logo_name(@flight_depart.plane_category)}", width: '60', height: '30') %>
+                                  </td>
+                                  <td class="mobile-block" width="70%">
+                                    <%= plane_category_name(@flight_depart.plane_category) %> (<%= @flight_depart.code_flight %>) <br>
+                                    <%= format_time(@flight_depart.time_depart) %> - <%= format_time(@flight_depart.time_arrive) %>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <% if @order.round_trip? %>
+              <tr>
+                <td style="padding-bottom: 30px;" class="mobile-padding">
+                  <table class="force-full-width" cellspacing="0" cellpadding="0">
+                    <tr>
                       <td class="mobile-block">
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
@@ -119,95 +106,79 @@
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
-
                                   <td class="mobile-block" width="30%">
                                     <%= image_tag("airlines/#{plane_category_logo_name(@flight_return.plane_category)}", width: '60', height: '30') %>
                                   </td>
-
                                   <td class="mobile-block" width="70%">
                                     <%= plane_category_name(@flight_return.plane_category) %> (<%= @flight_return.code_flight %>) <br>
                                     <%= format_time(@flight_return.time_depart) %> - <%= format_time(@flight_return.time_arrive) %>
                                   </td>
-
                                 </tr>
                               </table>
                             </td>
                           </tr>
                         </table>
                       </td>
-
                     </tr>
                   </table>
-
                 </td>
               </tr>
-            <% end %>
-            <tr>
-              <td style="padding-bottom: 30px;" class="mobile-padding">
-
-                <table class="force-full-width" cellspacing="0" cellpadding="0">
-                  <tr>
-
-                    <td class="mobile-block">
-                      <table cellspacing="0" cellpadding="0" class="force-full-width">
-                        <tr>
-                          <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                            Passenger(s)
-                          </td>
-                        </tr>
-                        <% @passengers.each do |passenger| %>
+              <% end %>
+              <tr>
+                <td style="padding-bottom: 30px;" class="mobile-padding">
+                  <table class="force-full-width" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="mobile-block">
+                        <table cellspacing="0" cellpadding="0" class="force-full-width">
+                          <tr>
+                            <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
+                              Passenger(s)
+                            </td>
+                          </tr>
+                          <% @passengers.each do |passenger| %>
                           <tr>
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <span style="text-transform: uppercase;"><%= title_name(passenger) %>. <%= passenger.name %></span><br>
                               Depart baggage: <%= passenger.depart_lug_weight %> kg<br>
                               <% if @order.round_trip? %>
-                                Return baggage: <%= passenger.return_lug_weight %> kg
+                              Return baggage: <%= passenger.return_lug_weight %> kg
                               <% end %>
                             </td>
                           </tr>
-                        <% end %>
-                      </table>
-                    </td>
-
-                  </tr>
-                </table>
-
-              </td>
-            </tr>
-            <tr>
-              <td style="padding-bottom: 30px;" class="mobile-padding">
-
-                <table class="force-full-width" cellspacing="0" cellpadding="0">
-                  <tr>
-
-                    <td class="mobile-block">
-                      <table cellspacing="0" cellpadding="0" class="force-full-width">
-                        <tr>
-                          <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                            Total price: <%= @order.price_total %>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-
-                  </tr>
-                </table>
-
-              </td>
-            </tr>
-          </table>
-
-
+                          <% end %>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 30px;" class="mobile-padding">
+                  <table class="force-full-width" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="mobile-block">
+                        <table cellspacing="0" cellpadding="0" class="force-full-width">
+                          <tr>
+                            <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
+                              Total price: <%= @order.price_total %>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
         <tr>
           <td>
-
             <table cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="mobile-padding" style="text-align:left;">
                   <br>
-                    Thank you for your business. Please <a style="color: #2BB6AC;" href="#">contact us</a> with any questions regarding this invoice.
+                  Thank you for your business. Please <a class="important-font" href="#">contact us</a> with any questions regarding this invoice.
                   <br>
                   <br>
                   <br>

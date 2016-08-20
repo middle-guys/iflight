@@ -7,4 +7,8 @@ class FlightMailerPreview < ActionMailer::Preview
   def alert_confirmation
     FlightMailer.alert_confirmation()
   end
+
+  def alert_notification
+    FlightMailer.alert_notification()
+  end
 end
