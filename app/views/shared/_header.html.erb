@@ -4,7 +4,9 @@
       &#9776;
     </button>
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-      <%= link_to "", root_path, class: "navbar-brand iflight-logo" %>
+      <%= link_to root_path, class: "navbar-brand iflight-logo" do %>
+        <%= image_tag "iflight-logo-250x62.png", width: '220', height: '50' %>
+      <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li class="nav-item">
