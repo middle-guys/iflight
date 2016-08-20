@@ -70,12 +70,15 @@ $(document).on 'turbolinks:load', ->
 
   generateRecentlySearchingRow = (id_container, search) ->
     recently_searching =
+      depart_id: search.depart_id
+      return_id: search.return_id
       depart_flight: search.depart
       return_flight: search.return
       depart_date: search.depart_date
       return_date: search.return_date
       is_round_trip: App.isRoundTrip(search.itinerary_type)
       is_one_way: !App.isRoundTrip(search.itinerary_type)
+      itinerary_type: search.itinerary_type
       search_time: (new Date(search.search_time)).toLocaleString()
 
     template = $('#recently-searching-template').html()
@@ -102,6 +105,8 @@ $(document).on 'turbolinks:load', ->
       history = JSON.parse(localStorage.history)
 
     history.push({
+      depart_id: $('#ori_airport_id option:selected').val(),
+      return_id: $('#des_airport_id option:selected').val(),
       depart: $('#ori_airport_id option:selected').text(),
       return: $('#des_airport_id option:selected').text(),
       itinerary_type: $('input[name=itinerary_type]:checked').val(),
