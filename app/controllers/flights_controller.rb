@@ -7,4 +7,8 @@ class FlightsController < ApplicationController
   	@to_date = params["to_date"]
   	@trip_type = params["itinerary_type"]
   end
+
+  def share
+    byebug
+  end
 end

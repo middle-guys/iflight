@@ -3,6 +3,7 @@ $(document).on 'turbolinks:load', ->
 
   tmp = {}
   itinerary = {}
+  shared_flight = {}
 
   # loading data from server
   App.flights = App.cable.subscriptions.create {
@@ -90,6 +91,14 @@ $(document).on 'turbolinks:load', ->
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
+    
+    $('a.share').click (e) ->
+      e.preventDefault()
+      if $(this).data('type') == 'depart'
+        shared_flight = tmp.depart_flights[$(this).data('index')]
+      else
+        shared_flight = tmp.return_flights[$(this).data('index')]
+      $('#sharing-flight-model').modal('show')
 
   $('a.back').click (e) ->
     e.preventDefault()
@@ -236,5 +245,23 @@ $(document).on 'turbolinks:load', ->
         vietnameseDate: true
 
   applyFormValidation()
+
+  # sharing flight model
+  $('#sharing-btn').click (e) ->
+    e.preventDefault()
+    sender_name = $('input#sender-name').val()
+    receiver_email = $('input#receiver-email').val()
+    $.ajax
+      type: 'GET'
+      contentType: 'application/json; charset=utf-8'
+      url: '/flights/share'
+      data: {"sender_name": sender_name, "receiver_email": receiver_email, flight: shared_flight}
+      dataType: 'json'
+      success: (result) ->
+        console.info('success')
+        return
+      error: ->
+        console.error('error get destination')
+        return {}
 
   return
