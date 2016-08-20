@@ -44,6 +44,8 @@ module SearchFlight
         flights = []
         flights_table = html_content.search(selector)
 
+        plane_category = PlaneCategory.find_by(category: :jetstar)
+
         flights_table.each do |flight_row|
           if flight_direct?(flight_row)
             price_web = price_web(flight_row)
@@ -53,11 +55,11 @@ module SearchFlight
               price_infant = calculate_price(price_web, fare_formula_infant)
 
               flights << {
-                plane_category_id: PlaneCategory.find_by(category: :jetstar).id,
+                plane_category_id: plane_category.id,
                 airline_type: PlaneCategory.categories[:jetstar],
                 code_flight: flight_code(flight_row),
-                from_time: from_time(flight_row),
-                to_time: to_time(flight_row),
+                time_depart: from_time(flight_row),
+                time_arrive: to_time(flight_row),
                 price_web: price_web,
                 price_adult: price_adult,
                 price_child: price_child,

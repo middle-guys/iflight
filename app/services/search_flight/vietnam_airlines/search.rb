@@ -28,8 +28,8 @@ module SearchFlight
         path << "&journeySpan=" << get_round_type
         path << "&origin=" << params[:ori_code]
         path << "&destination=" << params[:des_code]
-        path << "&departureDate=" << format_date(params[:depart_date])
-        path << "&returnDate=" << format_date(params[:return_date]) if round_trip?(params[:round_type])
+        path << "&departureDate=" << format_date(params[:date_depart])
+        path << "&returnDate=" << format_date(params[:date_return]) if round_trip?(params[:round_type])
         path << "&numAdults=" << params[:adult].to_s
         path << "&numChildren=" << params[:child].to_s
         path << "&numInfants=" << params[:infant].to_s
