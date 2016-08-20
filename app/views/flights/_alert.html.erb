@@ -1,0 +1,49 @@
+<!-- Modal -->
+<div class="modal fade" id="alert_price" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Notification</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for @alert, remote: true do |f| %>
+          <% if f.object.errors.present? %>
+            <div class="error">
+              <%= f.object.errors.full_messages.to_sentence %>
+            </div>
+          <% end %>
+          <input type="hidden" value="<%= @trip_type%>" name= "trip_type"/>
+          <%= f.hidden_field :ori_air_id, :value => @ori_airport_id%>
+          <%= f.hidden_field :des_air_id, :value => @des_airport_id%>
+          <%= f.hidden_field :time_start, :value => @from_date%>
+          <input type="hidden" value="<%= @to_date%>" name= "todate"/>
+          <div class="form-group">
+            <label for="usr">Enter your name</label>
+            <% if user_signed_in? %>
+              <input type="text" value="<%= current_user.name %>" required="required" name="alert[name]" class="form-control" id="name">
+            <% else %>
+              <input type="text" value="" class="form-control" required="required" name="alert[name]" id="name">
+            <% end %>
+          </div>
+          <div class="form-group">
+            <label for="usr">Enter your email</label>
+            <% if user_signed_in? %>
+              <input type="text" value="<%= current_user.email %>" required="required" name="alert[email]" class="form-control" id="email">
+            <% else %>
+              <input type="text" value="" name="alert[email]" required="required" class="form-control" id="email">
+            <% end %>
+          </div>
+          <div class="form-group">
+            <lable>Price expectation (VND)</lable>
+            <input type="text" value="" class="form-control" required="required" name="alert[price_expect]" id="price">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit 'Subscrible', :class => "btn btn-primary" %>
+        </div>
+      <% end %>  
+    </div>
+  </div>
+</div>
