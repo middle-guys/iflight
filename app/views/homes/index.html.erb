@@ -72,7 +72,7 @@
     </div>
   </div>
 </div>
-<div class="top-recent-search">
+<div class="top-recent-search" id="recent-search-container">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -97,72 +97,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016 - 17/12/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go!</a>
+      <% @trending_search.each do |search| %>
+        <div class="col-md-4">
+          <div class="card place-wrapper">
+            <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
+            <div class="card-block">
+              <h4 class="card-title ori-des"><%= search.route.ori_airport.airport_info %> - <%= search.route.des_airport.airport_info %></h4>
+              <a href="#" class="btn btn-primary">Go!</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016 - 17/12/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go!</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016 - 17/12/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go!</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016 - 17/12/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go!</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card place-wrapper">
-          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
-          <div class="card-block">
-            <h4 class="card-title ori-des">SGN - HAN</h4>
-            <p class="card-text date">20/11/2016</p>
-            <p class="card-text time-search">at 12:00 18/11/2016</p>
-            <a href="#" class="btn btn-primary">Go</a>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
