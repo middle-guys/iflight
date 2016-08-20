@@ -84,9 +84,13 @@ $(document).on 'turbolinks:load', ->
   if localStorage.history != undefined
     history = JSON.parse(localStorage.history)
     if history.length > 0
+      $("#recent-search-container").show()
       for search in history.reverse()
         generateRecentlySearchingRow("#recently-searching", search)
-
+    else
+      $("#recent-search-container").hide()
+  else
+    $("#recent-search-container").hide()
 
   $(document).on 'click', '.searching-form-wrapper .dropdown-menu', (e) ->
     e.stopPropagation()
