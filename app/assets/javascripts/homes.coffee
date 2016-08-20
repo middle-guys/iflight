@@ -79,6 +79,9 @@ $(document).on 'turbolinks:load', ->
       is_round_trip: App.isRoundTrip(search.itinerary_type)
       is_one_way: !App.isRoundTrip(search.itinerary_type)
       itinerary_type: search.itinerary_type
+      adult_num: search.adult_num
+      child_num: search.child_num
+      infant_num: search.infant_num
       search_time: (new Date(search.search_time)).toLocaleString()
 
     template = $('#recently-searching-template').html()
@@ -112,6 +115,9 @@ $(document).on 'turbolinks:load', ->
       itinerary_type: $('input[name=itinerary_type]:checked').val(),
       depart_date: $('#date_depart').val(),
       return_date: $('#date_return').val(),
+      adult_num: $("#adult_num").val(),
+      child_num: $("#child_num").val(),
+      infant_num: $("#infant_num").val()
       search_time: new Date()
     });
 
