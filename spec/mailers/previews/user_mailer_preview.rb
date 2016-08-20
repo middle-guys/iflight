@@ -4,4 +4,9 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     UserMailer.welcome(user)
   end
+
+  def recover_password
+    user = User.first
+    UserMailer.recover_password(user)
+  end
 end
