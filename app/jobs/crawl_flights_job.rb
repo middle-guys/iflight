@@ -26,6 +26,8 @@ class CrawlFlightsJob < ApplicationJob
         }
       }
     rescue Exception => e
+      p e.message
+
       data = {
         error: 404
       }

@@ -34,7 +34,7 @@ module BookFlight
             holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
           }
         rescue
-          404
+          403
         end
       end
 
@@ -56,7 +56,7 @@ module BookFlight
           "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$DropDownListMultiPassengerType_INFANT" => itinerary[:infant_num],
           "ControlGroupTradeSalesHomeView$AvailabilitySearchInputTradeSalesHomeView$ButtonSubmit" => ""
         }
-        ap body
+
         agent.post(
           "https://agenthub.jetstar.com/TradeSalesHome.aspx",
           body

@@ -36,7 +36,7 @@ module BookFlight
 
           {
             reservation_code: reservation_page.at("span.ResNumber").text,
-            holding_date: reservation_page.at("form h1:nth(2)").text
+            holding_date: get_holding_date(reservation_page.at("form h1:nth(2)").text)
           }
         rescue
           403
@@ -72,7 +72,7 @@ module BookFlight
           "lstCompanyList" => "3184ƒCTY TNHH TM&DV DL BAO GIA TRAN (SUB 2)",
           "txtPONumber" => ""
         }
-        ap body
+
         agent.post(
           "https://agent.vietjetair.com/ViewFlights.aspx?lang=vi&st=sl&sesid=",
           body

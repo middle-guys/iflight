@@ -38,7 +38,7 @@ module BookFlight
             holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
           }
         rescue
-          404
+          403
         end
       end
 
