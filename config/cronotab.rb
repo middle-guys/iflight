@@ -13,4 +13,4 @@
 #
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
-Crono.perform(NotificationJob).every 1.minutes
+Crono.perform(NotificationJob).every ENV["CRONO_TIME"].to_i.minutes
