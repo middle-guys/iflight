@@ -9,6 +9,11 @@ class FlightsController < ApplicationController
   end
 
   def share
-    byebug
+    head :ok
   end
+
+  private
+    def share_flight_params
+      params.permit(:sender_name, :receiver_email, flight: [:plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_adult])
+    end
 end

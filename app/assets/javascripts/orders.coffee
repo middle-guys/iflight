@@ -256,12 +256,18 @@ $(document).on 'turbolinks:load', ->
       contentType: 'application/json; charset=utf-8'
       url: '/flights/share'
       data: {"sender_name": sender_name, "receiver_email": receiver_email, flight: shared_flight}
-      dataType: 'json'
       success: (result) ->
-        console.info('success')
+        console.info('share request success')
+        clearSharingForm();
         return
-      error: ->
-        console.error('error get destination')
-        return {}
+      error: (e) ->
+        console.error('share request error')
+        clearSharingForm();
+        return
+
+  clearSharingForm = ->
+    $('#sharing-flight-model').modal('hide')
+    $('input#sender-name').val('')
+    $('input#receiver-email').val('')
 
   return
