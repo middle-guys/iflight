@@ -3,4 +3,8 @@ class FlightMailerPreview < ActionMailer::Preview
   def share_cheap_flight
     FlightMailer.share_cheap_flight()
   end
+
+  def alert_confirmation
+    FlightMailer.alert_confirmation()
+  end
 end
