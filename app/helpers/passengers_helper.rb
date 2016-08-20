@@ -18,4 +18,20 @@ module PassengersHelper
       return "<option value='male'>MSTR</option><option value='female'>MISS</option>".html_safe
     end
   end
+
+  def title_name(passenger)
+    if passenger.adult?
+      if passenger.gender?
+        return "MR"
+      else
+        return "MS"
+      end
+    else
+      if passenger.gender?
+        return "MSTR"
+      else
+        return "MISS"
+      end
+    end
+  end
 end
