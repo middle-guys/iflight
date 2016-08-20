@@ -26,7 +26,7 @@ module SearchFlight
 
       def build_options
         {
-          body: round_trip?(params[:round_type]) ? two_way_options : one_way_options,
+          body: round_trip?(params[:round_type]) ? round_trip_options : one_way_options,
           headers: {
             "Accept-Encoding" => "gzip, deflate",
             "Content-Type" => "application/x-www-form-urlencoded"
@@ -46,10 +46,10 @@ module SearchFlight
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT" => params[:infant],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD" => params[:child],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT" => params[:adult],
-          "datedepart-01" => format_date(params[:depart_date]),
+          "datedepart-01" => format_date(params[:date_depart]),
           "datereturn-01" => "",
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_year_month(params[:depart_date]),
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:depart_date]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_year_month(params[:date_depart]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:date_depart]),
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1" => params[:ori_code],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1" => params[:des_code],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes" => "I",
@@ -75,12 +75,12 @@ module SearchFlight
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_INFANT" => params[:infant],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_CHD" => params[:child],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListPassengerType_ADT" => params[:adult],
-          "datedepart-01" => format_date(params[:depart_date]),
-          "datereturn-01" => format_date(params[:return_date]),
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:depart_date]),
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_year_month(params[:depart_date]),
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay2" => format_day(params[:return_date]),
-          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth2" => format_year_month(params[:return_date]),
+          "datedepart-01" => format_date(params[:date_depart]),
+          "datereturn-01" => format_date(params[:date_return]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay1" => format_day(params[:date_depart]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth1" => format_year_month(params[:date_depart]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketDay2" => format_day(params[:date_return]),
+          "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListMarketMonth2" => format_year_month(params[:date_return]),
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketOrigin1" => params[:ori_code],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$TextBoxMarketDestination1" => params[:des_code],
           "ControlGroupSearchView$AvailabilitySearchInputSearchView$DropDownListFareTypes" => "I",
