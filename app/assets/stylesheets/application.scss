@@ -1,7 +1,7 @@
 $brand-primary: #EF0F6F;
-$brand-second: #ffe13a;
+$brand-second: #255e6d;
 $brand-second-lighter: #ffff0f;
-$brand-second-darker: #FFC600;
+$brand-second-darker: #255e6d;
 $brand-grey: #80828b;
 
 @import "bootstrap";
@@ -9,6 +9,7 @@ $brand-grey: #80828b;
 @import "bootstrap-datepicker3.standalone";
 @import "jquery.bootstrap-touchspin";
 @import "font-awesome";
+@import "animate";
 @import "global";
 @import "header";
 @import "footer";
