@@ -258,19 +258,14 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       contentType: 'application/json; charset=utf-8'
       url: '/flights/share'
-      data: {"sender_name": sender_name, "receiver_email": receiver_email, ori_airport: shared_itinerary.ori_airport.code, des_airport: shared_itinerary.des_airport.code, date_depart: shared_itinerary.date_depart, flight: shared_itinerary.flight}
+      data: {"sender_name": sender_name, "receiver_email": receiver_email, ori_airport_id: shared_itinerary.ori_airport.id, des_airport_id: shared_itinerary.des_airport.id, date_depart: shared_itinerary.date_depart, flight: shared_itinerary.flight}
       success: (result) ->
         console.info('share request success')
-        clearSharingForm();
+        $('#sharing-flight-model').modal('hide')
         return
       error: (e) ->
         console.error('share request error')
-        clearSharingForm();
+        $('#sharing-flight-model').modal('hide')
         return
-
-  clearSharingForm = ->
-    $('#sharing-flight-model').modal('hide')
-    $('input#sender-name').val('')
-    $('input#receiver-email').val('')
 
   return

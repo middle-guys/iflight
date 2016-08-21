@@ -1,7 +1,7 @@
 class ShareFlightJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    # Do something later
+  def perform(params)
+    FlightMailer.share_cheap_flight(params).deliver_later
   end
 end
