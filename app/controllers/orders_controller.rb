@@ -64,10 +64,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.order_number = Order.generate_order_number
-    @order.user = User.first
-    @order.status = :init
+    @order = CreateOrderService.new.new_order(order_params)
+    byebug
     if @order.save
       redirect_to action: "confirmation", id: @order.id
     else

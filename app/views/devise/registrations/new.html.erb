@@ -39,11 +39,6 @@
                 <%= f.password_field :password, autocomplete: "off" , class: "form-control" %>
               </div>
 
-              <div class="field form-group">
-                <%= f.label :password_confirmation, class: "form-control-label" %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-              </div>
-
               <div class="actions form-group">
                 <%= f.submit "Sign up", class: "btn btn-primary" %>
                 <%= link_to "Already have account", new_session_path(resource_name), style: "margin-left: .5em" %>
