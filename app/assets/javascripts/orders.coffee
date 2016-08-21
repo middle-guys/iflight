@@ -3,7 +3,7 @@ $(document).on 'turbolinks:load', ->
 
   tmp = {}
   itinerary = {}
-  shared_flight = {}
+  shared_itinerary = {}
 
   # loading data from server
   App.flights = App.cable.subscriptions.create {
@@ -19,6 +19,7 @@ $(document).on 'turbolinks:load', ->
   received: (result) ->
     tmp = result.data
     itinerary = tmp.itinerary
+    shared_itinerary = tmp.itinerary
     tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
     tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
     loadDepartureFlights()
@@ -95,9 +96,11 @@ $(document).on 'turbolinks:load', ->
     $('a.share').click (e) ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
-        shared_flight = tmp.depart_flights[$(this).data('index')]
+        shared_itinerary.flight = tmp.depart_flights[$(this).data('index')]
+        shared_itinerary.date_depart = tmp.itinerary.date_depart
       else
-        shared_flight = tmp.return_flights[$(this).data('index')]
+        shared_itinerary.flight = tmp.return_flights[$(this).data('index')]
+        shared_itinerary.date_depart = tmp.itinerary.date_return
       $('#sharing-flight-model').modal('show')
 
   $('a.back').click (e) ->
@@ -255,7 +258,7 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       contentType: 'application/json; charset=utf-8'
       url: '/flights/share'
-      data: {"sender_name": sender_name, "receiver_email": receiver_email, flight: shared_flight}
+      data: {"sender_name": sender_name, "receiver_email": receiver_email, ori_airport: shared_itinerary.ori_airport.code, des_airport: shared_itinerary.des_airport.code, date_depart: shared_itinerary.date_depart, flight: shared_itinerary.flight}
       success: (result) ->
         console.info('share request success')
         clearSharingForm();
