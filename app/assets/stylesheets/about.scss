@@ -5,6 +5,25 @@
     color: white;
   }
 
+  .desc-header {
+    padding: 1.5em 0;
+  }
+
+  .desc-body {
+    margin: 2em 1em 3.5em;
+    i {
+      float: left;
+      color: $brand-primary;
+    }
+    .content {
+      padding-left: 2em;
+
+      h6 {
+        color: $brand-primary;
+      }
+    }
+  }
+
   h4 {
     margin-bottom: 0;
   }
@@ -25,6 +44,18 @@
 
     .personal-message {
       font-size: .9em;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .team-desc {
+      div.image {
+        display: none;
+      }
+    }
+
+    #team-moments{
+      display: none;
     }
   }
 }
