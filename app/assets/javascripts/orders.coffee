@@ -3,6 +3,7 @@ $(document).on 'turbolinks:load', ->
 
   tmp = {}
   itinerary = {}
+  shared_itinerary = {}
 
   # loading data from server
   App.flights = App.cable.subscriptions.create {
@@ -18,6 +19,7 @@ $(document).on 'turbolinks:load', ->
   received: (result) ->
     tmp = result.data
     itinerary = tmp.itinerary
+    shared_itinerary = tmp.itinerary
     tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
     tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
     loadDepartureFlights()
@@ -90,6 +92,16 @@ $(document).on 'turbolinks:load', ->
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
+    
+    $('a.share').click (e) ->
+      e.preventDefault()
+      if $(this).data('type') == 'depart'
+        shared_itinerary.flight = tmp.depart_flights[$(this).data('index')]
+        shared_itinerary.date_depart = tmp.itinerary.date_depart
+      else
+        shared_itinerary.flight = tmp.return_flights[$(this).data('index')]
+        shared_itinerary.date_depart = tmp.itinerary.date_return
+      $('#sharing-flight-model').modal('show')
 
   $('a.back').click (e) ->
     e.preventDefault()
@@ -236,5 +248,24 @@ $(document).on 'turbolinks:load', ->
         vietnameseDate: true
 
   applyFormValidation()
+
+  # sharing flight model
+  $('#sharing-btn').click (e) ->
+    e.preventDefault()
+    sender_name = $('input#sender-name').val()
+    receiver_email = $('input#receiver-email').val()
+    $.ajax
+      type: 'GET'
+      contentType: 'application/json; charset=utf-8'
+      url: '/flights/share'
+      data: {"sender_name": sender_name, "receiver_email": receiver_email, ori_airport_id: shared_itinerary.ori_airport.id, des_airport_id: shared_itinerary.des_airport.id, date_depart: shared_itinerary.date_depart, flight: shared_itinerary.flight}
+      success: (result) ->
+        console.info('share request success')
+        $('#sharing-flight-model').modal('hide')
+        return
+      error: (e) ->
+        console.error('share request error')
+        $('#sharing-flight-model').modal('hide')
+        return
 
   return

@@ -4,12 +4,27 @@ $border-grey: #DDD;
   padding-bottom: 3em;
 }
 
-.flights-result-wrapper {
+.booking-process {
+  background: $brand-second;
+  padding: 1.5em 0;
+  margin-bottom: 2.5em;
+  color: white;
+  .title {
+
+  }
+
+  .alert-icon {
+    a {
+      color:white;
+      font-size: 1.5em;
+    }
+  }
 }
 .stepwizard {
   display: table;
   width: 100%;
   position: relative;
+  margin-bottom: 1.5em;
 
   .stepwizard-row {
     display: table-row;
@@ -201,7 +216,7 @@ $border-grey: #DDD;
   padding-top: .5em;
   padding-bottom: .5em;
   padding-left: .8em;
-  color: #000000;
+  color: white;
   font-size: 1.1em;
   margin-bottom: 0;
 }
@@ -235,10 +250,31 @@ $border-grey: #DDD;
     margin-left: .5em;
   }
 }
+.contact-block {
+  .title, .name {
+    text-transform: uppercase;
+  }
+}
 .share-to-friend {
   margin-top: .5em;
 
   a {
     color: #286090;
+  }
+}
+.text-center {
+  text-align: center;
+}
+#alert-btn {
+  i {
+    -webkit-animation-duration: 3s;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-duration: 3s;
+    -moz-animation-delay: 2s;
+    -moz-animation-iteration-count: infinite;
+    animation-duration: 3s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
   }
 }
