@@ -1,0 +1,30 @@
+#about {
+  .header {
+    background: $brand-second;
+    padding: 1.5em 0;
+    color: white;
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  .team-members {
+    background-color: #f7f7f7;
+    padding: 3em 0;
+
+    .social-icons {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: 1.3em;
+
+      i.fa {
+        margin: 0 .6em;
+      }
+    }
+
+    .personal-message {
+      font-size: .9em;
+    }
+  }
+}

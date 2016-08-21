@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   
   resources :alerts
 
+  resources :about, only: [:index]
+
   resources :flights do
     collection do
       get 'share'
