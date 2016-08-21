@@ -41,9 +41,10 @@ module BookFlight
 
           {
             reservation_code: reservation_page.at("span.ResNumber").text,
-            holding_date: get_holding_date(reservation_page.at("form h1:nth(2)").text)
+            # holding_date: get_holding_date(reservation_page.at("form h1:nth(2)").text)
           }
-        rescue
+        rescue Exception => e
+          p e.message, "Vietjet Air Round Trip"
           403
         end
       end

@@ -9,7 +9,12 @@ module BookFlight
       end
 
       def call
-        login
+        begin
+          login
+        rescue Exeption => e
+          p e.message, "Vietjet Air Login"
+          return 403
+        end
 
         round_trip?(params[:itinerary][:category]) ? BookFlight::VietjetAir::RoundTrip.new(agent, params).call : BookFlight::VietjetAir::OneWay.new(agent, params).call
       end

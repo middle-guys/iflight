@@ -31,14 +31,16 @@ module BookFlight
           #{:reservation_code=>"MEDRTW", :holding_date=>"2016-08-19T03:15:31.000Z"}
           {
             reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-            holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
+            # holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
           }
-        rescue
+        rescue Exception => e
+          p e.message, "Jetstar OneWay"
           403
         end
       end
 
       def search
+        byebug
         body = {
           "__EVENTTARGET" => "",
           "__EVENTARGUMENT" => "",

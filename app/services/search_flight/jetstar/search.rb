@@ -8,20 +8,25 @@ module SearchFlight
       end
 
       def call
-        agent = agent_with_proxy
-        options = build_options
+        begin
+          agent = agent_with_proxy
+          options = build_options
 
-        @response =  agent.post "http://booknow.jetstar.com/Search.aspx?culture=vi-VN", options[:body], options[:headers]
+          @response =  agent.post "http://booknow.jetstar.com/Search.aspx?culture=vi-VN", options[:body], options[:headers]
 
-        update_proxy_count(agent.proxy_addr)
+          update_proxy_count(agent.proxy_addr)
 
-        success? ? SearchFlight::Jetstar::Parse.new(
-          content: response,
-          is_round_trip: round_trip?(params[:round_type]),
-          adult: params[:adult],
-          child: params[:child],
-          infant: params[:infant]
-        ).call : []
+          success? ? SearchFlight::Jetstar::Parse.new(
+            content: response,
+            is_round_trip: round_trip?(params[:round_type]),
+            adult: params[:adult],
+            child: params[:child],
+            infant: params[:infant]
+          ).call : []
+        rescue Exception => e
+          p e.message, "Jetstar Searching"
+          nil
+        end
       end
 
       def build_options

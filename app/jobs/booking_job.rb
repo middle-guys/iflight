@@ -1,7 +1,7 @@
 class BookingJob < ApplicationJob
   queue_as :default
 
-  def perform(params)
+  def perform(params, order_id)
     # params = {
     #   itinerary: {
     #     category: "OW",
@@ -102,7 +102,38 @@ class BookingJob < ApplicationJob
     #   price_luggage_depart: 80000,
     #   price_luggage_return: 80000
     # }
+    p "start booking job"
+    order = Order.find(order_id)
     data = BookFlight::Base.new(params).call
-    ap data
+    p "end booking job"
+
+    if params[:itinerary][:category] == "OW"
+      if reservation_valid?(data[:depart_reservation])
+        order.reserving!
+        order.depart_flight.update(code_book: data[:depart_reservation][:reservation_code])
+        OrderMailer.receipt(order).deliver_later
+        Sms::SmsSender.new(order).send
+      else
+        p data[:depart_reservation]
+        order.failed!
+        OrderMailer.error(order).deliver_later
+      end
+    else
+      if reservation_valid?(data[:depart_reservation]) && reservation_valid?(data[:return_reservation])
+        order.reserving!
+        order.depart_flight.update(code_book: data[:depart_reservation][:reservation_code])
+        order.return_flight.update(code_book: data[:return_reservation][:reservation_code])
+        OrderMailer.receipt(order).deliver_later
+        Sms::SmsSender.new(order).send
+      else
+        p reservation_valid?(data[:depart_reservation])
+        p reservation_valid?(data[:return_reservation])
+        order.failed!
+        OrderMailer.error(order).deliver_later
+      end
+    end
+  end
+  def reservation_valid?(reservation)
+    reservation != 404 && reservation != 403
   end
 end

@@ -35,9 +35,10 @@ module BookFlight
 
           {
             reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-            holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
+            # holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
           }
-        rescue
+        rescue Exception => e
+          p e.message, "Jetstar Round Trip"
           403
         end
       end

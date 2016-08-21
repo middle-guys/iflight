@@ -25,9 +25,9 @@ module Sms
       @total_price = @order.price_total
       @passengers = Sms::SmsPassengersFormatter.format(@order.passengers)
       @time_expired = self.format_date_time(Time.now + 1.days)
-      
+
       sms_one_way = "HOLDING one way #{@ori_code}-#{@des_code}. DEPARTURE: #{@depart_from_time} #{@depart_date} - #{@depart_airline} (#{@depart_flight_code}) - booking code #{@depart_booking_code}. Passengers: #{@passengers}. Total #{@total_price} VND. Expired at #{@time_expired}. Hotline 0933554440"
-      sms_round_trip = "HOLDING round trip SGN-DAD. DEPARTURE: #{@depart_from_time} #{@depart_date} - #{@depart_airline} (#{@depart_flight_code}) - booking code #{@depart_booking_code}. RETURN: #{@return_from_time} #{@return_date} - #{@return_airline} (#{@return_flight_code}) - booking code #{@return_booking_code}. Passengers: #{@passengers}. Total #{@total_price} VND. Expired at #{@time_expired}. Hotline 0933554440"
+      sms_round_trip = "HOLDING round trip #{@ori_code}-#{@des_code}. DEPARTURE: #{@depart_from_time} #{@depart_date} - #{@depart_airline} (#{@depart_flight_code}) - booking code #{@depart_booking_code}. RETURN: #{@return_from_time} #{@return_date} - #{@return_airline} (#{@return_flight_code}) - booking code #{@return_booking_code}. Passengers: #{@passengers}. Total #{@total_price} VND. Expired at #{@time_expired}. Hotline 0933554440"
 
       sms_content = @order.round_trip? ? sms_round_trip : sms_one_way
     end

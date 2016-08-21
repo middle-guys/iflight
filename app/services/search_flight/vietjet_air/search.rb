@@ -8,20 +8,26 @@ module SearchFlight
       end
 
       def call
-        agent = agent_with_proxy
+        begin
+          agent = agent_with_proxy
 
-        first_response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", first_options, build_first_options[:headers]
-        @response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", second_options, build_second_options(first_response)[:headers]
+          first_response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", first_options, build_first_options[:headers]
+          @response = agent.post "https://book.vietjetair.com/ameliapost.aspx?lang=vi", second_options, build_second_options(first_response)[:headers]
 
-        update_proxy_count(agent.proxy_addr)
+          update_proxy_count(agent.proxy_addr)
 
-        success? ? SearchFlight::VietjetAir::Parse.new(
-          content: response,
-          is_round_trip: round_trip?(params[:round_type]),
-          adult: params[:adult],
-          child: params[:child],
-          infant: params[:infant]
-        ).call : []
+          success? ? SearchFlight::VietjetAir::Parse.new(
+            content: response,
+            is_round_trip: round_trip?(params[:round_type]),
+            adult: params[:adult],
+            child: params[:child],
+            infant: params[:infant]
+          ).call : []
+        rescue Exception => e
+          p e.message, "Vietjet Air Searching"
+          nil
+        end
+
       end
 
       def build_first_options

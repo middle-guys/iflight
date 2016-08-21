@@ -9,7 +9,12 @@ module BookFlight
       end
 
       def call
-        login
+        begin
+          login
+        rescue Exeption => e
+          p e.message, "Jetstar Login"
+          return 403
+        end
 
         round_trip?(params[:itinerary][:category]) ? BookFlight::Jetstar::RoundTrip.new(agent, params).call : BookFlight::Jetstar::OneWay.new(agent, params).call
       end

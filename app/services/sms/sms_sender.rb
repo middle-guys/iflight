@@ -20,7 +20,6 @@ module Sms
     end
 
     def send
-      byebug
       response = @agent.post(@sms_service_url, @body.to_json, @headers)
     end
 

@@ -28,4 +28,12 @@ class Order < ApplicationRecord
     end
     @order_number
   end
+
+  def depart_flight
+    flights.where(category: :depart).first
+  end
+
+  def return_flight
+    flights.where(category: :return).first
+  end
 end
