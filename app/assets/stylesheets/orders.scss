@@ -265,6 +265,7 @@ $border-grey: #DDD;
 .text-center {
   text-align: center;
 }
+
 #alert-btn {
   i {
     -webkit-animation-duration: 3s;
@@ -277,4 +278,10 @@ $border-grey: #DDD;
     animation-delay: 2s;
     animation-iteration-count: infinite;
   }
+}
+
+#loading-section {
+  height: 50vh;
+  display: block;
+  color: $brand-primary;
 }

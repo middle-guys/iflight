@@ -17,6 +17,7 @@ $(document).on 'turbolinks:load', ->
     console.log('disconnected')
 
   received: (result) ->
+    hideLoadingSection()
     tmp = result.data
     itinerary = tmp.itinerary
     shared_itinerary = tmp.itinerary
@@ -43,6 +44,10 @@ $(document).on 'turbolinks:load', ->
     return
   
   $('div.setup-panel .stepwizard-step a.current').trigger 'click'
+
+  # loading section
+  hideLoadingSection = ->
+    $('#loading-section').hide()
 
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->

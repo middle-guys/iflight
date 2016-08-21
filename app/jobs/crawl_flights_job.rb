@@ -26,7 +26,7 @@ class CrawlFlightsJob < ApplicationJob
       #   }
       # }
 
-      sleep 2.5
+      sleep 4.5
 
       data = {
         itinerary: {
