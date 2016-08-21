@@ -1,6 +1,7 @@
 class UserMailer < ApplicationMailer
   def welcome(user)
     @user = user
+    byebug
     mail(to: @user.email, subject: 'Welcome <%= @user.name %> to iFlight!')
   end
 
