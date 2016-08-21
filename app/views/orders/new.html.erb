@@ -12,6 +12,16 @@
 </div>
 <div id="flights-result">
   <input type="hidden" name="uuid" id="uuid" value="<%= @uuid %>" />
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="booking-process text-center">
+        <h4 class="title">Booking Process</h4>
+        <div class="alert-icon">
+          <a href="" class="" id="alert-btn"><i class="fa fa-bell-o animated flash" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
@@ -69,6 +79,13 @@
               </div>
             </div>
           </div>
+          <div id="loading-section" class="text-center">
+            <div class="row">
+              <div class="col-xs-12">
+                <%= image_tag "loading/flightloader.gif", width: '485', height: '215' %>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="price-info-bar">
@@ -121,6 +138,11 @@
               </div>
             </div>
             <div id="return-flights"></div>
+            <div class="row">
+              <div class="col-xs-8 offset-xs-2" style="text-align: center;">
+                <a href="#" class="btn btn-lg btn-secondary back">Back</a>
+              </div>
+            </div>
           </div>
         </div>
         <% @step_number += 1 %>
@@ -141,22 +163,4 @@
 </div>
 <%= render 'flight_details_template' %>
 <%= render 'summary_flight_template' %>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Share to your friend</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'sharing_flight' %>

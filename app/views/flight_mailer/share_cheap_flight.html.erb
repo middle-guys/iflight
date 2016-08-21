@@ -9,7 +9,7 @@
           <center>
             <table cellspacing="0" cellpadding="0" width="530" height="303" class="w320">
               <tr>
-                <td valign="middle" style="vertical-align:middle; padding-right: 15px; padding-left: 15px; text-align:left;" height="303">
+                <td valign="middle" style="vertical-align:middle; padding-right: 15px; padding-left: 15px; text-align:left; color: #ffffff;" height="303">
                   <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                       <td>
@@ -55,9 +55,7 @@
               <tr>
                 <td class="mobile-padding" style="text-align:left;">
                   <br>
-                  You receive this email because your friend, Harley, want to share a cheap flight ticket from iFlight with you.
-                  <br>
-                  <br>
+                  You receive this email because your friend, <%= @sender_name %>, want to share a cheap flight ticket from iFlight with you.
                   <br>
                   <br>
                 </td>
@@ -76,7 +74,7 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              From Ho Chi Minh (SGN) to Ha Noi (HAN) on Aug 12, 2016
+                              From <%= @ori_airport.airport_info %> to <%= @des_airport.airport_info %> on <%= @date_depart %>
                             </td>
                           </tr>
                           <tr>
@@ -84,11 +82,11 @@
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td class="mobile-block" width="30%">
-                                    <%= image_tag("airlines/jet.png", width: '60', height: '30') %>
+                                    <%= image_tag("airlines/#{plane_category_logo_name(@plane_category)}", width: '60', height: '30') %>
                                   </td>
                                   <td class="mobile-block" width="70%">
-                                    Jetstar (BL539) <br>
-                                    12:00 - 14:00
+                                    <%= @plane_category.name %> (<%= @code_flight %>) <br>
+                                    <%= @time_depart %> - <%= @time_arrive %>
                                   </td>
                                 </tr>
                               </table>
@@ -108,7 +106,7 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              Price: 430.000 VND
+                              Price: <%= format_currency(@price_adult) %>
                             </td>
                           </tr>
                         </table>

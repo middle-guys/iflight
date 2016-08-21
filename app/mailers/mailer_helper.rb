@@ -7,6 +7,10 @@ module MailerHelper
     date.strftime("%H:%M")
   end
 
+  def format_date_abbr_month_name(date)
+    date.strftime("%b %d, %Y")
+  end
+
   def plane_category_logo_name(plane_category)
     if plane_category.vietnam_airlines?
       return "vna.png"
@@ -46,7 +50,7 @@ module MailerHelper
       end
     end
   end
-  
+
   def format_currency(price)
     number_to_currency(price, precision: 0, unit: "VND", delimiter: ",", format: "%n %u")
   end

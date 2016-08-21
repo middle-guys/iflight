@@ -1,0 +1,61 @@
+#about {
+  .header {
+    background: $brand-second;
+    padding: 1.5em 0;
+    color: white;
+  }
+
+  .desc-header {
+    padding: 1.5em 0;
+  }
+
+  .desc-body {
+    margin: 2em 1em 3.5em;
+    i {
+      float: left;
+      color: $brand-primary;
+    }
+    .content {
+      padding-left: 2em;
+
+      h6 {
+        color: $brand-primary;
+      }
+    }
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  .team-members {
+    background-color: #f7f7f7;
+    padding: 3em 0;
+
+    .social-icons {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: 1.3em;
+
+      i.fa {
+        margin: 0 .6em;
+      }
+    }
+
+    .personal-message {
+      font-size: .9em;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .team-desc {
+      div.image {
+        display: none;
+      }
+    }
+
+    #team-moments{
+      display: none;
+    }
+  }
+}
