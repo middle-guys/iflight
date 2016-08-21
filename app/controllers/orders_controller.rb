@@ -64,8 +64,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = CreateOrderService.new.new_order(order_params)
-    byebug
+    @order = CreateOrderService.new.new_order(order_params, current_user)
     if @order.save
       redirect_to action: "confirmation", id: @order.id
     else

@@ -91,19 +91,11 @@
     </div>
     <div class="col-xs-7 col-sm-7">
       <div class="form-group">
-        <%= f.text_field :contact_name, class: "form-control", placeholder: "FULL NAME", data: {behavior: "update-summary"} %>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-3 col-sm-2 offset-xs-1">
-      <div class="form-group">
-        <label>Phone</label>
-      </div>
-    </div>
-    <div class="col-xs-7 col-sm-7">
-      <div class="form-group">
-        <%= f.text_field :contact_phone, class: "form-control", placeholder: "PHONE NUMBER", pattern: "\\d*", data: {behavior: "update-summary"} %>
+        <% if user_signed_in? %>
+          <%= f.text_field :contact_name, value: "#{current_user.name}", class: "form-control", placeholder: "FULL NAME", data: {behavior: "update-summary"} %>
+        <% else %>
+          <%= f.text_field :contact_name, class: "form-control", placeholder: "FULL NAME", data: {behavior: "update-summary"} %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -115,7 +107,27 @@
     </div>
     <div class="col-xs-7 col-sm-7">
       <div class="form-group">
-        <%= f.email_field :contact_email, class: "form-control", placeholder: "EMAIL", data: {behavior: "update-summary"} %>
+        <% if user_signed_in? %>
+          <%= f.email_field :contact_email, value: "#{current_user.email}", class: "form-control", placeholder: "EMAIL", data: {behavior: "update-summary"} %>
+        <% else %>
+          <%= f.email_field :contact_email, class: "form-control", placeholder: "EMAIL", data: {behavior: "update-summary"} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3 col-sm-2 offset-xs-1">
+      <div class="form-group">
+        <label>Phone</label>
+      </div>
+    </div>
+    <div class="col-xs-7 col-sm-7">
+      <div class="form-group">
+        <% if user_signed_in? %>
+          <%= f.text_field :contact_phone, value: "#{current_user.phone}", class: "form-control", placeholder: "PHONE NUMBER", pattern: "\\d*", data: {behavior: "update-summary"} %>
+        <% else %>
+          <%= f.text_field :contact_phone, class: "form-control", placeholder: "PHONE NUMBER", pattern: "\\d*", data: {behavior: "update-summary"} %>
+        <% end %>
       </div>
     </div>
   </div>

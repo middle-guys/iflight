@@ -1,17 +1,29 @@
 class OrdersController
   class CreateOrderService
-    def new_order(params)
-      @order = Order.new(order_params)
+    def new_order(params, current_user)
+      @current_user = current_user
+      @order = Order.new(params)
       @order.order_number = Order.generate_order_number
-      @order.user = find_or_create_user(params)
+      if current_user
+        @order.user_id = current_user.ids
+      else
+        @order.user_id = find_or_create_user(params)
+      end
       @order.status = :init
-
       @order
     end
 
     private
       def find_or_create_user(params)
-        return current_user if user_signed_in?
+        user = User.where(email: params[:contact_email]).first
+
+        unless user.present?
+          user = User.new(email: params[:contact_email], phone: params[:contact_phone], 
+            name: params[:contact_name], is_registered: false, is_admin: false, 
+            gender: params[:contact_gender], password: "123")
+          user.save
+        end
+        return user.id
       end
   end
 end
