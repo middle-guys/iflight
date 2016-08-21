@@ -75,63 +75,29 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              From Ho Chi Minh (SGN) to Ha Noi (HAN) on Aug 12, 2016
+                              From <%= Airport.find(@alert.ori_air_id).name %> (<%= Airport.find(@alert.ori_air_id).code%>) to <%= Airport.find(@alert.des_air_id).name %> (<%= Airport.find(@alert.des_air_id).code %>) on <%= format_date(@alert.time_start) %>
                             </td>
                           </tr>
+                          <% @tickets.each do |ticket| %>
                           <tr>
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td class="mobile-block" width="33%">
-                                    <%= image_tag("airlines/jet.png", width: '60', height: '30') %>
+                                      <%= image_tag("airlines/#{plane_category_logo_name(PlaneCategory.find(ticket[:plane_category_id]))}", width: '60', height: '30' )%>
                                   </td>
                                   <td class="mobile-block" width="33%">
-                                    Jetstar (BL539) <br>
-                                    12:00 - 14:00
+                                    <%= PlaneCategory.find(ticket[:plane_category_id]).name %> (<%= ticket[:code_flight] %>) <br>
+                                    <%= ticket[:time_depart] %> - <%= ticket[:time_arrive] %>
                                   </td>
                                   <td class="mobile-block" width="33%">
-                                    210.000 VND
+                                    <%= format_currency(ticket[:price_adult]) %>
                                   </td>
                                 </tr>
                               </table>
                             </td>
                           </tr>
-                          <tr>
-                            <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
-                              <table class="force-full-width" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td class="mobile-block" width="33%">
-                                    <%= image_tag("airlines/jet.png", width: '60', height: '30') %>
-                                  </td>
-                                  <td class="mobile-block" width="33%">
-                                    Jetstar (BL539) <br>
-                                    12:00 - 14:00
-                                  </td>
-                                  <td class="mobile-block" width="33%">
-                                    210.000 VND
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
-                              <table class="force-full-width" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td class="mobile-block" width="33%">
-                                    <%= image_tag("airlines/jet.png", width: '60', height: '30') %>
-                                  </td>
-                                  <td class="mobile-block" width="33%">
-                                    Jetstar (BL539) <br>
-                                    12:00 - 14:00
-                                  </td>
-                                  <td class="mobile-block" width="33%">
-                                    210.000 VND
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
+                          <%end%>
                         </table>
                       </td>
                     </tr>
@@ -146,7 +112,7 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              Your price expectation: 430.000 VND
+                              Your price expectation: <%= format_currency(@alert.price_expect) %>
                             </td>
                           </tr>
                         </table>
@@ -166,7 +132,9 @@
               <tr>
                 <td class="mobile-padding" style="text-align:left;">
                 <br>
-                  Feel free to <a href="http://iflight.herokuapp.com" class="important-font" target="_blank">unsubscribe</a> anytime you don't want to receive this notification
+                  Feel free to 
+                  <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token), :class=>"important-font" %>
+                   anytime you don't want to receive this notification
                 <br>
                 <br>
                 <br>
