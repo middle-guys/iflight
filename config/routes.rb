@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
   root 'homes#index'
+  
   devise_for :users, :controllers => { registrations: 'users/registrations'}
+  
   get 'alerts/unsubscribe'
   patch 'alerts/unsubscribe'
-  get 'flights/index'
+  
   resources :alerts
+
+  resources :flights do
+    collection do
+      get 'share'
+    end
+  end
 
   resources :routes do
     collection do
