@@ -80,8 +80,8 @@
   }
 }
 
-.top-recent-search {
-  margin-bottom: 5em;
+.top-recent-search, .top-trending-search {
+  margin-bottom: 0em;
   .title {
     text-align: center;
     margin-top: 2em;
@@ -112,4 +112,8 @@
       color: gray;
     }
   }
+}
+
+.top-trending-search {
+  margin-bottom: 5em;
 }
