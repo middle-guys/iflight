@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
     @date_depart = params["date_depart"]
     @date_return = params["date_return"]
     @trip_type = params["itinerary_type"]
-    
+
     @uuid = SecureRandom.uuid
     @ori_airport = Airport.find(params[:ori_airport_id])
     @des_airport = Airport.find(params[:des_airport_id])
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     flight_depart.category = :depart
     if self.round_trip?(params[:itinerary_type])
       flight_return = @order.flights.build
-      flight_return.category = :return      
+      flight_return.category = :return
     end
 
     CrawlFlightsJob.perform_later(
@@ -73,6 +73,7 @@ class OrdersController < ApplicationController
   def create
     @order = CreateOrderService.new.new_order(order_params, current_user)
     if @order.save
+      BookingJob.perform_later(booking_params, @order.id)
       redirect_to action: "confirmation", id: @order.id
     else
       flash[:error] = "Something wrongs ! #{@order.errors.full_messages.to_sentence}"
@@ -91,9 +92,9 @@ class OrdersController < ApplicationController
   private
     def order_params
       params.require(:order).permit(
-        :category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender, 
-        :adult, :child, :infant, :ori_airport_id, :des_airport_id, 
-        passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob], 
+        :category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender,
+        :adult, :child, :infant, :ori_airport_id, :des_airport_id,
+        passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob],
         flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
     end
 end
