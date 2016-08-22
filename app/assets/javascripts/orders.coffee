@@ -244,12 +244,12 @@ $(document).on 'turbolinks:load', ->
         else
           error.insertAfter element
         return
-    $('input[name*="name"]').each (index, val) ->
+    $('form#new_order input[name*="name"]').each (index, val) ->
       $(this).rules 'add',
         required: true
         wordCount: ['2']
 
-    $('input[name*="dob"]').each (index, val) ->
+    $('form#new_order input[name*="dob"]').each (index, val) ->
       $(this).rules 'add',
         required: true
         vietnameseDate: true
