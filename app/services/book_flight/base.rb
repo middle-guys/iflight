@@ -49,7 +49,7 @@ module BookFlight
         end
       end
 
-      if params[:depart_flight][:airline_type] == params[:return_flight][:airline_type]
+      if params[:itinerary][:category] == "RT" && params[:depart_flight][:airline_type] == params[:return_flight][:airline_type]
         return_reservation = depart_reservation
       end
 
