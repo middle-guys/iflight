@@ -8,6 +8,7 @@ class AlertsController < ApplicationController
 		@alert1.status = "active"
 		if @alert1.save and round_trip
 			@success = true
+			FlightMailer.alert_confirmation(@alert1).deliver_later
 			respond_to do |f|
 				f.js {render action: 'show', status: :created, location: @alert2}
 			end

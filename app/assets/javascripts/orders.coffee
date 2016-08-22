@@ -171,6 +171,8 @@ $(document).on 'turbolinks:load', ->
     $('.contact-block span.phone').html($('input[name="order[contact_phone]"]').val())
     $('.contact-block span.email').html($('input[name="order[contact_email]"]').val())
 
+  updateContactSummary()
+
   registerContactEvents = ->
     $("[data-behavior~=update-summary]").focusout ->
       updateContactSummary()

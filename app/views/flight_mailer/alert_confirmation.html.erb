@@ -59,7 +59,7 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              From Ho Chi Minh (SGN) to Ha Noi (HAN) on Aug 12, 2016
+                              From <%= Airport.find(@alert.ori_air_id).name %> (<%= Airport.find(@alert.ori_air_id).code%>) to <%= Airport.find(@alert.des_air_id).name %> (<%= Airport.find(@alert.des_air_id).code %>) on <%= format_date(@alert.time_start) %>
                             </td>
                           </tr>
                           <tr>
@@ -67,7 +67,7 @@
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td class="mobile-block" width="70%">
-                                    Price expectation: 430.000 VND <br>
+                                    Price expectation: <%= format_currency(@alert.price_expect) %> <br>
                                   </td>
                                 </tr>
                               </table>
@@ -90,7 +90,7 @@
               <tr>
                 <td class="mobile-padding" style="text-align:left;">
                 <br>
-                  Feel free to <a href="http://iflight.herokuapp.com" class="important-font" target="_blank">unsubscribe</a> anytime you don't want to receive this notification
+                  Feel free to <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token), :class=>"important-font" %> anytime you don't want to receive this notification
                 <br>
                 <br>
                 <br>

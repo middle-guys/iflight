@@ -4,6 +4,13 @@ class OrdersController < ApplicationController
   include FlightFormulas
 
   def new
+    @alert = Alert.new
+    @ori_airport_id = params["ori_airport_id"]
+    @des_airport_id = params["des_airport_id"]
+    @date_depart = params["date_depart"]
+    @date_return = params["date_return"]
+    @trip_type = params["itinerary_type"]
+
     @uuid = SecureRandom.uuid
     @ori_airport = Airport.find(params[:ori_airport_id])
     @des_airport = Airport.find(params[:des_airport_id])
@@ -64,10 +71,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.order_number = Order.generate_order_number
-    @order.user = User.first
-    @order.status = :init
+    @order = CreateOrderService.new.new_order(order_params, current_user)
     if @order.save
       BookingJob.perform_later(booking_params, @order.id)
       redirect_to action: "confirmation", id: @order.id

@@ -18,5 +18,8 @@ module Iflight
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
     config.action_mailer.asset_host = 'http://iflight.herokuapp.com'
     config.active_job.queue_adapter = :async
+    config.to_prepare do
+      Devise::Mailer.layout 'mailer'
+    end
   end
 end

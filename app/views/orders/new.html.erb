@@ -5,11 +5,14 @@
       <div class="booking-process text-center">
         <h4 class="title">Booking Process</h4>
         <div class="alert-icon">
-          <a href="" class="" id="alert-btn"><i class="fa fa-bell-o animated flash" aria-hidden="true"></i></a>
+          <%= link_to nil, "data-toggle" => "modal", "data-target" => "#alert_price", "id"=> "alert-btn"  do %>
+            <i class="fa fa-bell-o animated flash" aria-hidden="true"></i>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+  <%= render "flights/alert", :locals => {:ori_airport_id => @ori_airport_id, :des_airport_id => @des_airport_id, :from_date => @date_depart, :date_return => @to_date} %>
   <div class="container">
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
