@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
     @order.user = User.first
     @order.status = :init
     if @order.save
-      BookingJob.perform_now(booking_params, @order.id)
+      BookingJob.perform_later(booking_params, @order.id)
       redirect_to action: "confirmation", id: @order.id
     else
       flash[:error] = "Something wrongs ! #{@order.errors.full_messages.to_sentence}"
