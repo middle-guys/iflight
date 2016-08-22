@@ -148,13 +148,21 @@ $(document).on 'turbolinks:load', ->
 
   # update summary tab
   updatePriceTotalSummary = (itinerary) ->
-    order_price_total = itinerary.depart_flight.price_total
+    price_total_depart = itinerary.depart_flight.price_total
+    price_total_return = 0
+    order_price_total = price_total_depart
+
+    $('select[name*="depart_lug_weight"] option:selected').each (index, val) ->
+      price_total_depart = price_total_depart + parseInt($(this).attr('price'))
+      $('input#order_flights_attributes_0_price_total').val(price_total_depart)
+
     if itinerary.return_flight != undefined
-      order_price_total = order_price_total + itinerary.return_flight.price_total
+      price_total_return = itinerary.return_flight.price_total
+      $('select[name*="return_lug_weight"] option:selected').each (index, val) ->
+        price_total_return = price_total_return + parseInt($(this).attr('price'))
+        $('input#order_flights_attributes_1_price_total').val(price_total_return)
 
-    $('select[name*="lug_weight"] option:selected').each (index, val) ->
-      order_price_total = order_price_total + parseInt($(this).attr('price'))
-
+    order_price_total = price_total_depart + price_total_return
     $('.pax-block .price-total').html(App.format_vnd(order_price_total))
     $('input#order_price_total').val(order_price_total)
 
