@@ -4,6 +4,13 @@ class OrdersController < ApplicationController
   include FlightFormulas
 
   def new
+    @alert = Alert.new
+    @ori_airport_id = params["ori_airport_id"]
+    @des_airport_id = params["des_airport_id"]
+    @date_depart = params["date_depart"]
+    @date_return = params["date_return"]
+    @trip_type = params["itinerary_type"]
+    
     @uuid = SecureRandom.uuid
     @ori_airport = Airport.find(params[:ori_airport_id])
     @des_airport = Airport.find(params[:des_airport_id])
