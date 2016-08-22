@@ -5,7 +5,7 @@ class OrdersController
       @order = Order.new(params)
       @order.order_number = Order.generate_order_number
       if current_user
-        @order.user_id = current_user.ids
+        @order.user_id = current_user.id
       else
         @order.user_id = find_or_create_user(params)
       end
