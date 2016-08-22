@@ -35,10 +35,11 @@ module BookFlight
 
           {
             reservation_code: reservation_page.at("#booking-data booking")["pnr"],
-            holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
+            # holding_date: reservation_page.at("#booking-data booking")["holddateutc"].to_datetime
           }
-        rescue
-          404
+        rescue Exception => e
+          p e.message, "Jetstar Round Trip"
+          403
         end
       end
 
@@ -122,13 +123,14 @@ module BookFlight
           body["AgentControlGroupPassengerView$AgentUnitMapSeatsView$HiddenEquipmentConfiguration_1_PassengerNumber_#{index}"] = ""
         end
 
-        current_index_adult = 0
         infant_num_tmp = itinerary[:infant_num]
 
         itinerary[:adult_num].times do |index|
-          if itinerary[:infant_num] > 0 && infant_num_tmp > 0
+          if infant_num_tmp >= 0
             current_index_adult = 2 * index + 1
-            infant_num_tmp -= 1
+            infant_num_tmp = infant_num_tmp - 1
+          else
+            current_index_adult = itinerary[:infant_num] + index + 1
           end
 
           current_passenger = adult_passengers[index]
@@ -144,14 +146,6 @@ module BookFlight
           body["AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListGender_#{current_index_adult}"] = current_passenger[:gender]
           body["AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$TextBoxProgramNumber_#{current_index_adult}"] = ""
           body["AgentControlGroupPassengerView$AgentPassengerInputViewPassengerView$DropDownListProgram_#{current_index_adult}"] = "QF"
-
-          if itinerary[:infant_num] == 0
-            current_index_adult += 1
-          else
-            if infant_num_tmp < 0
-              current_index_adult += 1
-            end
-          end
         end
 
         itinerary[:infant_num].times do |index|

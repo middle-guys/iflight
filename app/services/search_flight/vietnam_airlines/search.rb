@@ -8,18 +8,24 @@ module SearchFlight
       end
 
       def call
-        agent = agent_with_proxy
-        @response = agent.get build_path
+        begin
+          agent = agent_with_proxy
+          @response = agent.get build_path
 
-        update_proxy_count(agent.proxy_addr)
+          update_proxy_count(agent.proxy_addr)
 
-        success? ? SearchFlight::VietnamAirlines::Parse.new(
-          content: response,
-          is_round_trip: round_trip?(params[:round_type]),
-          adult: params[:adult],
-          child: params[:child],
-          infant: params[:infant]
-        ).call : []
+          success? ? SearchFlight::VietnamAirlines::Parse.new(
+            content: response,
+            is_round_trip: round_trip?(params[:round_type]),
+            adult: params[:adult],
+            child: params[:child],
+            infant: params[:infant]
+          ).call : []
+        rescue Exception => e
+          p e.message, "Vietnam Airlines Searching"
+          nil
+        end
+
       end
 
       def build_path

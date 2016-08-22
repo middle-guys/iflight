@@ -1,5 +1,6 @@
 class FlightMailer < ApplicationMailer
   helper MailerHelper
+
   def share_cheap_flight(params)
     @plane_category = PlaneCategory.find(params[:plane_category_id])
     @ori_airport = Airport.find(params[:ori_airport_id])

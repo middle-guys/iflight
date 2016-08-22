@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root 'homes#index'
-  
+
   devise_for :users, :controllers => { registrations: 'users/registrations'}
-  
+
   get 'alerts/unsubscribe'
   patch 'alerts/unsubscribe'
-  
+
   resources :alerts
 
   resources :about, only: [:index]
