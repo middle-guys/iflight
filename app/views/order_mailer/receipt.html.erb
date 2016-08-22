@@ -139,9 +139,9 @@
                           <tr>
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <span style="text-transform: uppercase;"><%= title_name(passenger) %>. <%= passenger.name %></span><br>
-                              Depart baggage: <%= passenger.depart_lug_weight %> kg<br>
+                              Depart baggage: <%= passenger.depart_lug_weight.to_i %> kg<br>
                               <% if @order.round_trip? %>
-                              Return baggage: <%= passenger.return_lug_weight %> kg
+                              Return baggage: <%= passenger.return_lug_weight.to_i %> kg
                               <% end %>
                             </td>
                           </tr>

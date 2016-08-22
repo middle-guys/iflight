@@ -75,7 +75,7 @@ module SearchFlight
 
       private
         def flight_code(flight_row)
-          flight_row.at_css("span.flight-no").text.gsub!("  ", " ")
+          flight_row.at_css("span.flight-no").text.gsub(/\s+/, ' ')
         end
 
         def from_time(flight_row)

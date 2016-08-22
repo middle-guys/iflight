@@ -132,6 +132,7 @@ class BookingJob < ApplicationJob
         OrderMailer.error(order).deliver_later
       end
     end
+    ActiveRecord::Base.clear_active_connections!
   end
   def reservation_valid?(reservation)
     reservation != 404 && reservation != 403

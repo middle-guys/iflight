@@ -197,6 +197,8 @@ class CrawlFlightsJob < ApplicationJob
     end
 
     create_search_history(params) unless data[:error]
+
+    ActiveRecord::Base.clear_active_connections!
     ActionCable.server.broadcast("flights-#{params[:uuid]}", data: data)
   end
 

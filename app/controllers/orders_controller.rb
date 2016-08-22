@@ -131,7 +131,8 @@ class OrdersController < ApplicationController
           category: passenger.adult? ? 1 : (passenger.child? ? 2 : 3),
           gender: passenger.male? ? 1 : 2,
           luggage_depart: passenger.depart_lug_weight.to_i,
-          luggage_return: passenger.return_lug_weight.to_i
+          luggage_return: passenger.return_lug_weight.to_i,
+          dob: passenger.dob
         }
       end
 
