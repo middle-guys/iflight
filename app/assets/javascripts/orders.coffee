@@ -48,6 +48,7 @@ $(document).on 'turbolinks:load', ->
   # loading section
   hideLoadingSection = ->
     $('#loading-section').hide()
+    $('#depart-flights-content').show()
 
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
@@ -147,14 +148,15 @@ $(document).on 'turbolinks:load', ->
 
   # update summary tab
   updatePriceTotalSummary = (itinerary) ->
-    tmp_price_total = itinerary.depart_flight.price_total
+    order_price_total = itinerary.depart_flight.price_total
     if itinerary.return_flight != undefined
-      tmp_price_total = tmp_price_total + itinerary.return_flight.price_total
+      order_price_total = order_price_total + itinerary.return_flight.price_total
 
     $('select[name*="lug_weight"] option:selected').each (index, val) ->
-      tmp_price_total = tmp_price_total + parseInt($(this).attr('price'))
+      order_price_total = order_price_total + parseInt($(this).attr('price'))
 
-    $('.pax-block .price-total').html(App.format_vnd(tmp_price_total))
+    $('.pax-block .price-total').html(App.format_vnd(order_price_total))
+    $('input#order_price_total').val(order_price_total)
 
   updateFlightSummary = (flight, id_container) ->
     flight.plane_category_name = App.plane_category_name(flight.airline_type)

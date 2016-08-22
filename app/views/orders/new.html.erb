@@ -48,6 +48,7 @@
     <%= f.hidden_field :adult, value: @adult %>
     <%= f.hidden_field :child, value: @child %>
     <%= f.hidden_field :infant, value: @infant %>
+    <%= f.hidden_field :price_total, value: "" %>
 
     <%= f.fields_for :flights do |flight| %>
       <%= flight.hidden_field :category, value: flight.object.category %>
@@ -77,25 +78,27 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="price-info-bar">
-                Pricing is include ticket price and all taxes for all passengers
+          <div id="depart-flights-content" style="display: none;">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="price-info-bar">
+                  Pricing is include ticket price and all taxes for all passengers
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="sort-by">
+                  Sort by:
+                  <select id="sort-depart">
+                    <option value="price-asc">Price (low to high)</option>
+                    <option value="price-desc">Price (high to low)</option>
+                    <option value="time-asc">Depart time (early to late)</option>
+                    <option value="time-desc">Depart time (late to early)</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="sort-by">
-                Sort by:
-                <select id="sort-depart">
-                  <option value="price-asc">Price (low to high)</option>
-                  <option value="price-desc">Price (high to low)</option>
-                  <option value="time-asc">Depart time (early to late)</option>
-                  <option value="time-desc">Depart time (late to early)</option>
-                </select>
-              </div>
-            </div>
+            <div id="depature-flights"></div>
           </div>
-          <div id="depature-flights"></div>
         </div>
       </div>
       <% @step_number = 2 %>

@@ -93,7 +93,7 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(
         :category, :date_depart, :date_return, :contact_name, :contact_phone, :contact_email, :contact_gender,
-        :adult, :child, :infant, :ori_airport_id, :des_airport_id,
+        :adult, :child, :infant, :ori_airport_id, :des_airport_id, :price_total,
         passengers_attributes: [:name, :gender, :category, :depart_lug_weight, :return_lug_weight, :dob],
         flights_attributes: [:category, :plane_category_id, :code_flight, :time_depart, :time_arrive, :price_web, :price_total])
     end
