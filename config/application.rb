@@ -17,5 +17,8 @@ module Iflight
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
     config.action_mailer.asset_host = 'http://iflight.herokuapp.com'
+    config.to_prepare do
+      Devise::Mailer.layout 'mailer'
+    end
   end
 end

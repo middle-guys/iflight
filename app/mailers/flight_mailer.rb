@@ -1,6 +1,5 @@
 class FlightMailer < ApplicationMailer
   helper MailerHelper
-
   def share_cheap_flight(params)
     @plane_category = PlaneCategory.find(params[:plane_category_id])
     @ori_airport = Airport.find(params[:ori_airport_id])
@@ -17,11 +16,14 @@ class FlightMailer < ApplicationMailer
     mail(to: @receiver_email, subject: 'Your friend shares cheap flight ticket with you')
   end
 
-  def alert_confirmation
-    mail(to: 'replace_this_email@gmail.com', subject: 'Alert confirmation from iFlight')
+  def alert_notification(alert, ticket_cheaps)
+  	@alert = alert
+    @tickets = ticket_cheaps
+    mail(to: @alert.email, subject: 'Alert BOT found something excited for you')
   end
 
-  def alert_notification
-    mail(to: 'replace_this_email@gmail.com', subject: 'Alert BOT found something excited for you')
+  def alert_confirmation(alert)
+    @alert = alert
+    mail(to: @alert.email, subject: 'Alert confirmation from iFlight')
   end
 end
