@@ -73,12 +73,16 @@
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
-                                  <td class="mobile-block" width="30%">
+                                  <td class="mobile-block" width="20%">
                                     <%= image_tag("airlines/#{plane_category_logo_name(@flight_depart.plane_category)}", width: '60', height: '30') %>
                                   </td>
-                                  <td class="mobile-block" width="70%">
+                                  <td class="mobile-block" width="40%">
                                     <%= plane_category_name(@flight_depart.plane_category) %> (<%= @flight_depart.code_flight %>) <br>
                                     <%= format_time(@flight_depart.time_depart) %> - <%= format_time(@flight_depart.time_arrive) %>
+                                  </td>
+                                  <td class="mobile-block" width="40%">
+                                    Booking code <br>
+                                    <%= @flight_depart.code_book %>
                                   </td>
                                 </tr>
                               </table>
@@ -106,12 +110,16 @@
                             <td  style="background-color: #ebebeb; padding: 8px; border-top: 3px solid #ffffff; text-align:left;">
                               <table class="force-full-width" cellspacing="0" cellpadding="0">
                                 <tr>
-                                  <td class="mobile-block" width="30%">
+                                  <td class="mobile-block" width="20%">
                                     <%= image_tag("airlines/#{plane_category_logo_name(@flight_return.plane_category)}", width: '60', height: '30') %>
                                   </td>
-                                  <td class="mobile-block" width="70%">
+                                  <td class="mobile-block" width="40%">
                                     <%= plane_category_name(@flight_return.plane_category) %> (<%= @flight_return.code_flight %>) <br>
                                     <%= format_time(@flight_return.time_depart) %> - <%= format_time(@flight_return.time_arrive) %>
+                                  </td>
+                                  <td class="mobile-block" width="40%">
+                                    Booking code <br>
+                                    <%= @flight_return.code_book %>
                                   </td>
                                 </tr>
                               </table>
@@ -160,7 +168,7 @@
                         <table cellspacing="0" cellpadding="0" class="force-full-width">
                           <tr>
                             <td class="mobile-border" style="background-color: #f95497; color: #ffffff; padding: 5px; border-right: 3px solid #ffffff; text-align:left;">
-                              Total price: <%= @order.price_total %>
+                              Total price: <%= format_currency(@order.price_total) %>
                             </td>
                           </tr>
                         </table>
