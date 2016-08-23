@@ -1,35 +1,39 @@
 <div class="order-container">
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="image-place">
-        <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
+  <%= link_to order_path(order) do %>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="image-place">
+          <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="itinerary-name">
-        <% if order.round_trip? %>
-          <%= order.ori_airport.airport_info %> <i class="fa fa-arrows-h" aria-hidden="true"></i> <%= order.des_airport.airport_info %> <span class="status"><%= order.status.humanize %></span>
-        <% else %>
-          <%= order.ori_airport.airport_info %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= order.des_airport.airport_info %> <span class="status"><%= order.status.humanize %></span>
+      <div class="col-sm-4">
+        <div class="itinerary-name">
+          <h5>
+            <% if order.round_trip? %>
+              <%= order.ori_airport.airport_info %> <i class="fa fa-arrows-h" aria-hidden="true"></i> <%= order.des_airport.airport_info %>
+            <% else %>
+              <%= order.ori_airport.airport_info %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= order.des_airport.airport_info %>
+            <% end %>
+          </h5>
+        </div>
+        <div class="status">
+          <span class="tag tag-default tag-pill"><%= order.status.humanize %></span>
+        </div>
+        <div class="created-at">
+          created at <%= format_date(order.created_at) %>
+        </div>
+        <div class="price-total">
+          <%= format_currency(order.price_total) %>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <% order.flights.each do |flight| %>
+          <div class="flight">
+            <div class="flight-name"><%= flight.plane_category.name %> (<%= flight.code_flight %>)</div>
+            <div class="book-code">Booking code: <%= flight.code_book %></div>
+          </div>
         <% end %>
       </div>
-      <div class="round-type">
-        <%= order.category.humanize %>
-      </div>
-      <div class="created-at">
-        created at <%= format_date(order.created_at) %>
-      </div>
-      <div class="price-total">
-        <%= order.price_total %>
-      </div>
     </div>
-    <div class="col-sm-4">
-      <% order.flights.each do |flight| %>
-        <div class="flight">
-          <div class="flight-name"><%= flight.plane_category.name %> (<%= flight.code_flight %>)</div>
-          <div class="book-code">Booking code: <%= flight.code_book %></div>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <% end %>
 </div>
