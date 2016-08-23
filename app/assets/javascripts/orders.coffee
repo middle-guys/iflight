@@ -21,8 +21,9 @@ $(document).on 'turbolinks:load', ->
     tmp = result.data
 
     if tmp.error != undefined || (tmp.itinerary.category == "OW" && tmp.depart_flights.length == 0) || (tmp.itinerary.category == "RT" && tmp.depart_flights.length == 0 && tmp.return_flights.length == 0)
-      alert("Can not find ticket")
+      showTryAgainSection()
     else
+      showFlightSection()
       itinerary = tmp.itinerary
       shared_itinerary = tmp.itinerary
       tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
@@ -52,7 +53,12 @@ $(document).on 'turbolinks:load', ->
   # loading section
   hideLoadingSection = ->
     $('#loading-section').hide()
+
+  showFlightSection = ->
     $('#depart-flights-content').show()
+
+  showTryAgainSection = ->
+    $('#try-again-section').show()
 
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
@@ -269,6 +275,9 @@ $(document).on 'turbolinks:load', ->
         vietnameseDate: true
 
   applyFormValidation()
+
+  $('#try-again-btn').click (e) ->
+    location.reload()
 
   # sharing flight model
   $('#sharing-btn').click (e) ->
