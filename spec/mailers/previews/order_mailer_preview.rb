@@ -3,4 +3,8 @@ class OrderMailerPreview < ActionMailer::Preview
   def receipt
     OrderMailer.receipt(Order.last)
   end
+
+  def booking_failed
+    OrderMailer.booking_failed(Order.last)
+  end
 end

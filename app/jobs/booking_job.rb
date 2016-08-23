@@ -116,7 +116,7 @@ class BookingJob < ApplicationJob
       else
         p data[:depart_reservation]
         order.failed!
-        OrderMailer.error(order).deliver_later
+        OrderMailer.booking_failed(order).deliver_later
       end
     else
       if reservation_valid?(data[:depart_reservation]) && reservation_valid?(data[:return_reservation])
@@ -129,7 +129,7 @@ class BookingJob < ApplicationJob
         p reservation_valid?(data[:depart_reservation])
         p reservation_valid?(data[:return_reservation])
         order.failed!
-        OrderMailer.error(order).deliver_later
+        OrderMailer.booking_failed(order).deliver_later
       end
     end
     ActiveRecord::Base.clear_active_connections!

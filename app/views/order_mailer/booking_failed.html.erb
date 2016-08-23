@@ -13,7 +13,7 @@
                   <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                       <td>
-                        <h1>THANKS FOR YOUR ORDER</h1>
+                        <h1 style="text-transform: uppercase;">oops! your order can't be booked</h1>
                         <br>
                         <br>
                       </td>
@@ -34,6 +34,24 @@
   <td valign="top" class="force-full-width">
     <center>
       <table cellspacing="0" cellpadding="0" width="500" class="w320">
+        <tr>
+           <td>
+              <table cellspacing="0" cellpadding="0" width="100%">
+                 <tr>
+                    <td class="mobile-padding" style="text-align:left;">
+                       <br>
+                       Hi <span style="color:#ff0064"><%= @order.contact_name %></span>,<br>
+                       <br>
+                       Your order can't be booked. We will contact you for supporting as soon as possible.
+                       <br>
+                       Or you can contact to our hotline: 0933554440.
+                       <br>
+                       <br>
+                    </td>
+                 </tr>
+              </table>
+           </td>
+        </tr>
         <tr>
           <td valign="top" style="border-bottom:1px solid #a1a1a1;">
             <table cellspacing="0" cellpadding="0" class="force-full-width">
@@ -82,7 +100,7 @@
                                   </td>
                                   <td class="mobile-block" width="40%">
                                     Booking code <br>
-                                    <span style="color:red; font-size: 1.5em;"><%= @flight_depart.code_book %></span>
+                                    <span style="color:red;">failed</span>
                                   </td>
                                 </tr>
                               </table>
@@ -119,7 +137,7 @@
                                   </td>
                                   <td class="mobile-block" width="40%">
                                     Booking code <br>
-                                    <span style="color:red; font-size: 1.5em;"><%= @flight_return.code_book %></span>
+                                    <span style="color:red;">failed</span>
                                   </td>
                                 </tr>
                               </table>
