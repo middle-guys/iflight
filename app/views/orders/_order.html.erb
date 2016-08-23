@@ -1,12 +1,12 @@
 <div class="order-container">
   <%= link_to order_path(order) do %>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-md-3">
         <div class="image-place">
           <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-md-4">
         <div class="itinerary-name">
           <h5>
             <% if order.round_trip? %>
@@ -26,13 +26,27 @@
           <%= format_currency(order.price_total) %>
         </div>
       </div>
-      <div class="col-sm-5">
+      <div class="col-md-5">
         <% order.flights.each do |flight| %>
           <div class="flight">
-            <div class="flight-name"><%= flight.plane_category.name %> (<%= flight.code_flight %>)</div>
-            <% if flight.code_book %>
-              <div class="book-code">Booking code: <%= flight.code_book %></div>
-            <% end %>
+            <div class="flight-img-logo">
+              <%= image_tag("airlines/#{plane_category_logo_name(flight.plane_category)}", alt: "#{plane_category_name(flight.plane_category)}") %>
+            </div>
+            <div class="flight-info">
+              <div class="flight-name">
+                <% if flight.depart? %>
+                  <h5><%= format_date_month_str(order.date_depart) %> <span class="flight-time"><%= format_time(flight.time_depart) %> - <%= format_time(flight.time_arrive) %></span></h5>
+                <% else %>
+                  <h5><%= format_date_month_str(order.date_return) %> <span class="flight-time"><%= format_time(flight.time_depart) %> - <%= format_time(flight.time_arrive) %></span></h5>
+                <% end %>
+                <p><%= flight.plane_category.name %> (<%= flight.code_flight %>)</p>
+              </div>
+              <% if flight.code_book %>
+                <div class="book-code">
+                  <h5><span class="tag tag-success tag-pill"><%= flight.code_book %></span></h5>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>

@@ -1,13 +1,22 @@
 #my-orders {
   .order-container {
+    height: 251px;
+    /* margin: 0 0 1.5em; */
+    padding: 1.5em .5em;
     display: block;
-    height: 170px;
-    margin-bottom: 1em;
-    padding: .5em;
+    position: relative;
+    border-radius: 0;
+    border-top: 1px solid #DDD;
+    -webkit-transition-property: none;
+    transition-property: none;
 
     img {
       height: 154px;
       width: 100%;
+    }
+
+    .price-total {
+      margin-top: 1.5em;
     }
 
     &:hover {
@@ -17,6 +26,30 @@
     a {
       text-decoration: none;
       color: #373a3c;
+    }
+
+    .flight {
+      margin-bottom: 25px;
+      .flight-img-logo {
+        img {
+          width: 64px;
+          height: 32px;
+        }
+        float: left;
+      }
+
+      .flight-info {
+        padding-left: 80px;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      .flight-time {
+        font-size: .7em;
+        font-style: italic;
+      }
     }
 
     .itinerary-name {
@@ -32,7 +65,7 @@
     }
   }
 
-  @media (max-width: 543px) {
+  @media (max-width: 767px) {
     .image-place {
       display: none;
     }
