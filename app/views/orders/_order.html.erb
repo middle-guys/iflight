@@ -30,7 +30,9 @@
         <% order.flights.each do |flight| %>
           <div class="flight">
             <div class="flight-name"><%= flight.plane_category.name %> (<%= flight.code_flight %>)</div>
-            <div class="book-code">Booking code: <%= flight.code_book %></div>
+            <% if flight.code_book %>
+              <div class="book-code">Booking code: <%= flight.code_book %></div>
+            <% end %>
           </div>
         <% end %>
       </div>
