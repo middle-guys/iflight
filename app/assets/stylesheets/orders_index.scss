@@ -1,0 +1,40 @@
+#my-orders {
+  .order-container {
+    display: block;
+    height: 170px;
+    margin-bottom: 1em;
+    padding: .5em;
+
+    img {
+      height: 154px;
+      width: 100%;
+    }
+
+    &:hover {
+      background: #F0F0F0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #373a3c;
+    }
+
+    .itinerary-name {
+      color: $brand-primary;
+    }
+
+    .created-at {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: 11px;
+      color: #8f8f8f;
+      line-height: 1em;
+    }
+  }
+
+  @media (max-width: 543px) {
+    .image-place {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div id="my-orders">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="main-header text-center">
+        <h4 class="title">My Orders (<%= @orders.size %>)</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-bottom: 5em;">
+    <%= render @orders %>
+  </div>
+</div>
