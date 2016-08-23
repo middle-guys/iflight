@@ -1,88 +1,122 @@
 .searching-form-wrapper {
   padding-top: 10em;
   padding-bottom: 10em;
-  background-image: url(/assets/home-bg-2-86a0ff8de01be2698200a38d86efea77e0a31e139a36d750f0597085656bef8f.jpg);
+  /*background-image: url(/assets/home-bg-2-86a0ff8de01be2698200a38d86efea77e0a31e139a36d750f0597085656bef8f.jpg);*/
+  background: linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .2)), image-url('home-search-form-bg/bg1.jpg');
   background-position: 50% 30%;
-
-  .input-daterange {
-    input {
-      border-radius: 0.25rem;
-      text-align: left;
-    }
-  }
-
-  #date-itinerary {
-    .round-trip {
-      display: block;
-    }
-
-    .one-way {
-      display: none;
-    }
-  }
-
-  .form-control:disabled {
-    background-color: #b7b7b7;
-  }
   
-  .passengers-dropdown-wrapper {
-    .passengers-dropdown-btn:after {
-      float: right;
-      margin-top: 7px;
+  .searching-form {
+    background: #fff;
+    padding: 2em;
+    -webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 1px rgba(0,0,0,0.15);
+    
+    .title {
+      margin-bottom: 1em;
+      color: #6f6f6f;
     }
 
-    .passengers-dropdown-btn {
-      &:focus {
-        background-color: white;
-        border-color: #66afe9;
-      }
+    label.lbl_itinerary_type {
+      background-color: transparent;
+      color: $brand-primary;
+      border-color: transparent;
+
       &:hover {
-        background-color: white;
+        background-color: #eeeeee;
+        border-color: #eeeeee;
+        border-radius: 0.25rem !important;
       }
     }
 
-    .input-group {
-      width: 58%;
-      float: right;
+    label.lbl_itinerary_type.active {
+      border-radius: 0.25rem !important;
+      color: rgb(255, 255, 255);
+      background-color: $brand-primary;
+      background-image: none;
+      border-color: $brand-primary;
+    }
 
+    .input-daterange {
       input {
-        text-align: center;
+        border-radius: 0.25rem;
+        text-align: left;
+      }
+    }
+
+    #date-itinerary {
+      .round-trip {
+        display: block;
       }
 
-      .input-group-btn {
-        button {
-          background-color: #d4d4d4;
+      .one-way {
+        display: none;
+      }
+    }
+
+    .form-control:disabled {
+      background-color: #b7b7b7;
+    }
+    
+    .passengers-dropdown-wrapper {
+      .passengers-dropdown-btn:after {
+        float: right;
+        margin-top: 7px;
+      }
+
+      .passengers-dropdown-btn {
+        &:focus {
+          background-color: white;
+          border-color: #66afe9;
+        }
+        &:hover {
+          background-color: white;
         }
       }
+
+      .input-group {
+        width: 58%;
+        float: right;
+
+        input {
+          text-align: center;
+        }
+
+        .input-group-btn {
+          button {
+            background-color: #d4d4d4;
+          }
+        }
+      }
+
+      label {
+        flight: left;
+        margin-top: 0.6em;
+      }
+
+      .dropdown-menu {
+        padding: 0.9em 0.9em;
+        padding-bottom: 0;
+      }
+
+      .dropdown-menu:before {
+        content: '';
+        display: inline-block;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid rgb(0, 0, 0);
+        border-top: 0;
+        border-bottom-color: rgb(255, 255, 255);
+        position: absolute;
+        bottom: 100%;
+      }
     }
 
-    label {
-      flight: left;
-      margin-top: 0.6em;
+    @media (max-width: 767px) {
+      #search-btn {
+        margin-top: 15px;
+      }
     }
-
-    .dropdown-menu {
-      padding: 0.9em 0.9em;
-      padding-bottom: 0;
-    }
-
-    .dropdown-menu:before {
-      content: '';
-      display: inline-block;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid rgb(0, 0, 0);
-      border-top: 0;
-      border-bottom-color: rgb(255, 255, 255);
-      position: absolute;
-      bottom: 100%;
-    }
-  }
-
-  @media (max-width: 767px) {
-    #search-btn {
-      margin-top: 15px;
-    }
+    
   }
 }
 
