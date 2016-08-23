@@ -89,6 +89,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def index
+    @orders = current_user.orders.order(created_at: :desc)
+  end
+
   private
     def order_params
       params.require(:order).permit(
