@@ -2,15 +2,15 @@
   padding-top: 10em;
   padding-bottom: 10em;
   /*background-image: url(/assets/home-bg-2-86a0ff8de01be2698200a38d86efea77e0a31e139a36d750f0597085656bef8f.jpg);*/
-  background: linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .2)), image-url('home-search-form-bg/bg1.jpg');
+  background: linear-gradient(rgba(20,20,20, .2), rgba(20,20,20, .1)), image-url('home-search-form-bg/bg5.jpg');
   background-position: 50% 30%;
-  
+
   .searching-form {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
     padding: 2em;
     -webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);
     box-shadow: 0 2px 1px rgba(0,0,0,0.15);
-    
+
     .title {
       margin-bottom: 1em;
       color: #6f6f6f;
@@ -56,7 +56,8 @@
     .form-control:disabled {
       background-color: #b7b7b7;
     }
-    
+<<<<<<< HEAD
+
     .passengers-dropdown-wrapper {
       .passengers-dropdown-btn:after {
         float: right;
@@ -88,6 +89,40 @@
         }
       }
 
+=======
+
+    .passengers-dropdown-wrapper {
+      .passengers-dropdown-btn:after {
+        float: right;
+        margin-top: 7px;
+      }
+
+      .passengers-dropdown-btn {
+        &:focus {
+          background-color: white;
+          border-color: #66afe9;
+        }
+        &:hover {
+          background-color: white;
+        }
+      }
+
+      .input-group {
+        width: 58%;
+        float: right;
+
+        input {
+          text-align: center;
+        }
+
+        .input-group-btn {
+          button {
+            background-color: #d4d4d4;
+          }
+        }
+      }
+
+>>>>>>> master
       label {
         flight: left;
         margin-top: 0.6em;
@@ -116,7 +151,11 @@
         margin-top: 15px;
       }
     }
-    
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> master
   }
 }
 
@@ -160,7 +199,11 @@
 
 .top-trending-search {
   margin-bottom: 5em;
-  
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> master
   .place-wrapper {
     position: relative;
     overflow: hidden;
@@ -179,7 +222,11 @@
     transition: all 0.3s;
   }
 
-  .place-wrapper:hover img { 
+<<<<<<< HEAD
+  .place-wrapper:hover img {
+=======
+  .place-wrapper:hover img {
+>>>>>>> master
     -moz-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);

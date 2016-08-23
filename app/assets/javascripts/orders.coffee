@@ -19,13 +19,18 @@ $(document).on 'turbolinks:load', ->
   received: (result) ->
     hideLoadingSection()
     tmp = result.data
-    itinerary = tmp.itinerary
-    shared_itinerary = tmp.itinerary
-    tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
-    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
-    loadDepartureFlights()
-    loadReturnFlights() if App.isRoundTrip(itinerary.category)
-    registerButtonPriceClick()
+
+    if tmp.error != undefined || (tmp.itinerary.category == "OW" && tmp.depart_flights.length == 0) || (tmp.itinerary.category == "RT" && tmp.depart_flights.length == 0 && tmp.return_flights.length == 0)
+      showTryAgainSection()
+    else
+      showFlightSection()
+      itinerary = tmp.itinerary
+      shared_itinerary = tmp.itinerary
+      tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
+      tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
+      loadDepartureFlights()
+      loadReturnFlights() if App.isRoundTrip(itinerary.category)
+      registerButtonPriceClick()
 
   # setup wizard
   nav_lst_items = $('div.setup-panel .stepwizard-step a')
@@ -42,13 +47,18 @@ $(document).on 'turbolinks:load', ->
       wizard_contents.hide()
       $target.show()
     return
-  
+
   $('div.setup-panel .stepwizard-step a.current').trigger 'click'
 
   # loading section
   hideLoadingSection = ->
     $('#loading-section').hide()
+
+  showFlightSection = ->
     $('#depart-flights-content').show()
+
+  showTryAgainSection = ->
+    $('#try-again-section').show()
 
   # generate flights row
   generateFlightsRow = (id_container, index, round_type, depart_airport, arrive_airport, flight) ->
@@ -98,7 +108,7 @@ $(document).on 'turbolinks:load', ->
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
-    
+
     $('a.share').click (e) ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
@@ -265,6 +275,9 @@ $(document).on 'turbolinks:load', ->
         vietnameseDate: true
 
   applyFormValidation()
+
+  $('#try-again-btn').click (e) ->
+    location.reload()
 
   # sharing flight model
   $('#sharing-btn').click (e) ->
