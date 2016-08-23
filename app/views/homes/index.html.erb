@@ -16,24 +16,28 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-sm-6">
-              <fieldset class="form-group">
-                <%= select_tag "ori_airport_id", options_from_collection_for_select(@ori_airports, "id", "airport_info"), {prompt: "Select departure ...", class: "form-control"} %>
-              </fieldset>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <fieldset class="form-group">
+                    <%= select_tag "ori_airport_id", options_from_collection_for_select(@ori_airports, "id", "airport_info"), {prompt: "Select departure ...", class: "form-control"} %>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group">
+                    <%= select_tag "des_airport_id", "", class: "form-control" %>
+                  </fieldset>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-              <fieldset class="form-group">
-                <%= select_tag "des_airport_id", "", class: "form-control" %>
-              </fieldset>
-            </div>
-            <div class="col-lg-6" id="date-itinerary">
+            <div class="col-md-6" id="date-itinerary" style="padding-right: 0;">
               <div class="row input-daterange input-group">
-                <div class="col-lg-6 col-sm-6" style="padding-right: 0;">
+                <div class="col-md-6" style="padding-right: 0;">
                   <fieldset class="form-group">
                     <%= text_field_tag "date_depart", "", class: "form-control" %>
                   </fieldset>
                 </div>
-                <div class="col-lg-6 col-sm-6" style="padding-right: 0;">
+                <div class="col-md-6" style="padding-right: 0;">
                   <fieldset class="form-group">
                     <%= text_field_tag "date_return", "", class: "form-control" %>
                   </fieldset>
@@ -47,7 +51,7 @@
                 <button class="btn btn-secondary dropdown-toggle passengers-dropdown-btn" type="button" id="passengers-dropdown-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%; text-align: left;">
                   1 Passenger
                 </button>
-                <div class="dropdown-menu" aria-labelledby="passengers-dropdown-btn">
+                <div class="dropdown-menu" aria-labelledby="passengers-dropdown-btn" style="margin-top: 6px;">
                   <fieldset class="form-group">
                     <%= label_tag "adult_num", "Adult" %>
                     <%= text_field_tag "adult_num", "", class: "form-control" %>
@@ -64,7 +68,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <button type="submit" class="btn btn-primary" disabled style="width: 100%;">Search Flights</button>
+              <button type="submit" class="btn btn-primary" id="search-btn" disabled style="width: 100%;">Search Flights</button>
             </div>
           </div>
         <% end %>

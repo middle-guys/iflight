@@ -78,6 +78,12 @@
       bottom: 100%;
     }
   }
+
+  @media (max-width: 767px) {
+    #search-btn {
+      margin-top: 15px;
+    }
+  }
 }
 
 .top-recent-search, .top-trending-search {
