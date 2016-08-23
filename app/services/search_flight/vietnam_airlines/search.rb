@@ -22,6 +22,7 @@ module SearchFlight
             infant: params[:infant]
           ).call : []
         rescue Exception => e
+          p e.backtrace
           p e.message, "Vietnam Airlines Searching"
           nil
         end
