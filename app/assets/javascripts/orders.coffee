@@ -19,13 +19,17 @@ $(document).on 'turbolinks:load', ->
   received: (result) ->
     hideLoadingSection()
     tmp = result.data
-    itinerary = tmp.itinerary
-    shared_itinerary = tmp.itinerary
-    tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
-    tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
-    loadDepartureFlights()
-    loadReturnFlights() if App.isRoundTrip(itinerary.category)
-    registerButtonPriceClick()
+
+    if tmp.error != undefined || (tmp.itinerary.category == "OW" && tmp.depart_flights.length == 0) || (tmp.itinerary.category == "RT" && tmp.depart_flights.length == 0 && tmp.return_flights.length == 0)
+      alert("Can not find ticket")
+    else
+      itinerary = tmp.itinerary
+      shared_itinerary = tmp.itinerary
+      tmp.depart_flights.sort(App.sort_by('price_adult', false, parseInt))
+      tmp.return_flights.sort(App.sort_by('price_adult', false, parseInt)) if App.isRoundTrip(itinerary.category)
+      loadDepartureFlights()
+      loadReturnFlights() if App.isRoundTrip(itinerary.category)
+      registerButtonPriceClick()
 
   # setup wizard
   nav_lst_items = $('div.setup-panel .stepwizard-step a')
@@ -42,7 +46,7 @@ $(document).on 'turbolinks:load', ->
       wizard_contents.hide()
       $target.show()
     return
-  
+
   $('div.setup-panel .stepwizard-step a.current').trigger 'click'
 
   # loading section
@@ -98,7 +102,7 @@ $(document).on 'turbolinks:load', ->
       $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').addClass('visited')
       nextStepWizard = $('div.setup-panel .stepwizard-step a[href="#' + curStepBtn + '"]').parent().next().children('a')
       nextStepWizard.removeAttr('disabled').addClass('visited').trigger('click')
-    
+
     $('a.share').click (e) ->
       e.preventDefault()
       if $(this).data('type') == 'depart'
