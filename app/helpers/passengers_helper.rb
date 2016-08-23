@@ -34,4 +34,12 @@ module PassengersHelper
       end
     end
   end
+
+  def title_name_by_str(gender_str)
+    if gender_str == "male"
+      return "MR"
+    else
+      return "MS"
+    end
+  end
 end

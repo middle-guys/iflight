@@ -95,6 +95,10 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @order.flights.each do |flight|
+      @flight_depart = flight if flight.depart?
+      @flight_return = flight if flight.return?
+    end
   end
 
   private
