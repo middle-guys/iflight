@@ -56,6 +56,7 @@
     .form-control:disabled {
       background-color: #b7b7b7;
     }
+<<<<<<< HEAD
 
     .passengers-dropdown-wrapper {
       .passengers-dropdown-btn:after {
@@ -88,6 +89,40 @@
         }
       }
 
+=======
+
+    .passengers-dropdown-wrapper {
+      .passengers-dropdown-btn:after {
+        float: right;
+        margin-top: 7px;
+      }
+
+      .passengers-dropdown-btn {
+        &:focus {
+          background-color: white;
+          border-color: #66afe9;
+        }
+        &:hover {
+          background-color: white;
+        }
+      }
+
+      .input-group {
+        width: 58%;
+        float: right;
+
+        input {
+          text-align: center;
+        }
+
+        .input-group-btn {
+          button {
+            background-color: #d4d4d4;
+          }
+        }
+      }
+
+>>>>>>> master
       label {
         flight: left;
         margin-top: 0.6em;
@@ -116,7 +151,11 @@
         margin-top: 15px;
       }
     }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> master
   }
 }
 
@@ -160,7 +199,11 @@
 
 .top-trending-search {
   margin-bottom: 5em;
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> master
   .place-wrapper {
     position: relative;
     overflow: hidden;
@@ -179,7 +222,11 @@
     transition: all 0.3s;
   }
 
+<<<<<<< HEAD
   .place-wrapper:hover img {
+=======
+  .place-wrapper:hover img {
+>>>>>>> master
     -moz-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
