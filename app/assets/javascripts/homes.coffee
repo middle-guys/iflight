@@ -83,6 +83,7 @@ $(document).on 'turbolinks:load', ->
       child_num: search.child_num
       infant_num: search.infant_num
       search_time: (new Date(search.search_time)).toLocaleString()
+      img_random_number: App.random_number_in_range(1, 10)
 
     template = $('#recently-searching-template').html()
     return $(id_container).append(Mustache.render(template, recently_searching))

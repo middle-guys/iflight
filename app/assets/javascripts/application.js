@@ -11,6 +11,7 @@
 //= require init
 //= require sort_by
 //= require number_formatter
+//= require number_random
 //= require itinerary_helper
 //= require validator_helper
 //= require homes
