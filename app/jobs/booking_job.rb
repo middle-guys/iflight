@@ -115,7 +115,7 @@ class BookingJob < ApplicationJob
         order.reserving!
         order.depart_flight.update(code_book: data[:depart_reservation][:reservation_code])
         OrderMailer.receipt(order).deliver_later
-        # Sms::SmsSender.new(order).send
+        Sms::SmsSender.new(order).send
       else
         p data[:depart_reservation]
         order.failed!
@@ -127,7 +127,7 @@ class BookingJob < ApplicationJob
         order.depart_flight.update(code_book: data[:depart_reservation][:reservation_code])
         order.return_flight.update(code_book: data[:return_reservation][:reservation_code])
         OrderMailer.receipt(order).deliver_later
-        # Sms::SmsSender.new(order).send
+        Sms::SmsSender.new(order).send
       else
         p reservation_valid?(data[:depart_reservation])
         p reservation_valid?(data[:return_reservation])
