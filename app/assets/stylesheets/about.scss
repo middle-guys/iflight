@@ -3,10 +3,12 @@
     background: $brand-second;
     padding: 1.5em 0;
     color: white;
+    text-transform: uppercase;
   }
 
   .desc-header {
     padding: 1.5em 0;
+    text-transform: uppercase;
   }
 
   .desc-body {
@@ -47,6 +49,12 @@
     }
   }
 
+  .team-desc {
+    .description {
+      padding-left: 3em;
+    }
+  }
+
   @media (max-width: 767px) {
     .team-desc {
       div.image {
@@ -56,6 +64,32 @@
 
     #team-moments{
       display: none;
+    }
+  }
+
+  .product-target {
+    padding-bottom: 5em;
+    
+    .header-icon {
+      i {
+        font-size: 5em;
+      }
+      padding-top: 2em;
+    }
+
+    .desc-header {
+      padding-top: 0;
+    }
+
+    .desc-container {
+      ul {
+        list-style: none !important;
+        padding-left: 0;
+      }
+      li {
+        margin-bottom: 25px;
+        color: $brand-second;
+      }
     }
   }
 }
