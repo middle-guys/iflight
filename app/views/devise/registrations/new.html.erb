@@ -41,6 +41,11 @@
 
               <div class="actions form-group">
                 <%= f.submit "Sign up", class: "btn btn-primary" %>
+                <%= link_to user_facebook_omniauth_authorize_path, class: "btn btn-default fb-btn" do %>
+                  <i class="fa fa-facebook fa-lg" aria-hidden="true"></i> Login
+                <% end %>
+              </div>
+              <div class="form-group">
                 <%= link_to "Already have account", new_session_path(resource_name), style: "margin-left: .5em" %>
               </div>
             <% end %>
