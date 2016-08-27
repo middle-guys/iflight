@@ -21,4 +21,12 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def image_avatar
+    if image
+      return image
+    else
+      return "https://api.adorable.io/avatars/100/#{email}"
+    end
+  end
 end
