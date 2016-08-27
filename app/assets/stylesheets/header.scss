@@ -27,6 +27,7 @@ nav {
       padding-left: 1em;
       padding-right: 1em;
       margin-left: .5em;
+      line-height: 44px;
 
       &:hover {
         background-color: $brand-primary;
@@ -40,10 +41,26 @@ nav {
           background-color: white;
         }
       }
+      .img-avatar {
+        dth: 44px;
+        height: 44px;
+        width: 44px;
+        margin-right: 5px;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        -ms-transition: 0.3s;
+        transition: 0.3s;
+        border: 2px solid rgba(0,0,0,0.1);
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+      }
     }
     ul.dropdown-menu {
-      a:hover {
-        background-color: #e0e0e0 !important;
+      a {
+        &:hover {
+          background-color: #e0e0e0 !important;
+        }
       }
     }
   }
