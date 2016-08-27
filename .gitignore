@@ -19,3 +19,8 @@
 .DS_Store
 # Ignore env file
 .env
+
+# vim temporary files
+*~
+*.swp
+*.swo

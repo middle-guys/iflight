@@ -16,7 +16,7 @@ class User < ApplicationRecord
       if registered_user
         return registered_user
       else
-        user = User.create(name: auth.extra.raw_info.name, gender: auth.extra.raw_info.gender, 
+        user = User.create(name: auth.extra.raw_info.name, gender: auth.extra.raw_info.gender, image: auth.infor.image, 
                            provider: auth.provider, uid: auth.uid, email: auth.info.email, password: Devise.friendly_token[0, 20])
       end
     end
