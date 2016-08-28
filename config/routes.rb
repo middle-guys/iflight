@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'alerts/unsubscribe'
   patch 'alerts/unsubscribe'
 
+  mount Messenger::Bot::Space => "/webhook"
+
   resources :alerts
 
   resources :about, only: [:index]

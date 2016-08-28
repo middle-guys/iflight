@@ -39,6 +39,7 @@ gem 'two_captcha'
 gem 'watir'
 gem 'watir-extensions-element-screenshot'
 gem 'omniauth-facebook', '~> 4.0'
+gem 'messenger-bot', '~> 1.0', '>= 1.0.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
