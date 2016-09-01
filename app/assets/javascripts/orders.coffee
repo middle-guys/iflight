@@ -299,8 +299,8 @@ $(document).on 'turbolinks:load', ->
         return
 
   # alert notification
-  $('#alert-price-value').keyup ->
-    alert_price_value = $('#alert-price-value').val().replace(',', '')
-    $('#alert-price-value').val(App.format_currency(alert_price_value))
+  $('#alert_price_expect').keyup ->
+    alert_price_value = $('#alert_price_expect').val().replace(',', '')
+    $('#alert_price_expect').val(App.format_currency(alert_price_value))
 
   return

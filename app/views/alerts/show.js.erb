@@ -1,2 +1,6 @@
 $("#alert_price").modal('toggle');
-toastr.success('Subscribe successful')
+<% if @subscribe_successful %>
+  toastr.success('Subscribe successful')
+<% else %>
+  toastr.error('Subscribe failed. Please try again later!')
+<% end %>

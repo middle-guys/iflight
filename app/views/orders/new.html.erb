@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <%= render "alert", :locals => {:ori_airport_id => @ori_airport_id, :des_airport_id => @des_airport_id, :from_date => @date_depart, :date_return => @to_date} %>
+  <%= render partial: "alert", :locals => {alert: @alert, ori_airport: @ori_airport, des_airport: @des_airport, is_round_trip: @is_round_trip, date_depart: @date_depart, date_return: @date_return} %>
   <div class="container">
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
