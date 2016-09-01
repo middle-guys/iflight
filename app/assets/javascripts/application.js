@@ -6,6 +6,7 @@
 //= require bootstrap-datepicker
 //= require jquery.bootstrap-touchspin
 //= require jquery.validate
+//= require toastr
 //= require mustache
 //= require turbolinks
 //= require init

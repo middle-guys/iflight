@@ -290,11 +290,11 @@ $(document).on 'turbolinks:load', ->
       url: '/flights/share'
       data: {"sender_name": sender_name, "receiver_email": receiver_email, ori_airport_id: shared_itinerary.ori_airport.id, des_airport_id: shared_itinerary.des_airport.id, date_depart: shared_itinerary.date_depart, flight: shared_itinerary.flight}
       success: (result) ->
-        console.info('share request success')
+        toastr.success('Your message has sent to your friend successfully')
         $('#sharing-flight-model').modal('hide')
         return
       error: (e) ->
-        console.error('share request error')
+        toastr.error('Send your message failed')
         $('#sharing-flight-model').modal('hide')
         return
 
