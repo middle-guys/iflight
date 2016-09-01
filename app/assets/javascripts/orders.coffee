@@ -298,4 +298,9 @@ $(document).on 'turbolinks:load', ->
         $('#sharing-flight-model').modal('hide')
         return
 
+  # alert notification
+  $('#alert-price-value').keyup ->
+    alert_price_value = $('#alert-price-value').val().replace(',', '')
+    $('#alert-price-value').val(App.format_currency(alert_price_value))
+
   return

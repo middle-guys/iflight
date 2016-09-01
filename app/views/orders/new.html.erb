@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <%= render "flights/alert", :locals => {:ori_airport_id => @ori_airport_id, :des_airport_id => @des_airport_id, :from_date => @date_depart, :date_return => @to_date} %>
+  <%= render "alert", :locals => {:ori_airport_id => @ori_airport_id, :des_airport_id => @des_airport_id, :from_date => @date_depart, :date_return => @to_date} %>
   <div class="container">
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
