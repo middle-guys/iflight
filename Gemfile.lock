@@ -140,6 +140,8 @@ GEM
       activerecord (>= 3.0)
     hashie (3.4.4)
     http_parser.rb (0.6.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -166,7 +168,6 @@ GEM
       nokogiri (~> 1.4)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (~> 0.0, >= 0.0.9)
-    messenger-bot (1.0.3.2)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -348,12 +349,12 @@ DEPENDENCIES
   guard-compass
   guard-livereload (~> 2.5)
   has_secure_token
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails (~> 5.0, >= 5.0.5)
   listen (~> 3.0.5)
   mechanize
-  messenger-bot (~> 1.0, >= 1.0.2)
   omniauth-facebook (~> 4.0)
   pg (~> 0.18)
   puma (~> 3.0)
