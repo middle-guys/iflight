@@ -97,17 +97,17 @@
     <div class="row">
       <div class="col-md-12">
         <div class="title">
-          <h3>top <span>trending searching</span></h3>
+          <h3>top <span>destination trending</span></h3>
         </div>
       </div>
     </div>
     <div class="row">
-      <% @trending_search.each do |search| %>
+      <% @destination_trending.each do |airport| %>
         <div class="col-md-4">
           <div class="card place-wrapper">
             <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
             <div class="card-block">
-              <h4 class="card-title ori-des"><%= search.route.ori_airport.airport_info %> - <%= search.route.des_airport.airport_info %></h4>
+              <h4 class="card-title ori-des"><%= airport[0].airport_info %> (<%= airport[1] %>)</h4>
             </div>
           </div>
         </div>
