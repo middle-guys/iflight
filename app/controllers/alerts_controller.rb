@@ -1,6 +1,4 @@
 class AlertsController < ApplicationController
-	include FlightFormulas
-
 	def index
 		@alerts = Alert.all
 	end
