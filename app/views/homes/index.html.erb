@@ -105,7 +105,9 @@
       <% @destination_trending.each do |airport| %>
         <div class="col-md-4">
           <div class="card place-wrapper">
-            <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
+            <div style="overflow: hidden;">
+              <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
+            </div>
             <div class="card-block">
               <h4 class="card-title ori-des"><%= airport[0].airport_info %> (<%= airport[1] %>)</h4>
             </div>
