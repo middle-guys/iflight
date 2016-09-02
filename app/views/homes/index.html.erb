@@ -109,7 +109,8 @@
               <%= image_tag("places/#{random_place_img()}.jpg", alt: "place", class: "card-img-top") %>
             </div>
             <div class="card-block">
-              <h4 class="card-title ori-des"><%= airport[0].airport_info %> (<%= airport[1] %>)</h4>
+              <h5 class="card-title ori-des"><%= airport[0].airport_info %></h5>
+              <p class="card-text"><small class="text-muted"><%= airport[1] %> searching times</small></p>
             </div>
           </div>
         </div>
