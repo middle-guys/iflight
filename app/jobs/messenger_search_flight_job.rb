@@ -5,17 +5,6 @@ class MessengerSearchFlightJob < ApplicationJob
   queue_as :default
 
   def perform(params)
-    params = {
-      recipient_id: "1383795721636169",
-      ori_code: "SGN",
-      des_code: "DAD",
-      date_depart: Time.now + 1,
-      date_return: Time.now + 2,
-      adult: 1,
-      child: 0,
-      infant: 0,
-      round_type: "RT"
-    }
     begin
       flight_vja = SearchFlight::VietjetAir::Search.new(params).call
       flights_jet = SearchFlight::Jetstar::Search.new(params).call
@@ -50,6 +39,7 @@ class MessengerSearchFlightJob < ApplicationJob
       bot.send_message(params[:recipient_id], "Sorry, we can't search flight at the moment.")
     else
       depart_flights = data[:depart_flights].sort_by { |flight| flight[:price_adult] }.take(3)
+      bot.send_message(params[:recipient_id], "Here is the depart result:")
 
       depart_flights.each do |flight|
         bot.send_message(params[:recipient_id], format_message(flight))
@@ -57,6 +47,7 @@ class MessengerSearchFlightJob < ApplicationJob
 
       if is_round_trip
         return_flights = data[:return_flights].sort_by { |flight| flight[:price_adult] }.take(3)
+        bot.send_message(params[:recipient_id], "Here is the return result:")
 
         return_flights.each do |flight|
           bot.send_message(params[:recipient_id], format_message(flight))
