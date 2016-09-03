@@ -12,17 +12,7 @@ class MessengerSearchFlightJob < ApplicationJob
 
       data = {
         depart_flights: flights_jet[:depart_flights] + flights_vna[:depart_flights] + flight_vja[:depart_flights],
-        return_flights: round_trip?(params[:round_type]) ? flights_jet[:return_flights] + flights_vna[:return_flights] + flight_vja[:return_flights] : nil,
-        itinerary: {
-          category: params[:round_type],
-          ori_airport: Airport.find_by(code: params[:ori_code]),
-          des_airport: Airport.find_by(code: params[:des_code]),
-          date_depart: params[:date_depart],
-          date_return: params[:date_return],
-          adult_num: params[:adult],
-          child_num: params[:child],
-          infant_num: params[:infant]
-        }
+        return_flights: round_trip?(params[:round_type]) ? flights_jet[:return_flights] + flights_vna[:return_flights] + flight_vja[:return_flights] : nil
       }
     rescue Exception => e
       p e.message
@@ -53,7 +43,23 @@ class MessengerSearchFlightJob < ApplicationJob
           bot.send_message(params[:recipient_id], format_message(flight))
         end
       end
+
+      bot.send_message(params[:recipient_id], format_url(params, is_round_trip))
     end
+  end
+
+  def format_url(params, is_round_trip)
+    ori_airport = Airport.find_by_code(params[:ori_code])
+    des_airport = Airport.find_by_code(params[:des_code])
+
+    if is_round_trip
+      url = "http://iflight.herokuapp.com/orders/new?utf8=✓&itinerary_type=#{params[:round_type]}&ori_airport_id=#{ori_airport.id}&des_airport_id=#{des_airport.id}&date_depart=#{format_date(params[:date_depart])}&date_return=#{format_date(params[:date_return])}&adult_num=1&child_num=0&infant_num=0"
+    else
+      url = "http://iflight.herokuapp.com/orders/new?utf8=✓&itinerary_type=#{params[:round_type]}&ori_airport_id=#{ori_airport.id}&des_airport_id=#{des_airport.id}&date_depart=#{format_date(params[:date_depart])}&adult_num=1&child_num=0&infant_num=0"
+    end
+
+    short_url = UrlShortener.new.call(url)
+    "View more in here: #{short_url ? short_url : url}"
   end
 
   def format_message(flight)
