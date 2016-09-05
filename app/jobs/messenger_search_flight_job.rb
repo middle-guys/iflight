@@ -26,10 +26,10 @@ class MessengerSearchFlightJob < ApplicationJob
     is_round_trip = round_trip?(params[:round_type])
 
     if data[:error].present? || (data[:depart_flights].size == 0 && !is_round_trip) || (data[:depart_flights].size == 0 && data[:return_flights].size == 0 && is_round_trip)
-      bot.send_message(params[:recipient_id], "Sorry, we can't search flight at the moment.")
+      bot.send_message(params[:recipient_id], "Sorry, we can't find any flights at the moment. Please try again.")
     else
       depart_flights = data[:depart_flights].sort_by { |flight| flight[:price_adult] }.take(3)
-      bot.send_message(params[:recipient_id], "Here is the depart result:")
+      bot.send_message(params[:recipient_id], "Your depart flights:")
 
       depart_flights.each do |flight|
         bot.send_message(params[:recipient_id], format_message(flight))
@@ -37,7 +37,7 @@ class MessengerSearchFlightJob < ApplicationJob
 
       if is_round_trip
         return_flights = data[:return_flights].sort_by { |flight| flight[:price_adult] }.take(3)
-        bot.send_message(params[:recipient_id], "Here is the return result:")
+        bot.send_message(params[:recipient_id], "Your return flights:")
 
         return_flights.each do |flight|
           bot.send_message(params[:recipient_id], format_message(flight))

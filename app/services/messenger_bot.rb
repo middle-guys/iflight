@@ -14,11 +14,11 @@ class MessengerBot
       message_received = messaging["message"]["text"]
 
       if match_content?(welcome_arr, message_received)
-        send_message(messaging["sender"]["id"], "Hi, our please to help you A. Please note your itinerary (E.g, From SGN to DAD depart at 12/12/2016 and return at 15/12/2016)")
+        send_message(messaging["sender"]["id"], "Hi, thank you for PING iFlight service. My name is Fli. How may I help you?. If you want to check price so please note your itinerary right here (E.g, From SGN to DAD depart at 12/12/2016 and return at 15/12/2016)")
       elsif match_content?(search_arr, message_received)
         MessengerSearchFlightJob.perform_later(build_params(message_received.downcase, messaging["sender"]["id"]))
       else
-        send_message(messaging["sender"]["id"], "Sorry, may I help you?")
+        send_message(messaging["sender"]["id"], "Sorry but I can't got your idea. Please ask again.")
       end
     end
   end
