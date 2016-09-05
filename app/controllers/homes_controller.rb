@@ -13,7 +13,7 @@ class HomesController < ApplicationController
         render json: params["hub.challenge"]
       end
     elsif request.post?
-      # ap params
+      MessengerBot.new.call(params)
     end
   end
 end
