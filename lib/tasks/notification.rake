@@ -1,5 +1,5 @@
 namespace :notification do
   task alert: :environment do
-    NotificationJob.perform_later
+    NotificationJob.perform_now
   end
 end
