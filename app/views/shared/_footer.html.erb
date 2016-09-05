@@ -1,10 +1,34 @@
 <footer>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12">
-        <div class="ct-postfooter text-center">
-          <p><%= link_to "2016 © MIDDLE-GUYS", about_index_path, target: "_blank" %> <span>All Rights Reserved</span></p>
+      <div class="col-sm-4">
+        <div class="ct-postfooter">
+          <%= link_to root_path, class: "logo" do %>
+            <%= image_tag "iflight-logo-white-250x62.png", alt: "iflight logo", width: "168" %>
+          <% end %>
+          <p>Booking, reviews and advices on flights</p>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="ct-postfooter">
+          <ul>
+            <li><%= link_to "About US", about_index_path, target: "_blank" %></li>
+            <li><%= link_to "iFlight Mission", root_path, target: "_blank" %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="ct-postfooter">
+          <h4>Have Questions?</h4>
+          <h4 class="text-color">(+84) 933.554.440</h4>
+          <h4 class="text-color">support@iflight.herrokuapp.com</h4>
+          <p>24/7 Dedicated Customer Support</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+          <p style="color: #7f8c97;"><%= link_to "2016 © MIDDLE-GUYS", about_index_path, target: "_blank" %> <span>All Rights Reserved</span></p>
       </div>
     </div>
   </div>
