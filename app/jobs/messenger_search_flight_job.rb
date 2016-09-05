@@ -59,7 +59,7 @@ class MessengerSearchFlightJob < ApplicationJob
     end
 
     short_url = UrlShortener.new.call(url)
-    "View more in here: #{short_url ? short_url : url}"
+    "View more ... #{short_url ? short_url : url}"
   end
 
   def format_message(flight)
