@@ -1,32 +1,34 @@
 Rails.application.routes.draw do
-  root 'homes#index'
+  scope ":locale", locale: /en|vi/ do
+    root 'homes#index'
 
-  devise_for :users, :controllers => { registrations: 'users/registrations'}
+    devise_for :users, :controllers => { registrations: 'users/registrations'}
 
-  get 'alerts/unsubscribe'
-  patch 'alerts/unsubscribe'
+    get 'alerts/unsubscribe'
+    patch 'alerts/unsubscribe'
 
-  resources :alerts
+    resources :alerts
 
-  resources :about, only: [:index]
+    resources :about, only: [:index]
 
-  resources :flights do
-    collection do
-      get 'share'
+    resources :flights do
+      collection do
+        get 'share'
+      end
     end
-  end
 
-  resources :routes do
-    collection do
-      get 'destination'
+    resources :routes do
+      collection do
+        get 'destination'
+      end
     end
-  end
 
-  resources :orders do
-    member do
-      get 'confirmation'
+    resources :orders do
+      member do
+        get 'confirmation'
+      end
     end
-  end
 
-  match '/webhook' => 'homes#webhook', via: [:get, :post]
+    match '/webhook' => 'homes#webhook', via: [:get, :post]
+  end
 end

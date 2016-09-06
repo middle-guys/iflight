@@ -27,7 +27,14 @@
             <%= link_to('Sign up', new_user_registration_path, class: "nav-link")  %>
           </li>
         <% end %>
+        <li class="dropdown nav-item"><a href="#" id="drop2" data-toggle="dropdown" class="dropdown-toggle nav-link" role="button" aria-haspopup="true" aria-expanded="false">Language<b class="caret"></b></a>
+          <ul role="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="drop2">
+            <li><%= link_to_unless_current "English", locale: "en" %></li>
+            <li><%= link_to_unless_current "Vietnamese", locale: "vi" %></li>
+          </ul>
+        </li>
       </ul>
+      
     </div>
   </div>
 </nav>

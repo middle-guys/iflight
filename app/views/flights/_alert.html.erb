@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Notification</h4>
+        <h4 class="modal-title" id="myModalLabel"><%= t('views.flights._alert.title') %></h4>
       </div>
       <div class="modal-body">
         <%= form_for @alert, remote: true do |f| %>
@@ -19,7 +19,7 @@
           <%= f.hidden_field :time_start, :value => @date_depart%>
           <input type="hidden" value="<%= @date_return%>" name= "todate"/>
           <div class="form-group">
-            <label for="usr">Enter your name</label>
+            <label for="usr"><%= t('views.flights._alert.name') %></label>
             <% if user_signed_in? %>
               <input type="text" value="<%= current_user.name %>" required="required" name="alert[name]" class="form-control" id="name">
             <% else %>
@@ -27,7 +27,7 @@
             <% end %>
           </div>
           <div class="form-group">
-            <label for="usr">Enter your email</label>
+            <label for="usr"><%= t('views.flights._alert.email') %></label>
             <% if user_signed_in? %>
               <input type="text" value="<%= current_user.email %>" required="required" name="alert[email]" class="form-control" id="email">
             <% else %>
@@ -35,13 +35,13 @@
             <% end %>
           </div>
           <div class="form-group">
-            <lable>Price expectation (VND)</lable>
+            <lable><%= t('views.flights._alert.price') %></lable>
             <input type="text" value="" class="form-control" required="required" name="alert[price_expect]" id="price">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit 'Subscrible', :class => "btn btn-primary" %>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.flights._alert.close') %></button>
+          <%= f.submit t('views.flights._alert.subscrible'), :class => "btn btn-primary" %>
         </div>
       <% end %>  
     </div>

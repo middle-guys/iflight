@@ -22,10 +22,10 @@ class AlertsController < ApplicationController
 		@alert = Alert.find_by(token: @token)
 		if @alert
 			@alert.update(status: "inactive")
-			flash[:notice] = "You have unsubscribe successfully"
+			flash[:notice] = t(:unsubscribe_success)
 			redirect_to root_path
 		else
-			flash[:notice] = "You have't unsubscribe successfully"
+			flash[:notice] = t(:unsubscribe_unsucsess)
 		end
 	end
 

@@ -13,6 +13,7 @@ module Iflight
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.i18n.default_locale = :en
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
@@ -21,5 +22,6 @@ module Iflight
     config.to_prepare do
       Devise::Mailer.layout 'mailer'
     end
+
   end
 end

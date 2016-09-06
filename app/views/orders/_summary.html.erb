@@ -1,7 +1,7 @@
 <div class="step-title">
   <div class="row">
     <div class="col-xs-9">
-      <h4>Summary booking</h4>
+      <h4><%= t('views.orders._summary.title') %></h4>
     </div>
   </div>
 </div>
@@ -29,12 +29,12 @@
   <div class="col-md-4 offset-md-1">
     <div class="pax-wrapper">
       <div class="pax-title">
-        <p>Contact</p>
+        <p><%= t('views.orders._summary.contact') %></p>
       </div>
       <div class="pax-block contact-block">
         <p><span class="title"></span>. <span class="name"></span></p>
-        <p>Phone: <span class="phone"></span></p>
-        <p>Email: <span class="email"></span></p>
+        <p><%= t('views.orders._summary.phone') %> <span class="phone"></span></p>
+        <p><%= t('views.orders._summary.email') %> <span class="email"></span></p>
       </div>
     </div>
     <!-- <div class="pax-wrapper">
@@ -59,7 +59,7 @@
 </div>
 <div class="row">
   <div class="col-xs-8 offset-xs-2" style="text-align: center;">
-    <a href="#" class="btn btn-lg btn-secondary back">Back</a>
-    <button type="submit" class="btn btn-primary btn-lg">BOOK NOW!</button>
+    <a href="#" class="btn btn-lg btn-secondary back"><%= t('views.orders._summary.back') %></a>
+    <button type="submit" class="btn btn-primary btn-lg"><%= t('views.orders._summary.book') %></button>
   </div>
 </div>
