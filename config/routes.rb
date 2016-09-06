@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   scope ":locale", locale: /en|vi/ do
     root 'homes#index'
 
-    devise_for :users, :controllers => { registrations: 'users/registrations'}
+  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
 
     get 'alerts/unsubscribe'
     patch 'alerts/unsubscribe'

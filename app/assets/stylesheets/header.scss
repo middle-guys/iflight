@@ -1,28 +1,3 @@
-/*.logo { 
-  background: image-url('iflight-logo.png') no-repeat top left; 
-  height: 55px;
-  float: left;
-} 
-.logo.iflight { 
-  background-position: 0 0; 
-  width: 61px;
-} 
-.logo.iflight-text { 
-  background-position: 0 -65px; 
-  width: 126px;
-  margin-left: 10px;
-}*/
-
-/*a.iflight-logo {
-  background-image: image-url('iflight-160x34.png');
-  background-repeat: no-repeat;
-  background-position-y: 22px;
-  display: block;
-  width: 160px;
-  height: 70px;
-  content: '';
-}*/
-
 nav.navbar.navbar-light {
   padding: 0 1rem;
 }
@@ -52,6 +27,7 @@ nav {
       padding-left: 1em;
       padding-right: 1em;
       margin-left: .5em;
+      line-height: 44px;
 
       &:hover {
         background-color: $brand-primary;
@@ -63,6 +39,27 @@ nav {
       a.dropdown-item {
         &:hover {
           background-color: white;
+        }
+      }
+      .img-avatar {
+        dth: 44px;
+        height: 44px;
+        width: 44px;
+        margin-right: 5px;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        -ms-transition: 0.3s;
+        transition: 0.3s;
+        border: 2px solid rgba(0,0,0,0.1);
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+      }
+    }
+    ul.dropdown-menu {
+      a {
+        &:hover {
+          background-color: #e0e0e0 !important;
         }
       }
     }

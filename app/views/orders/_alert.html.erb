@@ -1,0 +1,64 @@
+<!-- Modal -->
+<div class="modal fade alert-dialog" id="alert_price" tabindex="-1" role="dialog" aria-labelledby="alert-dialog-title">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="alert-dialog-title">Notification</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row itinerary">
+            <div class="col-md-3">
+              <div class="image-place">
+                <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="itinerary-name">
+                <h5>
+                  <%= ori_airport.airport_info %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= des_airport.airport_info %>
+                </h5>
+                <h5><%= date_depart %></5>
+              </div>
+            </div>
+          </div>
+          <%= form_for alert, remote: true do |f| %>
+            <% if f.object.errors.present? %>
+              <div class="error">
+                <%= f.object.errors.full_messages.to_sentence %>
+              </div>
+            <% end %>
+            <input type="hidden" value="<%= @trip_type%>" name= "trip_type"/>
+            <%= f.hidden_field :ori_air_id, :value => ori_airport.id %>
+            <%= f.hidden_field :des_air_id, :value => des_airport.id %>
+            <%= f.hidden_field :time_start, :value => date_depart %>
+            <div class="form-group">
+              <%= f.label :name, "Your name" %>
+              <% if user_signed_in? %>
+                <%= f.text_field :name, value: "#{current_user.name}", class: "form-control", placeholder: "", required: true %>
+              <% else %>
+                <%= f.text_field :name, class: "form-control", placeholder: "", required: true %>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email, "Your email" %>
+              <% if user_signed_in? %>
+                <%= f.email_field :email, value: "#{current_user.email}", class: "form-control", placeholder: "", required: true %>
+              <% else %>
+              <%= f.email_field :email, class: "form-control", placeholder: "", required: true %>
+              <% end %>
+            </div>
+            <div class="form-group">
+            <%= f.label :price_expect, "Expected price (VND)" %>
+              <%= f.text_field :price_expect, class: "form-control", placeholder: "", required: true %>
+            </div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit 'Subscrible', :class => "btn btn-primary" %>
+          </div>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</div>
+

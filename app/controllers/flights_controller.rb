@@ -9,7 +9,7 @@ class FlightsController < ApplicationController
   end
 
   def share
-    ShareFlightJob.perform_later(
+    params = {
       sender_name: share_flight_params[:sender_name],
       receiver_email: share_flight_params[:receiver_email],
       ori_airport_id: share_flight_params[:ori_airport_id],
@@ -21,7 +21,9 @@ class FlightsController < ApplicationController
       time_arrive: share_flight_params[:flight][:time_arrive],
       price_web: share_flight_params[:flight][:price_web].to_i,
       price_adult: share_flight_params[:flight][:price_adult].to_i
-    )
+    }
+    FlightMailer.share_cheap_flight(params).deliver_later
+
     head :ok
   end
 

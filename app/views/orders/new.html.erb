@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <%= render "flights/alert", :locals => {:ori_airport_id => @ori_airport_id, :des_airport_id => @des_airport_id, :from_date => @date_depart, :date_return => @to_date} %>
+  <%= render partial: "alert", :locals => {alert: @alert, ori_airport: @ori_airport, des_airport: @des_airport, is_round_trip: @is_round_trip, date_depart: @date_depart, date_return: @date_return} %>
   <div class="container">
     <div class="row flights-result-header stepwizard">
       <div class="stepwizard-row setup-panel">
@@ -63,14 +63,7 @@
     <div class="flights-result-wrapper">
       <div class="container">
         <div id="step-1" class="setup-content">
-          <div class="step-title">
-            <div class="row">
-              <div class="col-xs-12">
-                <h4><%= t('views.orders.new.select_departure') %></h4>
-                <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></div>
-              </div>
-            </div>
-          </div>
+
           <div id="loading-section" class="text-center">
             <div class="row">
               <div class="col-xs-12">
@@ -89,6 +82,14 @@
             </div>
           </div>
           <div id="depart-flights-content" style="display: none;">
+            <div class="step-title">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>Select Departure</h4>
+                  <div class="round-type"><%= @ori_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @des_airport.code %>, <%= @date_depart %></div>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="price-info-bar">

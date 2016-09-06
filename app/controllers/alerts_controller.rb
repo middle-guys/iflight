@@ -4,16 +4,16 @@ class AlertsController < ApplicationController
 	end
 
 	def create
-		@alert1 = Alert.new alert_params
-		@alert1.status = "active"
-		if @alert1.save and round_trip
-			@success = true
-			FlightMailer.alert_confirmation(@alert1).deliver_later
+		@alert = Alert.new alert_params
+		@alert.status = "active"
+		if @alert.save
+			@subscribe_successful = true
+			FlightMailer.alert_confirmation(@alert).deliver_later
 			respond_to do |f|
-				f.js {render action: 'show', status: :created, location: @alert2}
+				f.js {render action: 'show', status: :created}
 			end
 		else
-			@success = false
+			@subscribe_successful = false
 		end
 	end
 
@@ -22,32 +22,33 @@ class AlertsController < ApplicationController
 		@alert = Alert.find_by(token: @token)
 		if @alert
 			@alert.update(status: "inactive")
-			flash[:notice] = t(:unsubscribe_success)
+			flash[:success] = "You have unsubscribe successfully"
 			redirect_to root_path
 		else
-			flash[:notice] = t(:unsubscribe_unsucsess)
+			flash[:notice] = "Something wrongs! Unsubscribe fails"
 		end
 	end
 
 	private
-	def round_trip
-		@trip_type = params["trip_type"]
-		@success = true
-		if @trip_type == "round_trip"
-			@alert2 = Alert.new alert_params
-			@alert2.ori_air_id = params["alert"]["des_air_id"]
-			@alert2.des_air_id = params["alert"]["ori_air_id"]
-			@alert2.time_start = params["todate"]
-			@alert2.status = "active"
-			if @alert2.save
-				@success = true
-			else
-				@success = false
-			end
+		# def round_trip
+		# 	@success = true
+		# 	if round_trip?(params[:alert][:round_type])
+		# 		@alert_return = Alert.new alert_params
+		# 		@alert_return.ori_air_id = params["alert"]["des_air_id"]
+		# 		@alert_return.des_air_id = params["alert"]["ori_air_id"]
+		# 		@alert_return.time_start = params["todate"]
+		# 		@alert_return.status = "active"
+		# 		if @alert_return.save
+		# 			@success = true
+		# 		else
+		# 			@success = false
+		# 		end
+		# 	end
+		# 	return @success
+		# end
+
+		def alert_params
+			params[:alert][:price_expect] = params[:alert][:price_expect].gsub(",", "")
+			params.require(:alert).permit(:email, :name, :ori_air_id, :des_air_id, :price_expect, :time_start)
 		end
-		return @success
-	end
-	def alert_params
-		params.require(:alert).permit(:email, :name, :ori_air_id, :des_air_id, :time_start, :price_expect)
-	end
 end

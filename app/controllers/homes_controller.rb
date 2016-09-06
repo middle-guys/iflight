@@ -3,7 +3,8 @@ class HomesController < ApplicationController
 
   def index
     @ori_airports = Airport.where('id IN (?)', Route.all.select(:ori_airport_id)).order(:name_unsigned)
-    @trending_search = SearchHistory.trending
+    # @trending_search = SearchHistory.trending
+    @destination_trending = SearchHistory.destination_trending
   end
 
   def webhook
@@ -12,7 +13,7 @@ class HomesController < ApplicationController
         render json: params["hub.challenge"]
       end
     elsif request.post?
-      # ap params
+      MessengerBot.new.call(params)
     end
   end
 end

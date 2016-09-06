@@ -11,3 +11,6 @@ $(document).on "turbolinks:load", ->
 
   App.format_vnd = (number) ->
     App.add_commas(number) + ' VND'
+
+  App.format_currency = (number) ->
+    App.add_commas(number)
