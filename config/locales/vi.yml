@@ -23,4 +23,20 @@ vi:
   views:
     homes:
       index:
-        title: "Nhung chuyen bay dang doi ban ..."
+        title: "Chuyến bay tuyệt vời đang chờ đợi bạn phía trước ..."
+        round_trip: "Khứ hồi"
+        one_way: "Một chiều"
+        passenger: "Hành khách"
+        search_flight: "Tìm kiếm"
+        top_recent: "Tìm kiếm <span>gần đây nhất</span>"
+        top_trending: "Địa điểm được <span>quan tam nhiều nhất</span>"
+        select_departure: "Chọn chuyến bay đi ..."
+        adult: "Người lớn"
+        children: "Trẻ em"
+        infant: "Em bé"
+        go: "Tìm kiếm"
+        my_order: "Hóa đơn"
+        logout: "thoát ra"
+        sign_in: "Đăng nhập"
+        sign_up: "Đăng ký"
+        language: "Ngôn ngữ"

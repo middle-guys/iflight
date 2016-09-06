@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  unsubscribe_success: "You have unsubscribe successfully"
+  unsubscribe_unsucsess: "You have't unsubscribe successfully"
   views:
     homes:
       index:
@@ -35,6 +37,12 @@ en:
         children: "Children"
         infant: "Infant"
         go: "Go"
+        my_order: "My Orders"
+        logout: "Logout"
+        sign_in: "Sign in"
+        sign_up: "Sign up"
+        language: "Language"
+        
     orders:
       new:
         title: "Booking Process"
