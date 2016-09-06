@@ -57,8 +57,8 @@ module SearchFlight
           "txtNumAdults" => params[:adult],
           "dlstDepDate_Day" => format_day(params[:date_depart]),
           "dlstRetDate_Day" => format_day(round_trip?(params[:round_type]) ? params[:date_return] : params[:date_depart]),
-          "dlstRetDate_Month" => format_year_month(params[:date_depart]),
-          "dlstDepDate_Month" => format_year_month(round_trip?(params[:round_type]) ? params[:date_return] : params[:date_depart]),
+          "dlstDepDate_Month" => format_year_month(params[:date_depart]),
+          "dlstRetDate_Month" => format_year_month(round_trip?(params[:round_type]) ? params[:date_return] : params[:date_depart]),
           "lstDestAP" => params[:des_code],
           "lstOrigAP" => params[:ori_code]
         }
