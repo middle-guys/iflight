@@ -8,7 +8,7 @@ class OrderMailer < ApplicationMailer
       @flight_return = flight if flight.return?
     end
     @passengers = @order.passengers
-    mail(to: @order.contact_email, subject: 'Order successful - from iFlight')
+    mail(to: get_recipients_email(@order.contact_email), subject: 'Order successful - from iFlight')
   end
 
   def booking_failed(order)
@@ -18,6 +18,6 @@ class OrderMailer < ApplicationMailer
       @flight_return = flight if flight.return?
     end
     @passengers = @order.passengers
-    mail(to: @order.contact_email, subject: 'Order failed - from iFlight')
+    mail(to: get_recipients_email(@order.contact_email), subject: 'Order failed - from iFlight')
   end
 end
