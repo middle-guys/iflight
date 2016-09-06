@@ -14,17 +14,17 @@ class FlightMailer < ApplicationMailer
     @price_web = params[:price_web]
     @price_adult = params[:price_adult]
 
-    mail(to: @receiver_email, subject: 'Your friend shares cheap flight ticket with you')
+    mail(to: get_recipients_email(@receiver_email), subject: 'Your friend shares cheap flight ticket with you')
   end
 
   def alert_notification(alert, ticket_cheaps)
   	@alert = alert
     @tickets = ticket_cheaps
-    mail(to: @alert.email, subject: 'Alert BOT found something excited for you')
+    mail(to: get_recipients_email(@alert.email), subject: 'Alert BOT found something excited for you')
   end
 
   def alert_confirmation(alert)
     @alert = alert
-    mail(to: @alert.email, subject: 'Alert confirmation from iFlight')
+    mail(to: get_recipients_email(@alert.email), subject: 'Alert confirmation from iFlight')
   end
 end
