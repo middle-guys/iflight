@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   scope ":locale", locale: /en|vi/ do
     root 'homes#index'
 
-  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
-
+    #devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
+    devise_for :users, controllers: { registrations: 'users/registrations'}, skip: :omniauth_callbacks
     get 'alerts/unsubscribe'
     patch 'alerts/unsubscribe'
 
