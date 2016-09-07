@@ -133,7 +133,7 @@
                 <td class="mobile-padding" style="text-align:left;">
                 <br>
                   Feel free to 
-                  <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token), :class=>"important-font" %>
+                  <%= link_to "unsubcrible", alerts_unsubscribe_url(token: @alert.token, locale: I18n.locale), :class=>"important-font" %>
                    anytime you don't want to receive this notification
                 <br>
                 <br>

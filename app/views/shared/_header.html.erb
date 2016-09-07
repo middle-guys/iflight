@@ -46,6 +46,9 @@
   function changeLanguage(language){
     var current_locale = '/<%= I18n.locale%>';
     url = location.href;
-    location.href = url.replace(current_locale, '/' + language);
+    if(url.indexOf(current_locale) > -1)
+      location.href = url.replace(current_locale, '/' + language);
+    else
+      location.href = url + language;
   }
 </script>
