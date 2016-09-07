@@ -1,6 +1,6 @@
 #about {
   .header {
-    background: $brand-second;
+    background: $brand-primary;
     padding: 1.5em 0;
     color: white;
     text-transform: uppercase;
@@ -20,7 +20,7 @@
     .content {
       padding-left: 2em;
 
-      h6 {
+      h3 {
         color: $brand-primary;
       }
     }
@@ -49,9 +49,49 @@
     }
   }
 
+  .vision {
+    background-image: image-url('about/sky-cloud.jpeg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: 30% 85%;
+    padding-top: 10em;
+    text-align: center;
+
+    h4 {
+      font-size: 2.3em;
+      line-height: 1.5em;
+      color: $brand-primary;
+    }
+  }
+
   .team-desc {
     .description {
       padding-left: 3em;
+    }
+    .image {
+    }
+    i {
+      font-size: 4em;
+    }
+    h4 {
+      text-transform: uppercase;
+      margin-bottom: 1em;
+    }
+  }
+
+  .mission-desc {
+    .description {
+      height: 700px;
+      padding-left: 3em;
+    }
+    .image {
+      height: 700px;
+      overflow: hidden;
+      img {
+        left: -719px;
+        top: -358px;
+        position: relative;
+      }
     }
   }
 
@@ -67,28 +107,86 @@
     }
   }
 
-  .product-target {
-    padding-bottom: 5em;
-    
-    .header-icon {
-      i {
-        font-size: 5em;
-      }
-      padding-top: 2em;
+  .customer-target {
+    background-color: #3d474d;
+    color: white;
+
+    .title-icon {
+      padding-top: 4em;
+      margin-bottom: 2em;
     }
 
-    .desc-header {
-      padding-top: 0;
+    .title-head {
+      text-transform: uppercase;
     }
 
-    .desc-container {
-      ul {
-        list-style: none !important;
-        padding-left: 0;
+    .title-content {
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      margin-top: 2em;
+    }
+
+    .info-container {
+      display: table;
+      height: 239px;
+    }
+
+    .info-icon {
+      display: table-cell;
+      padding-bottom: 30px;
+      padding-top: 30px;
+      vertical-align: middle;
+    }
+
+    .info-content {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 30px;
+
+      p {
+        margin-top: 1em;
       }
-      li {
-        margin-bottom: 25px;
-        color: $brand-second;
+    }
+  }
+
+  .agent-target {
+    background-color: white;
+    color: black;
+
+    .title-icon {
+      padding-top: 4em;
+      margin-bottom: 2em;
+    }
+
+    .title-head {
+      text-transform: uppercase;
+    }
+
+    .title-content {
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      margin-top: 2em;
+    }
+
+    .info-container {
+      display: table;
+      height: 242px;
+    }
+
+    .info-icon {
+      display: table-cell;
+      padding-bottom: 30px;
+      padding-top: 30px;
+      vertical-align: middle;
+    }
+
+    .info-content {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 30px;
+
+      p {
+        margin-top: 1em;
       }
     }
   }
