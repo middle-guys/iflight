@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :alerts
 
   resources :about, only: [:index]
+  resources :about_page, only: [:index]
 
   resources :flights do
     collection do
