@@ -1,4 +1,6 @@
 module DateHelper
+  include ActionView::Helpers::NumberHelper
+
   def format_date(date)
     date.strftime("%d/%m/%Y")
   end
@@ -13,5 +15,9 @@ module DateHelper
 
   def format_date_month_str(date)
     date.strftime("%b %m, %Y")
+  end
+
+  def format_currency(price)
+    number_to_currency(price, precision: 0, unit: "VND", delimiter: ",", format: "%n %u")
   end
 end
