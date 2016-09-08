@@ -3,8 +3,8 @@
     <div class="col-md-12">
       <div class="confirm-header">
         <%= image_tag("airline-ticket.png", alt: "airline ticket") %>
-        <div class="thanks">Thanks for your order!</div>
-        <p>Booking details has been send to <%= @order.contact_email %></p>
+        <div class="thanks"><%= t('views.orders.confirmation.thank') %></div>
+        <p><%= t('views.orders.confirmation.booking_detail') %> <%= @order.contact_email %></p>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
           <% end %>
         </div>
         <div class="booking-btn">
-          <%= link_to "CONTINUE BOOKING", root_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to t('views.orders.confirmation.booking_continute'), root_path, class: "btn btn-primary btn-lg" %>
         </div>
       </div>
     </div>

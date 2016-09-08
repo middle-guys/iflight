@@ -5,13 +5,13 @@
         <%= form_tag new_order_path, method: 'get' do %>
           <div class="row">
             <div class="col-md-12">
-              <h3 class="title">Your flights are waiting for you ...</h3>
+              <h3 class="title"><%= t('views.homes.index.title') %></h3>
               <fieldset class="form-group btn-group" data-toggle="buttons">
                 <%= label_tag "itinerary_type_round_trip", class: "btn btn-primary lbl_itinerary_type active", style: "margin-right: 1em;" do %>
-                  <%= radio_button_tag "itinerary_type", "RT", checked: true %> Round Trip
+                  <%= radio_button_tag "itinerary_type", "RT", checked: true %><%= t('views.homes.index.round_trip') %>
                 <% end %>
                 <%= label_tag "itinerary_type_one_way", class: "btn btn-primary lbl_itinerary_type" do %>
-                  <%= radio_button_tag "itinerary_type", "OW" %> One Way
+                  <%= radio_button_tag "itinerary_type", "OW" %> <%= t('views.homes.index.one_way') %>
                 <% end %>
               </fieldset>
             </div>
@@ -21,7 +21,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <fieldset class="form-group">
-                    <%= select_tag "ori_airport_id", options_from_collection_for_select(@ori_airports, "id", "airport_info"), {prompt: "Select departure ...", class: "form-control"} %>
+                    <%= select_tag "ori_airport_id", options_from_collection_for_select(@ori_airports, "id", "airport_info"), {prompt: t('views.homes.index.select_departure'), class: "form-control"} %>
                   </fieldset>
                 </div>
                 <div class="col-md-6">
@@ -50,26 +50,26 @@
             <div class="col-md-3">
               <div class="dropdown passengers-dropdown-wrapper">
                 <button class="btn btn-secondary dropdown-toggle passengers-dropdown-btn" type="button" id="passengers-dropdown-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%; text-align: left;">
-                  1 Passenger
+                  1 <%= t('views.homes.index.passenger') %>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="passengers-dropdown-btn" style="margin-top: 6px;">
                   <fieldset class="form-group">
-                    <%= label_tag "adult_num", "Adult" %>
+                    <%= label_tag "adult_num", t('views.homes.index.adult') %>
                     <%= text_field_tag "adult_num", "", class: "form-control" %>
                   </fieldset>
                   <fieldset class="form-group">
-                    <%= label_tag "child_num", "Children" %>
+                    <%= label_tag "child_num", t('views.homes.index.children') %>
                     <%= text_field_tag "child_num", "", class: "form-control" %>
                   </fieldset>
                   <fieldset class="form-group">
-                    <%= label_tag "infant_num", "Infant" %>
+                    <%= label_tag "infant_num", t('views.homes.index.infant') %>
                     <%= text_field_tag "infant_num", "", class: "form-control" %>
                   </fieldset>
                 </div>
               </div>
             </div>
             <div class="col-md-3">
-              <button type="submit" class="btn btn-primary" id="search-btn" disabled style="width: 100%;">Search Flights</button>
+              <button type="submit" class="btn btn-primary" id="search-btn" disabled style="width: 100%;"><%= t('views.homes.index.search_flight') %></button>
             </div>
           </div>
         <% end %>
@@ -82,7 +82,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="title">
-          <h3>your top <span>recently searching</span></h3>
+          <h3><%=raw t('views.homes.index.top_recent')%></h3>
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="title">
-          <h3>top <span>trending destinations</span></h3>
+          <h3><%=raw t('views.homes.index.top_trending')%></h3>
         </div>
       </div>
     </div>
@@ -119,3 +119,6 @@
   </div>
 </div>
 <%= render 'recently_searching_template' %>
+<script type="text/javascript">
+  window.destination_path = '<%= destination_routes_path %>';
+</script>

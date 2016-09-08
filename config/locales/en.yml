@@ -20,4 +20,103 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  unsubscribe_success: "You have unsubscribe successfully"
+  unsubscribe_unsucsess: "You have't unsubscribe successfully"
+  views:
+    homes:
+      index:
+        title: "Your flights are waiting for you ..."
+        round_trip: "Round Trip"
+        one_way: "One Way"
+        passenger: "Passenger"
+        search_flight: "Search Flights"
+        top_recent: "your top <span>recently searching</span>"
+        top_trending: "top <span>trending searching</span>"
+        select_departure: "Select departure ..."
+        adult: "Adult"
+        children: "Children"
+        infant: "Infant"
+        go: "Go"
+        my_order: "My Orders"
+        logout: "Logout"
+        sign_in: "Sign in"
+        sign_up: "Sign up"
+        language: "Language"
+        
+    orders:
+      new:
+        title: "Booking Process"
+        departure: "Departure"
+        return: "Return"
+        passengers: "Passengers"
+        summary: "Summary"
+        select_departure: "Select Departure"
+        no_ticket: "Sorry, we can't find any ticket at the moment."
+        research: "Try searching again"
+        price_title: "Pricing is include ticket price and all taxes for all passengers"
+        sort_title: "Sort by:"
+        plow2hight: "Price (low to high)"
+        phight2low: "Price (high to low)"
+        pearly2late: "Depart time (early to late)"
+        plate2early: "Depart time (late to early)"
+        select_return: "Select Return"
+        back: "Back"
+        share_friend: "share with friend"
+      _passenger_info:
+        title: "Passenger(s)"
+        passenger: "Passenger"
+        pfullname: "FULL NAME"
+        baggage_depart: "Baggage depart"
+        baggage_return: "Baggage return"
+        date_birth: "Date of birth"
+        contact: "Contact"
+        lemail: "Email"
+        lphone: "Phone"
+        pphone: "PHONE NUMBER"
+        back: "Back"
+        continute: "Continue"
+      _sharing_flight:
+        title: "Share to your friend"
+        name: "Your name"
+        email: "Your friend's email"
+        close: "Close"
+        send: "Send"
+      _summary:
+        title: "Summary booking"
+        contact: "Contact"
+        phone: "Phone:"
+        email: "Email:"
+        total_price: "Total price"
+        back: "Back"
+        book: "BOOK NOW!"
+      confirmation:
+        thank: "Thanks for your order!"
+        booking_detail: "Booking details has been send to"
+        booking_continute: "CONTINUE BOOKING"
+      show:
+        title: "Order Details"
+        book_code: "Booking code:"
+        create_at: "Created at:"
+        status: "Status:"
+        depature: "Depature:"
+        return: "Return:"
+        passenger: "Passenger"
+        contact: "Contact"
+        phone: "Phone:"
+        email: "Email:"
+        total_price: "Total price"
+        back: "Back"
+
+    flights:
+      _alert:
+        title: "Notification"
+        name: "Enter your name"
+        email: "Enter your email"
+        price: "Price expectation (VND)"
+        close: "Close"
+        subscrible: "Subscrible"
+    alerts:
+      show:
+        success: "Alert successfully"        
+
+

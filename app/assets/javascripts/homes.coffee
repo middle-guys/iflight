@@ -9,12 +9,12 @@ $(document).on 'turbolinks:load', ->
     ori_id = $('#ori_airport_id option:selected').val()
     updateDestinationAirport()
   )
-
+  
   getRoutes = ->
     $.ajax
       type: 'GET'
       contentType: 'application/json; charset=utf-8'
-      url: 'routes/destination'
+      url: destination_path
       data: ''
       dataType: 'json'
       success: (result) ->

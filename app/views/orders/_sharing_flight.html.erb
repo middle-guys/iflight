@@ -5,19 +5,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Share to your friend</h4>
+        <h4 class="modal-title"><%= t('views.orders._sharing_flight.title') %></h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="sender-name">Your name</label>
+          <label for="sender-name"><%= t('views.orders._sharing_flight.name') %></label>
           <input type="text" class="form-control" id="sender-name" aria-describedby="sender-name" placeholder="">
         </div>
         <div class="form-group">
-          <label for="receiver-email">Your friend's email</label>
+          <label for="receiver-email"><%= t('views.orders._sharing_flight.email') %></label>
           <input type="email" class="form-control" id="receiver-email" aria-describedby="receiver-email" placeholder="">
         </div>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="sharing-btn" class="btn btn-primary">Send</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('views.orders._sharing_flight.close') %></button>
+        <button type="button" id="sharing-btn" class="btn btn-primary"><%= t('views.orders._sharing_flight.send') %></button>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="main-header text-center">
-        <h4 class="title">Booking Process</h4>
+        <h4 class="title"><%= t('views.orders.new.title') %></h4>
         <div class="alert-icon">
           <%= link_to nil, "data-toggle" => "modal", "data-target" => "#alert_price", "id"=> "alert-btn"  do %>
             <i class="fa fa-bell-o animated flash" aria-hidden="true"></i>
@@ -18,23 +18,23 @@
       <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
           <a href="#step-1" class="btn current btn-circle">1</a>
-          <p>Departure</p>
+          <p><%= t('views.orders.new.departure') %></p>
         </div>
         <% if @is_round_trip %>
           <div class="stepwizard-step">
             <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
-            <p>Return</p>
+            <p><%= t('views.orders.new.return') %></p>
           </div>
           <% @step_number += 1 %>
         <% end %>
         <div class="stepwizard-step">
           <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
-          <p>Passengers</p>
+          <p><%= t('views.orders.new.passengers') %></p>
         </div>
         <% @step_number += 1 %>
         <div class="stepwizard-step">
           <a href="#step-<%= @step_number %>" class="btn btn-secondary btn-circle" disabled="disabled"><%= @step_number %></a>
-          <p>Summary</p>
+          <p><%= t('views.orders.new.summary') %></p>
         </div>
       </div>
     </div>
@@ -63,6 +63,7 @@
     <div class="flights-result-wrapper">
       <div class="container">
         <div id="step-1" class="setup-content">
+
           <div id="loading-section" class="text-center">
             <div class="row">
               <div class="col-xs-12">
@@ -73,10 +74,10 @@
           <div id="try-again-section" class="text-center" style="display: none;">
             <div class="row">
               <div class="col-xs-12 col-sm-center">
-                Sorry, we can't find any ticket at the moment.
+                <%= t('views.orders.new.no_ticket') %>
               </div>
               <div class="col-xs-12 col-sm-center">
-                <a href="" class="btn btn-primary">Try searching again</a>
+                <a href="" class="btn btn-primary"><%= t('views.orders.new.research') %></a>
               </div>
             </div>
           </div>
@@ -92,17 +93,17 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="price-info-bar">
-                  Pricing is include ticket price and all taxes for one passenger
+                  <%= t('views.orders.new.price_title') %>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="sort-by">
-                  Sort by:
+                  <%= t('views.orders.new.sort_title') %>
                   <select id="sort-depart">
-                    <option value="price-asc">Price (low to high)</option>
-                    <option value="price-desc">Price (high to low)</option>
-                    <option value="time-asc">Depart time (early to late)</option>
-                    <option value="time-desc">Depart time (late to early)</option>
+                    <option value="price-asc"><%= t('views.orders.new.plow2hight') %></option>
+                    <option value="price-desc"><%= t('views.orders.new.phight2low') %></option>
+                    <option value="time-asc"><%= t('views.orders.new.pearly2late') %></option>
+                    <option value="time-desc"><%= t('views.orders.new.plate2early') %></option>
                   </select>
                 </div>
               </div>
@@ -118,7 +119,7 @@
             <div class="step-title">
               <div class="row">
                 <div class="col-xs-12">
-                  <h4>Select Return</h4>
+                  <h4><%= t('views.orders.new.select_return') %></h4>
                   <div class="round-type"><%= @des_airport.code %> <i class="fa fa-plane" aria-hidden="true"></i> <%= @ori_airport.code %>, <%= @date_return %></div>
                 </div>
               </div>
@@ -126,17 +127,17 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="price-info-bar">
-                  Pricing is include ticket price and all taxes for one passenger
+                  <%= t('views.orders.new.price_title') %>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="sort-by">
-                  Sort by:
+                  <%= t('views.orders.new.sort_title') %>
                   <select id="sort-return">
-                    <option value="price-asc">Price (low to high)</option>
-                    <option value="price-desc">Price (high to low)</option>
-                    <option value="time-asc">Depart time (early to late)</option>
-                    <option value="time-desc">Depart time (late to early)</option>
+                    <option value="price-asc"><%= t('views.orders.new.plow2hight') %></option>
+                    <option value="price-desc"><%= t('views.orders.new.phight2low') %></option>
+                    <option value="time-asc"><%= t('views.orders.new.pearly2late') %></option>
+                    <option value="time-desc"><%= t('views.orders.new.plate2early') %></option>
                   </select>
                 </div>
               </div>
@@ -144,7 +145,7 @@
             <div id="return-flights"></div>
             <div class="row">
               <div class="col-xs-8 offset-xs-2" style="text-align: center;">
-                <a href="#" class="btn btn-lg btn-secondary back">Back</a>
+                <a href="#" class="btn btn-lg btn-secondary back"><%= t('views.orders.new.back') %></a>
               </div>
             </div>
           </div>

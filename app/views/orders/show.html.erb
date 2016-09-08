@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="main-header text-center">
-        <h4 class="title">Order Details</h4>
+        <h4 class="title"><%= t('views.orders.show.title') %></h4>
         <h5 class="text-sm-center">
           <%= @order.order_number %>
         </h5>
@@ -12,22 +12,22 @@
   <div class="container">
     <div class="row text-sm-center" style="margin-bottom: 2em;">
       <h4>
-        Created at <%= format_date_month_str(@order.created_at) %>
+        <%= t('views.orders.show.created_at') %> <%= format_date_month_str(@order.created_at) %>
       </h4>
-      <h5>Status: <%= @order.status.humanize %></h5>
+      <h5><%= t('views.orders.show.status') %> <%= @order.status.humanize %></h5>
     </div>
     <div class="row">
       <div class="col-md-7">
         <div class="flight-wrapper">
           <div class="flight-title">
-            <p>Depature: <%= @order.ori_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @order.des_airport.code %>, <%= format_date_month_str(@order.date_depart) %></p>
+            <p><%= t('views.orders.show.depature') %> <%= @order.ori_airport.code %> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <%= @order.des_airport.code %>, <%= format_date_month_str(@order.date_depart) %></p>
           </div>
           <div class="flight-block depart">
               <div class="flight-img-logo">
                 <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
               </div>
               <p><%= @flight_depart.plane_category.name %> (<%= @flight_depart.code_flight %>)</p>
-              <p>Booking code: <%= @flight_depart.code_book %></p>
+              <p><%= t('views.orders.show.book_code') %> <%= @flight_depart.code_book %></p>
               <p><%= format_time(@flight_depart.time_depart) %> - <%= format_time(@flight_depart.time_arrive) %></p>
               <p><%= format_currency(@flight_depart.price_total) %></p>
           </div>
@@ -42,7 +42,7 @@
                 <%= image_tag("places/#{random_place_img()}.jpg", alt: "place") %>
               </div>
               <p><%= @flight_return.plane_category.name %> (<%= @flight_return.code_flight %>)</p>
-              <p>Booking code: <%= @flight_depart.code_book %></p>
+              <p><%= t('views.orders.show.book_code') %> <%= @flight_depart.code_book %></p>
               <p><%= format_time(@flight_return.time_depart) %> - <%= format_time(@flight_return.time_arrive) %></p>
               <p><%= format_currency(@flight_return.price_total) %></p>
             </div>
@@ -51,9 +51,9 @@
         <div class="flight-wrapper">
           <div class="flight-title">
             <% if @order.passengers.count > 1 %>
-              <p>Passengers</p>
+              <p><%= t('views.orders.show.passenger') %>s</p>
             <% else %>
-              <p>Passenger</p>
+              <p><%= t('views.orders.show.passenger') %></p>
             <% end %>
           </div>
           <div class="pax-block contact-block">
@@ -66,17 +66,17 @@
       <div class="col-md-4 offset-md-1">
         <div class="pax-wrapper">
           <div class="pax-title">
-            <p>Contact</p>
+            <p><%= t('views.orders.show.contact') %></p>
           </div>
           <div class="pax-block contact-block">
             <p><span class="title"><%= title_name_by_str(@order.contact_gender) %></span>. <span class="name"><%= @order.contact_name %></span></p>
-            <p>Phone: <span class="phone"><%= @order.contact_phone %></span></p>
-            <p>Email: <span class="email"><%= @order.contact_email %></span></p>
+            <p><%= t('views.orders.show.phone') %> <span class="phone"><%= @order.contact_phone %></span></p>
+            <p><%= t('views.orders.show.email') %> <span class="email"><%= @order.contact_email %></span></p>
           </div>
         </div>
         <div class="pax-wrapper">
           <div class="pax-title">
-            <p>Total price</p>
+            <p><%= t('views.orders.show.total_price') %></p>
           </div>
           <div class="pax-block">
             <p class="price-total"><%= format_currency(@order.price_total) %></p>
@@ -86,7 +86,7 @@
     </div>
     <div class="row">
       <div class="col-xs-8 offset-xs-2" style="text-align: center;">
-        <%= link_to "Back", orders_path, class: "btn btn-lg btn-secondary back" %>
+        <%= link_to t('views.orders.show.back'), orders_path, class: "btn btn-lg btn-secondary back" %>
       </div>
     </div>
   </div>  
